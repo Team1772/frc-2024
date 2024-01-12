@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 
-public class DriverController {
+public class SmartController {
 
     public final XboxController controller;
 
@@ -22,8 +22,9 @@ public class DriverController {
     private final POVButton xRight;
     private final POVButton xLeft;
 
-    public DriverController() {
-        this.controller = new XboxController(0);
+    public SmartController(int id) {
+
+        this.controller = new XboxController(id);
         this.xButton = new JoystickButton(controller, XboxController.Button.kX.value);
         this.aButton = new JoystickButton(controller, XboxController.Button.kA.value);
         this.bButton = new JoystickButton(controller, XboxController.Button.kB.value);
