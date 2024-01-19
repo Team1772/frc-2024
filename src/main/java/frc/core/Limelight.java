@@ -3,7 +3,7 @@ package frc.core;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
-import frc.robot.LimelightConstants;
+import frc.robot.constants.LimelightConstants;
 
 
 public class Limelight {
