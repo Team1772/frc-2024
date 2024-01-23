@@ -1,38 +1,39 @@
 package frc.robot;
 
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.core.util.oi.SmartController;
-import frc.robot.constants.OIConstants;
-import frc.robot.commands.SwerveDrive;
-import frc.robot.commands.SwerveJoystickCmd;
-import frc.robot.commands.SwerveTurn;
-import frc.robot.subsystems.SwerveSubsystem;
+import frc.robot.commands.drivetrain.ArcadeDrive;
+import frc.robot.constants.ControllerConstants;
+import frc.robot.subsystems.Drivetrain;
 
 public class RobotContainer {
+  private final Drivetrain drivetrain;
+  public SmartController driver;
+  public SmartController operator;
 
-        private final SwerveSubsystem swerveSubsystem = new SwerveSubsystem();
+  public RobotContainer() {
+    this.drivetrain = new Drivetrain();
 
-        private final XboxController driverJoytick = new XboxController(OIConstants.kDriverControllerPort);
-        private final SmartController driver = new SmartController(0);
-        public RobotContainer() {
-                swerveSubsystem.setDefaultCommand(new SwerveJoystickCmd(
-                                swerveSubsystem,
-                                () -> driver.getLeftY(),
-                                () -> - driver.getLeftX(),
-                                () -> driver.getRightX(),
-                                () -> !driver.getAButton().getAsBoolean()));
+    this.driver = new SmartController(ControllerConstants.kDriverControllerPort);
+    this.operator = new SmartController(ControllerConstants.kOperatorControllerPort);
+    configureButtonBindings();
 
-                configureButtonBindings();
-        }
+  }
 
-        private void configureButtonBindings() {
+  private void configureButtonBindings() {
+    this.buttonBindingsDrivetain();
+  }
 
-                driver.whileRightBumper(new SwerveTurn(swerveSubsystem));
-                driver.whileLeftBumper(new SwerveDrive(swerveSubsystem));
-        }
+  private void buttonBindingsDrivetain() {
+    this.drivetrain.setDefaultCommand(
+        new ArcadeDrive(
+            this.drivetrain,
+            () -> -driver.getLeftY(),
+            () -> driver.getRightX(),
+            driver));
+  }
 
-        public Command getAutonomousCommand() {
-                return null;
-        }
+  public Command getAutonomousCommand() {
+    return null;
+  }
 }
