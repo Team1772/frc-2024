@@ -19,9 +19,7 @@ import frc.robot.constants.DrivetrainConstants;
 
 public class Drivetrain extends SubsystemBase {
 
-  private static final boolean IS_DEBUGGING = false;
-  private double lastPitch;
-  private double pitchVelocity;
+  private static final boolean IS_DEBUGGING = true;
 
   private final WPI_TalonSRX motorLeftBack;
   private final WPI_TalonSRX motorLeftFront;
@@ -185,11 +183,9 @@ public class Drivetrain extends SubsystemBase {
 
   public void debugSmartDashboard(boolean isDebugging) {
     if (isDebugging) {
-
       SmartDashboard.putNumber("[DRIVETRAIN] Encoder Left", this.encoderLeft.get());
       SmartDashboard.putNumber("[DRIVETRAIN] Encoder Right", this.encoderRight.get());
       SmartDashboard.putNumber("[DRIVETRAIN] Average Distance", this.getAverageDistance());
-      SmartDashboard.putNumber("[DRIVETRAIN] Pitch Velocity", this.pitchVelocity);
 
       SmartDashboard.putNumber("[DRIVETRAIN] Altitude", this.navX.getAltitude());
       SmartDashboard.putNumber("[DRIVETRAIN] Pitch", this.navX.getPitch());
@@ -222,7 +218,6 @@ public class Drivetrain extends SubsystemBase {
       SmartDashboard.putNumber("[MRF] getBusVoltage", motorRightFront.getBusVoltage());
       SmartDashboard.putNumber("[MRF] getSupplyCurrent", motorRightFront.getSupplyCurrent());
       SmartDashboard.putNumber("[MRF] getBusVoltage", motorRightFront.getStatorCurrent());
-
     }
   }
 
