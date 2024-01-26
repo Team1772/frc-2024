@@ -1,8 +1,12 @@
 package frc.robot;
 
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.subsystems.Limelight;
 import frc.core.util.TrajectoryBuilder;
 import frc.core.util.oi.SmartController;
+import frc.robot.commands.LimelightCommand;
+import frc.robot.commands.autonomo.AutoLimelight;
 import frc.robot.commands.autonomo.AutoTeste;
 import frc.robot.commands.drivetrain.ArcadeDrive;
 import frc.robot.constants.ControllerConstants;
@@ -13,17 +17,22 @@ public class RobotContainer {
   public SmartController driver;
   public SmartController operator;
   public TrajectoryBuilder trajectoryBuilder;
+  public LimelightCommand limelightCommand;
+  public Limelight limelightSubsystem;
+
   public RobotContainer() {
     this.drivetrain = new Drivetrain();
 
     this.driver = new SmartController(ControllerConstants.kDriverControllerPort);
     this.operator = new SmartController(ControllerConstants.kOperatorControllerPort);
-    this.trajectoryBuilder = new TrajectoryBuilder(drivetrain,"1","2");
+    this.trajectoryBuilder = new TrajectoryBuilder(drivetrain, "1", "2");
     configureButtonBindings();
 
   }
 
   private void configureButtonBindings() {
+    limelightSubsystem = new Limelight("");
+    limelightCommand = new LimelightCommand(limelightSubsystem);
     this.buttonBindingsDrivetain();
   }
 
@@ -37,6 +46,6 @@ public class RobotContainer {
   }
 
   public Command getAutonomousCommand() {
-    return new AutoTeste(drivetrain, trajectoryBuilder);
+    return new AutoLimelight(limelightSubsystem, drivetrain);
   }
 }
