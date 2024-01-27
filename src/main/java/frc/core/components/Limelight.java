@@ -1,4 +1,4 @@
-package frc.core;
+package frc.core.components;
 
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;

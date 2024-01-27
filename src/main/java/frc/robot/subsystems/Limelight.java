@@ -11,6 +11,14 @@ public class Limelight extends SubsystemBase {
         this.limelightName = limelightName;
     }
 
+    public double getFiducialID() {
+        return LimelightHelpers.getFiducialID(limelightName);
+    }
+
+    public boolean getTV() {
+        return LimelightHelpers.getTV(limelightName);
+    }
+
     public double getTX() {
         return LimelightHelpers.getTX(limelightName);
     }
@@ -31,6 +39,7 @@ public class Limelight extends SubsystemBase {
         SmartDashboard.putNumber("TA", LimelightHelpers.getTA(limelightName));
         SmartDashboard.putNumber("TX", LimelightHelpers.getTX(limelightName));
         SmartDashboard.putNumber("TY", LimelightHelpers.getTY(limelightName));
+        SmartDashboard.putBoolean("TV", LimelightHelpers.getTV(limelightName));
         SmartDashboard.putNumber("AprilTag", LimelightHelpers.getFiducialID(limelightName));
 
     }

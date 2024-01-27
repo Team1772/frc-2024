@@ -1,1 +1,6 @@
-{}
+{
+  "download": {
+    "localDir": "C:\\Users\\usuario\\Documents\\frc-2024\\.DataLogTool\\logs",
+    "serverTeam": "10.17.72.2"
+  }
+}
