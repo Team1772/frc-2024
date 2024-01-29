@@ -7,9 +7,11 @@ import edu.wpi.first.units.Velocity;
 import edu.wpi.first.units.Voltage;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.RobotController;
+import edu.wpi.first.wpilibj.sysid.SysIdRoutineLog;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
+import frc.robot.subsystems.Drivetrain;
 
 import static edu.wpi.first.units.MutableMeasure.mutable;
 import static edu.wpi.first.units.Units.Meters;
@@ -18,7 +20,7 @@ import static edu.wpi.first.units.Units.Volts;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
-public class DrivetrainSysIdTunning implements Subsystem {
+public class DrivetrainSysIdTunning{
 
   private final MutableMeasure<Voltage> m_appliedVoltage = mutable(Volts.of(0));
   private final MutableMeasure<Distance> m_distance = mutable(Meters.of(0));
@@ -31,6 +33,7 @@ public class DrivetrainSysIdTunning implements Subsystem {
   private WPI_TalonSRX motorRightFront;
   private Encoder encoderLeft;
   private Encoder encoderRight;
+  private Drivetrain drivetrain;
 
   public DrivetrainSysIdTunning(WPI_TalonSRX[] leftMotors, WPI_TalonSRX[] rightMotors, Encoder[] encoders) {
     this.motorLeftBack = leftMotors[0];
@@ -42,6 +45,7 @@ public class DrivetrainSysIdTunning implements Subsystem {
   }
 
   public void enable() {
+    
     this.sysIdRoutine = new SysIdRoutine(
         new SysIdRoutine.Config(),
         new SysIdRoutine.Mechanism(
@@ -110,8 +114,10 @@ public class DrivetrainSysIdTunning implements Subsystem {
                           encoderRight.getRate(),
                           MetersPerSecond));
             },
-            this));
+            this.drivetrain));
   }
+
+
 
   public Command sysIdQuasistatic(SysIdRoutine.Direction direction) {
     return sysIdRoutine.quasistatic(direction);
