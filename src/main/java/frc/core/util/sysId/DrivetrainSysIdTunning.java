@@ -41,7 +41,7 @@ public class DrivetrainSysIdTunning implements Subsystem {
         this.encoderRight = encoders[1];
     }
 
-        public void enableSysIdTunning() {
+        public void enable() {
                 this.sysIdRoutine = new SysIdRoutine(
                                 // Empty config defaults to 1 volt/second ramp rate and 7 volt step voltage.
                                 new SysIdRoutine.Config(),
