@@ -25,7 +25,10 @@ public class DrivetrainSysIdTunning implements Subsystem {
   private final MutableMeasure<Velocity<Distance>> m_velocity = mutable(MetersPerSecond.of(0));
 
   private SysIdRoutine sysIdRoutine;
-  private WPI_TalonSRX motorLeftBack, motorRightBack, motorLeftFront, motorRightFront;
+  private WPI_TalonSRX motorLeftBack;
+  private WPI_TalonSRX motorRightBack;
+  private WPI_TalonSRX motorLeftFront;
+  private WPI_TalonSRX motorRightFront;
   private Encoder encoderLeft;
   private Encoder encoderRight;
 
