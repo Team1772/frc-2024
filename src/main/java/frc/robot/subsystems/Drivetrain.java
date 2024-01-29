@@ -50,8 +50,6 @@ public class Drivetrain extends SubsystemBase {
 
   private final DrivetrainSysIdTuning sysIdTunning;
 
-  private WPI_TalonSRX[] leftMotors, rightMotors;
-  private Encoder[] encoders;
 
   public Drivetrain() {
     this.motorLeftBack = new WPI_TalonSRX(DrivetrainConstants.Motors.motorLeftBack);
@@ -93,9 +91,9 @@ public class Drivetrain extends SubsystemBase {
     this.setEncodersDistancePerPulse();
     this.resetEncoders();
 
-    leftMotors = new WPI_TalonSRX[] { this.motorLeftBack, this.motorLeftFront };
-    rightMotors = new WPI_TalonSRX[] { this.motorRightBack, this.motorRightFront };
-    encoders = new Encoder[] { encoderLeft, encoderRight };
+    var leftMotors = new WPI_TalonSRX[] { this.motorLeftBack, this.motorLeftFront };
+    var rightMotors = new WPI_TalonSRX[] { this.motorRightBack, this.motorRightFront };
+    var encoders = new Encoder[] { encoderLeft, encoderRight };
 
     if (DrivetrainConstants.SysId.isSysIdTunning) {
       sysIdTunning = new DrivetrainSysIdTuning(leftMotors, rightMotors, encoders);
