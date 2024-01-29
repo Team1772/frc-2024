@@ -62,4 +62,8 @@ public final class DrivetrainConstants {
       kRamseteB = 2,
       kRamseteZeta = 0.7;
   }
+
+  public final class SysId {
+    public static final boolean isSysIdTunning = true;
+  }
 }
