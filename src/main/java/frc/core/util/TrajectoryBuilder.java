@@ -25,123 +25,115 @@ import frc.robot.subsystems.Drivetrain;
 
 public class TrajectoryBuilder {
 
-	private static final int FIRST_TRAJECTORY_INDEX = 0;
+  private static final int FIRST_TRAJECTORY_INDEX = 0;
 
-	private Drivetrain drivetrain;
+  private Drivetrain drivetrain;
 
-	private final SimpleMotorFeedforward simpleMotorFeedforward;
-	private final PIDController pidController;
-	private final RamseteController ramseteController;
+  private final SimpleMotorFeedforward simpleMotorFeedforward;
+  private final PIDController pidController;
+  private final RamseteController ramseteController;
 
-	private Map<String, Trajectory> trajectories;
-	private RamseteCommand ramseteCommand;
+  private Map<String, Trajectory> trajectories;
+  private RamseteCommand ramseteCommand;
 
-	public TrajectoryBuilder(Drivetrain drivetrain, String... filesNames) {
-		this.drivetrain = drivetrain;
+  public TrajectoryBuilder(Drivetrain drivetrain, String... filesNames) {
+    this.drivetrain = drivetrain;
 
-		this.trajectories = this.mapTrajectories(filesNames);
+    this.trajectories = this.mapTrajectories(filesNames);
 
-		this.simpleMotorFeedforward = new SimpleMotorFeedforward(
-			DrivetrainConstants.Gains.ksVolts,
-			DrivetrainConstants.Gains.kvVoltSecondsPerMeter,
-			DrivetrainConstants.Gains.kaVoltSecondsSquaredPerMeter
-		);
+    this.simpleMotorFeedforward = new SimpleMotorFeedforward(
+        DrivetrainConstants.Gains.ksVolts,
+        DrivetrainConstants.Gains.kvVoltSecondsPerMeter,
+        DrivetrainConstants.Gains.kaVoltSecondsSquaredPerMeter);
 
-		this.pidController = new PIDController(
-			DrivetrainConstants.PID.kPDriveVelocity, 
-			DrivetrainConstants.PID.kIDriveVelocity, 
-			DrivetrainConstants.PID.kDDriveVelocity
-		);
+    this.pidController = new PIDController(
+        DrivetrainConstants.PID.kPDriveVelocity,
+        DrivetrainConstants.PID.kIDriveVelocity,
+        DrivetrainConstants.PID.kDDriveVelocity);
 
-		this.ramseteController = new RamseteController(
-			DrivetrainConstants.Autonomous.kRamseteB, 
-			DrivetrainConstants.Autonomous.kRamseteZeta
-		);
-	}
+    this.ramseteController = new RamseteController(
+        DrivetrainConstants.Autonomous.kRamseteB,
+        DrivetrainConstants.Autonomous.kRamseteZeta);
+  }
 
-	public Map<String, Trajectory> mapTrajectories(String... filesNames) {
-		return Arrays.stream(filesNames)
-			    .collect(Collectors.toMap(
-				    fileName -> fileName,
-				    this::createTrajectory
-			    ));
-	}
-	
-	public void createRamsete(Trajectory trajectory, boolean updateOdometry) {
-		if (isNull(trajectory)) {
-			DriverStation.reportError(
-				"trajectory is null", 
-				new Exception().getStackTrace()
-			);
-		} else {
-			this.ramseteCommand = new RamseteCommand(
-				trajectory,
-				this.drivetrain::getPose,
-				this.ramseteController,
-				this.simpleMotorFeedforward,
-				DrivetrainConstants.Gains.kDriveKinematics, 
-				this.drivetrain::getWheelSpeeds, 
-				this.pidController, 
-				this.pidController, 
-				this.drivetrain::tankDriveVolts, 
-				this.drivetrain
-			);	
-		}
-  	}
+  public Map<String, Trajectory> mapTrajectories(String... filesNames) {
+    return Arrays.stream(filesNames)
+        .collect(Collectors.toMap(
+            fileName -> fileName,
+            this::createTrajectory));
+  }
+
+  public void createRamsete(Trajectory trajectory, boolean updateOdometry) {
+    if (isNull(trajectory)) {
+      DriverStation.reportError(
+          "trajectory is null",
+          new Exception().getStackTrace());
+    } else {
+      this.ramseteCommand = new RamseteCommand(
+          trajectory,
+          this.drivetrain::getPose,
+          this.ramseteController,
+          this.simpleMotorFeedforward,
+          DrivetrainConstants.Gains.kDriveKinematics,
+          this.drivetrain::getWheelSpeeds,
+          this.pidController,
+          this.pidController,
+          this.drivetrain::tankDriveVolts,
+          this.drivetrain);
+    }
+  }
 
   public Command build(boolean updateOdometry, String... filesNames) {
-		var trajectories = this.trajectories
-			.entrySet()
-			.stream()
-			.filter(trajectory -> Set.of(filesNames).contains(trajectory.getKey()))
-			.map(Entry::getValue)
-			.collect(Collectors.toList());
+    var trajectories = this.trajectories
+        .entrySet()
+        .stream()
+        .filter(trajectory -> Set.of(filesNames).contains(trajectory.getKey()))
+        .map(Entry::getValue)
+        .collect(Collectors.toList());
 
-		var trajectory = trajectories.size() > 1
-			? this.concatenate(trajectories) 
-			: trajectories.get(FIRST_TRAJECTORY_INDEX);
+    var trajectory = trajectories.size() > 1
+        ? this.concatenate(trajectories)
+        : trajectories.get(FIRST_TRAJECTORY_INDEX);
 
     if (updateOdometry)
-    	this.drivetrain.resetOdometry(trajectory.getInitialPose());
+      this.drivetrain.resetOdometry(trajectory.getInitialPose());
 
-	this.createRamsete(trajectory, updateOdometry);
+    this.createRamsete(trajectory, updateOdometry);
 
     return this.getRamsete().andThen(
-      () -> this.drivetrain.tankDriveVolts(0, 0)
-    );
-	}
-		
-	public Command run(String... filesNames) {
-		return this.build(true, filesNames);
-	}
+        () -> this.drivetrain.tankDriveVolts(0, 0));
+  }
 
-	private RamseteCommand getRamsete() {
-		return this.ramseteCommand;
-	}
+  public Command run(String... filesNames) {
+    return this.build(true, filesNames);
+  }
 
-	private Trajectory createTrajectory(String fileName) {
-		String path = String.format("paths/output/%s.wpilib.json", fileName);
-		try {
-			Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(path);
+  private RamseteCommand getRamsete() {
+    return this.ramseteCommand;
+  }
 
-			return TrajectoryUtil.fromPathweaverJson(trajectoryPath);
-		} catch (IOException ex) {
-			DriverStation.reportError(
-        String.format("Unable to open trajectory: %s", path), 
-        ex.getStackTrace()
-			);
+  private Trajectory createTrajectory(String fileName) {
+    String path = String.format("paths/output/%s.wpilib.json", fileName);
+    try {
+      Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(path);
 
-			return null;
-		}
-	}
+      return TrajectoryUtil.fromPathweaverJson(trajectoryPath);
+    } catch (IOException ex) {
+      DriverStation.reportError(
+          String.format("Unable to open trajectory: %s", path),
+          ex.getStackTrace());
 
-	private Trajectory concatenate(List<Trajectory> trajectories) {
-		var finalTrajectory = trajectories.get(FIRST_TRAJECTORY_INDEX);
+      return null;
+    }
+  }
 
-		for (var trajectory : trajectories.subList(1, trajectories.size())){
-			finalTrajectory = finalTrajectory.concatenate(trajectory);
-		}
-		
-		return finalTrajectory;
-	}
+  private Trajectory concatenate(List<Trajectory> trajectories) {
+    var finalTrajectory = trajectories.get(FIRST_TRAJECTORY_INDEX);
+
+    for (var trajectory : trajectories.subList(1, trajectories.size())) {
+      finalTrajectory = finalTrajectory.concatenate(trajectory);
+    }
+
+    return finalTrajectory;
+  }
 }

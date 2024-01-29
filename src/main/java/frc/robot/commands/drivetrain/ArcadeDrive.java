@@ -24,12 +24,10 @@ public class ArcadeDrive extends Command {
     addRequirements(this.drivetrain);
   }
 
-
-
   @Override
   public void execute() {
 
-    if (this.driver.getLeftBumper().getAsBoolean()){
+    if (this.driver.getLeftBumper().getAsBoolean()) {
       this.drivetrain.arcadeDrive(this.forward.getAsDouble() * DRIVE_LIMITER, this.rotation.getAsDouble());
     } else {
       this.drivetrain.arcadeDrive(this.forward.getAsDouble(), this.rotation.getAsDouble());

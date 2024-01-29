@@ -206,10 +206,10 @@ public class Drivetrain extends SubsystemBase {
     this.motorRightFront.setNeutralMode(NeutralMode.Brake);
   }
 
-  public DrivetrainSysIdTunning getSysIdTunning(){
+  public DrivetrainSysIdTunning getSysIdTunning() {
     return sysIdTunning;
   }
-  
+
   public Command sysIdQuasistatic(SysIdRoutine.Direction direction) {
     return this.sysIdTunning.sysIdQuasistatic(direction);
   }
