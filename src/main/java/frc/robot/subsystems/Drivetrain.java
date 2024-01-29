@@ -28,7 +28,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import frc.core.components.Limelight;
 import frc.core.components.SmartNavX;
-import frc.core.util.sysId.DrivetrainSysIdTunning;
+import frc.core.util.sysId.DrivetrainSysIdTuning;
 import frc.robot.constants.DrivetrainConstants;
 
 public class Drivetrain extends SubsystemBase {
@@ -48,7 +48,7 @@ public class Drivetrain extends SubsystemBase {
   private final SmartNavX navX;
   private final DifferentialDriveOdometry odometry;
 
-  private final DrivetrainSysIdTunning sysIdTunning;
+  private final DrivetrainSysIdTuning sysIdTunning;
 
   private WPI_TalonSRX[] leftMotors, rightMotors;
   private Encoder[] encoders;
@@ -97,7 +97,7 @@ public class Drivetrain extends SubsystemBase {
     rightMotors = new WPI_TalonSRX[] { this.motorRightBack, this.motorRightFront };
     encoders = new Encoder[] { encoderLeft, encoderRight };
 
-    sysIdTunning = new DrivetrainSysIdTunning(leftMotors, rightMotors, encoders);
+    sysIdTunning = new DrivetrainSysIdTuning(leftMotors, rightMotors, encoders);
 
   }
 
@@ -206,7 +206,7 @@ public class Drivetrain extends SubsystemBase {
     this.motorRightFront.setNeutralMode(NeutralMode.Brake);
   }
 
-  public DrivetrainSysIdTunning getSysIdTunning() {
+  public DrivetrainSysIdTuning getSysIdTunning() {
     return sysIdTunning;
   }
 
