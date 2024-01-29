@@ -51,6 +51,7 @@ public class RobotContainer {
 
   private void buttonBindingsSysId() {
     if (DrivetrainConstants.SysId.isSysIdTunning) {
+      this.drivetrain.getSysIdTunning().enableSysIdTunning();
       this.driver.whileAButton(drivetrain.sysIdDynamic(Direction.kReverse));
       this.driver.whileYButton(drivetrain.sysIdDynamic(Direction.kForward));
       this.driver.whileBButton(drivetrain.sysIdQuasistatic(Direction.kForward));
