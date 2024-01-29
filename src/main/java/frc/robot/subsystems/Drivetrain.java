@@ -28,7 +28,6 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import frc.core.components.Limelight;
 import frc.core.components.SmartNavX;
-import frc.core.util.sysId.DrivetrainSysIdTuning;
 import frc.robot.constants.DrivetrainConstants;
 
 public class Drivetrain extends SubsystemBase {
@@ -48,9 +47,16 @@ public class Drivetrain extends SubsystemBase {
   private final SmartNavX navX;
   private final DifferentialDriveOdometry odometry;
 
-  private final DrivetrainSysIdTuning sysIdTunning;
+  // Mutable holder for unit-safe voltage values, persisted to avoid reallocation.
+  private final MutableMeasure<Voltage> m_appliedVoltage = mutable(Volts.of(0));
+  // Mutable holder for unit-safe linear distance values, persisted to avoid
+  // reallocation.
+  private final MutableMeasure<Distance> m_distance = mutable(Meters.of(0));
+  // Mutable holder for unit-safe linear velocity values, persisted to avoid
+  // reallocation.
+  private final MutableMeasure<Velocity<Distance>> m_velocity = mutable(MetersPerSecond.of(0));
 
-
+  private final SysIdRoutine sysIdRoutine; 
   public Drivetrain() {
     this.motorLeftBack = new WPI_TalonSRX(DrivetrainConstants.Motors.motorLeftBack);
     this.motorLeftFront = new WPI_TalonSRX(DrivetrainConstants.Motors.motorLeftFront);
@@ -91,14 +97,59 @@ public class Drivetrain extends SubsystemBase {
     this.setEncodersDistancePerPulse();
     this.resetEncoders();
 
-    var leftMotors = new WPI_TalonSRX[] { this.motorLeftBack, this.motorLeftFront };
-    var rightMotors = new WPI_TalonSRX[] { this.motorRightBack, this.motorRightFront };
-    var encoders = new Encoder[] { encoderLeft, encoderRight };
-
-    if (DrivetrainConstants.SysId.isSysIdTunning) {
-      sysIdTunning = new DrivetrainSysIdTuning(leftMotors, rightMotors, encoders);
-      sysIdTunning.enable();
-    }
+    this.sysIdRoutine = new SysIdRoutine(
+      // Empty config defaults to 1 volt/second ramp rate and 7 volt step voltage.
+      new SysIdRoutine.Config(),
+      new SysIdRoutine.Mechanism(
+          // Tell SysId how to plumb the driving voltage to the motors.
+          (Measure<Voltage> volts) -> {
+            motorLeftBack.setVoltage(-volts.in(Volts));
+            motorLeftFront.setVoltage(-volts.in(Volts));
+            motorRightBack.setVoltage(volts.in(Volts));
+            motorRightFront.setVoltage(volts.in(Volts));
+          },
+          // Tell SysId how to record a frame of data for each motor on the mechanism
+          // being
+          // characterized.
+          log -> {
+            // Record a frame for the left motors. Since these share an encoder, we consider
+            // the entire group to be one motor.
+            log.motor("drive-leftBack")
+                .voltage(
+                    m_appliedVoltage.mut_replace(
+                        motorLeftBack.get() * RobotController.getBatteryVoltage(), Volts))
+                .linearPosition(m_distance.mut_replace(encoderLeft.getDistance(), Meters))
+                .linearVelocity(
+                    m_velocity.mut_replace(encoderLeft.getRate(), MetersPerSecond));
+            log.motor("drive-leftFront")
+                .voltage(
+                    m_appliedVoltage.mut_replace(
+                        motorLeftFront.get() * RobotController.getBatteryVoltage(), Volts))
+                .linearPosition(m_distance.mut_replace(encoderLeft.getDistance(), Meters))
+                .linearVelocity(
+                    m_velocity.mut_replace(encoderLeft.getRate(), MetersPerSecond));
+            // Record a frame for the right motors. Since these share an encoder, we
+            // consider
+            // the entire group to be one motor.
+            log.motor("drive-rightBack")
+                .voltage(
+                    m_appliedVoltage.mut_replace(
+                        motorRightBack.get() * RobotController.getBatteryVoltage(), Volts))
+                .linearPosition(m_distance.mut_replace(encoderRight.getDistance(), Meters))
+                .linearVelocity(
+                    m_velocity.mut_replace(encoderRight.getRate(), MetersPerSecond));
+            log.motor("drive-rightFront")
+                .voltage(
+                    m_appliedVoltage.mut_replace(
+                        motorRightFront.get() * RobotController.getBatteryVoltage(), Volts))
+                .linearPosition(m_distance.mut_replace(encoderRight.getDistance(), Meters))
+                .linearVelocity(
+                    m_velocity.mut_replace(encoderRight.getRate(), MetersPerSecond));
+          },
+          // Tell SysId to make generated commands require this subsystem, suffix test
+          // state in
+          // WPILog with this subsystem's name ("drive")
+          this));
 
   }
 
@@ -207,16 +258,12 @@ public class Drivetrain extends SubsystemBase {
     this.motorRightFront.setNeutralMode(NeutralMode.Brake);
   }
 
-  public DrivetrainSysIdTuning getSysIdTunning() {
-    return sysIdTunning;
-  }
-
-  public Command sysIdQuasistatic(SysIdRoutine.Direction direction) {
-    return this.sysIdTunning.sysIdQuasistatic(direction);
+    public Command sysIdQuasistatic(SysIdRoutine.Direction direction) {
+    return sysIdRoutine.quasistatic(direction);
   }
 
   public Command sysIdDynamic(SysIdRoutine.Direction direction) {
-    return this.sysIdTunning.sysIdQuasistatic(direction);
+    return sysIdRoutine.dynamic(direction);
   }
 
   public void debugSmartDashboard(boolean isDebugging) {
