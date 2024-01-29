@@ -97,7 +97,10 @@ public class Drivetrain extends SubsystemBase {
     rightMotors = new WPI_TalonSRX[] { this.motorRightBack, this.motorRightFront };
     encoders = new Encoder[] { encoderLeft, encoderRight };
 
-    sysIdTunning = new DrivetrainSysIdTuning(leftMotors, rightMotors, encoders);
+    if (DrivetrainConstants.SysId.isSysIdTunning) {
+      sysIdTunning = new DrivetrainSysIdTuning(leftMotors, rightMotors, encoders);
+      sysIdTunning.enable();
+    }
 
   }
 
