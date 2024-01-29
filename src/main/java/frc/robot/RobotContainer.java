@@ -12,6 +12,7 @@ import frc.robot.commands.autonomo.AutoTeste;
 import frc.robot.commands.drivetrain.AimTarget;
 import frc.robot.commands.drivetrain.ArcadeDrive;
 import frc.robot.constants.ControllerConstants;
+import frc.robot.constants.DrivetrainConstants;
 import frc.robot.subsystems.Drivetrain;
 
 public class RobotContainer {
@@ -36,7 +37,7 @@ public class RobotContainer {
     // limelightSubsystem = new Limelight("");
     // limelightCommand = new LimelightCommand(limelightSubsystem);
     this.buttonBindingsDrivetain();
-    this.limelightButton();
+    this.buttonBindingsSysId();
   }
 
   private void buttonBindingsDrivetain() {
@@ -48,12 +49,13 @@ public class RobotContainer {
             driver));
   }
 
-  private void limelightButton() {
-    this.driver.whileAButton(drivetrain.sysIdDynamic(Direction.kReverse));
-    this.driver.whileYButton(drivetrain.sysIdDynamic(Direction.kForward));
-    this.driver.whileBButton(drivetrain.sysIdQuasistatic(Direction.kForward));
-    this.driver.whileXButton(drivetrain.sysIdQuasistatic(Direction.kReverse));
-
+  private void buttonBindingsSysId() {
+    if (DrivetrainConstants.SysId.isSysIdTunning) {
+      this.driver.whileAButton(drivetrain.sysIdDynamic(Direction.kReverse));
+      this.driver.whileYButton(drivetrain.sysIdDynamic(Direction.kForward));
+      this.driver.whileBButton(drivetrain.sysIdQuasistatic(Direction.kForward));
+      this.driver.whileXButton(drivetrain.sysIdQuasistatic(Direction.kReverse));
+    }
   }
 
   public Command getAutonomousCommand() {

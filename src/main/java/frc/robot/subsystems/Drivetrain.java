@@ -28,7 +28,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import frc.core.components.Limelight;
 import frc.core.components.SmartNavX;
-import frc.core.components.SysID;
+import frc.core.util.sysId.DrivetrainSysIdTunning;
 import frc.robot.constants.DrivetrainConstants;
 
 public class Drivetrain extends SubsystemBase {
@@ -48,7 +48,10 @@ public class Drivetrain extends SubsystemBase {
   private final SmartNavX navX;
   private final DifferentialDriveOdometry odometry;
 
-  private final SysID sysIdRoutine;
+  private final DrivetrainSysIdTunning sysIdTunning;
+
+  private WPI_TalonSRX[] leftMotors, rightMotors;
+  private Encoder[] encoders;
 
   public Drivetrain() {
     this.motorLeftBack = new WPI_TalonSRX(DrivetrainConstants.Motors.motorLeftBack);
@@ -90,8 +93,11 @@ public class Drivetrain extends SubsystemBase {
     this.setEncodersDistancePerPulse();
     this.resetEncoders();
 
-    sysIdRoutine = new SysID(this.motorLeftBack, this.motorLeftFront, this.motorRightBack, this.motorRightFront,
-        this.encoderLeft, this.encoderRight);
+    leftMotors = new WPI_TalonSRX[] { this.motorLeftBack, this.motorLeftFront };
+    rightMotors = new WPI_TalonSRX[] { this.motorRightBack, this.motorRightFront };
+    encoders = new Encoder[] { encoderLeft, encoderRight };
+
+    sysIdTunning = new DrivetrainSysIdTunning(leftMotors, rightMotors, encoders);
 
   }
 
@@ -200,12 +206,16 @@ public class Drivetrain extends SubsystemBase {
     this.motorRightFront.setNeutralMode(NeutralMode.Brake);
   }
 
+  public DrivetrainSysIdTunning getSysIdTunning(){
+    return sysIdTunning;
+  }
+  
   public Command sysIdQuasistatic(SysIdRoutine.Direction direction) {
-    return this.sysIdRoutine.sysIdQuasistatic(direction);
+    return this.sysIdTunning.sysIdQuasistatic(direction);
   }
 
   public Command sysIdDynamic(SysIdRoutine.Direction direction) {
-    return this.sysIdRoutine.sysIdQuasistatic(direction);
+    return this.sysIdTunning.sysIdQuasistatic(direction);
   }
 
   public void debugSmartDashboard(boolean isDebugging) {
