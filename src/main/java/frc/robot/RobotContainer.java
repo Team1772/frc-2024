@@ -1,31 +1,22 @@
 package frc.robot;
 
-import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
-import frc.robot.subsystems.Limelight;
 import frc.core.util.TrajectoryBuilder;
 import frc.core.util.oi.SmartController;
-import frc.robot.buttonBindings.DriverButtonBindings;
-import frc.robot.commands.LimelightCommand;
 import frc.robot.commands.autonomo.Auto1;
-import frc.robot.commands.autonomo.AutoTeste;
-import frc.robot.commands.drivetrain.AimTarget;
 import frc.robot.commands.drivetrain.ArcadeDrive;
 import frc.robot.constants.ControllerConstants;
+import frc.robot.constants.DrivetrainConstants;
 import frc.robot.subsystems.Drivetrain;
-import frc.robot.buttonBindings.DriverButtonBindings;
-import frc.robot.buttonBindings.OperatorButtonBindings;
 
 public class RobotContainer {
   private final Drivetrain drivetrain;
   public SmartController driver;
   public SmartController operator;
   public TrajectoryBuilder trajectoryBuilder;
-  public LimelightCommand limelightCommand;
-  public Limelight limelightSubsystem;
-  public DriverButtonBindings DriverInput;
-  public OperatorButtonBindings OperatorInput;
+  //public DriverButtonBindings DriverInput;
+  //public OperatorButtonBindings OperatorInput;
 
   public RobotContainer() {
     this.drivetrain = new Drivetrain();
@@ -34,20 +25,17 @@ public class RobotContainer {
     this.operator = new SmartController(ControllerConstants.kOperatorControllerPort);
     this.trajectoryBuilder = new TrajectoryBuilder(drivetrain, "1-forward", "1-reverse");
     configureButtonBindings();
-    DriverInput = new DriverButtonBindings();
-    DriverInput.get();
-    OperatorInput = new OperatorButtonBindings();
-    OperatorInput.get();
+    //DriverInput = new DriverButtonBindings();
+    //DriverInput.get();
+    //OperatorInput = new OperatorButtonBindings();
+    //OperatorInput.get();
 
-    
   }
 
   private void configureButtonBindings() {
-    // limelightSubsystem = new Limelight("");
-    // limelightCommand = new LimelightCommand(limelightSubsystem);
     this.buttonBindingsDrivetain();
-    this.limelightButton();
-  
+    this.buttonBindingsSysId();
+
   }
 
   private void buttonBindingsDrivetain() {
@@ -59,15 +47,16 @@ public class RobotContainer {
             driver));
   }
 
-  private void limelightButton() {
-    this.driver.whileAButton(drivetrain.sysIdDynamic(Direction.kReverse));
-    this.driver.whileYButton(drivetrain.sysIdDynamic(Direction.kForward));
-    this.driver.whileBButton(drivetrain.sysIdQuasistatic(Direction.kForward));
-    this.driver.whileXButton(drivetrain.sysIdQuasistatic(Direction.kReverse));
-
+  private void buttonBindingsSysId() {
+    if (DrivetrainConstants.SysId.isSysIdTunning) {
+      this.driver.whileAButton(drivetrain.sysIdDynamic(Direction.kReverse));
+      this.driver.whileYButton(drivetrain.sysIdDynamic(Direction.kForward));
+      this.driver.whileBButton(drivetrain.sysIdQuasistatic(Direction.kForward));
+      this.driver.whileXButton(drivetrain.sysIdQuasistatic(Direction.kReverse));
+    }
   }
 
   public Command getAutonomousCommand() {
-    return new Auto1(drivetrain, trajectoryBuilder); // new AutoLimelight(limelightSubsystem, drivetrain);
+    return new Auto1(drivetrain, trajectoryBuilder);
   }
 }
