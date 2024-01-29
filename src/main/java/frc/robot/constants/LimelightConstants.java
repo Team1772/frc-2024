@@ -6,6 +6,7 @@ public final class LimelightConstants {
   public static final int aprilTagPipeline = 0;
   public static final int tapePipeline = 1;
   public static final int driverPipeline = 2;
+  public static final int pipeline = 0;
 
   public static final class Seeking {
     public static final double kP = -0.1;

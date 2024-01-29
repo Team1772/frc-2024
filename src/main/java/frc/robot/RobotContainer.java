@@ -1,38 +1,62 @@
 package frc.robot;
 
-import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
+import frc.robot.subsystems.Limelight;
+import frc.core.util.TrajectoryBuilder;
 import frc.core.util.oi.SmartController;
-import frc.robot.constants.OIConstants;
-import frc.robot.commands.SwerveDrive;
-import frc.robot.commands.SwerveJoystickCmd;
-import frc.robot.commands.SwerveTurn;
-import frc.robot.subsystems.SwerveSubsystem;
+import frc.robot.commands.LimelightCommand;
+import frc.robot.commands.autonomo.Auto1;
+import frc.robot.commands.autonomo.AutoTeste;
+import frc.robot.commands.drivetrain.AimTarget;
+import frc.robot.commands.drivetrain.ArcadeDrive;
+import frc.robot.constants.ControllerConstants;
+import frc.robot.subsystems.Drivetrain;
 
 public class RobotContainer {
+  private final Drivetrain drivetrain;
+  public SmartController driver;
+  public SmartController operator;
+  public TrajectoryBuilder trajectoryBuilder;
+  public LimelightCommand limelightCommand;
+  public Limelight limelightSubsystem;
 
-        private final SwerveSubsystem swerveSubsystem = new SwerveSubsystem();
+  public RobotContainer() {
+    this.drivetrain = new Drivetrain();
 
-        private final XboxController driverJoytick = new XboxController(OIConstants.kDriverControllerPort);
-        private final SmartController driver = new SmartController(0);
-        public RobotContainer() {
-                swerveSubsystem.setDefaultCommand(new SwerveJoystickCmd(
-                                swerveSubsystem,
-                                () -> driver.getLeftY(),
-                                () -> - driver.getLeftX(),
-                                () -> driver.getRightX(),
-                                () -> !driver.getAButton().getAsBoolean()));
+    this.driver = new SmartController(ControllerConstants.kDriverControllerPort);
+    this.operator = new SmartController(ControllerConstants.kOperatorControllerPort);
+    this.trajectoryBuilder = new TrajectoryBuilder(drivetrain, "1-forward", "1-reverse");
+    configureButtonBindings();
 
-                configureButtonBindings();
-        }
+  }
 
-        private void configureButtonBindings() {
+  private void configureButtonBindings() {
+    // limelightSubsystem = new Limelight("");
+    // limelightCommand = new LimelightCommand(limelightSubsystem);
+    this.buttonBindingsDrivetain();
+    this.limelightButton();
+  }
 
-                driver.whileRightBumper(new SwerveTurn(swerveSubsystem));
-                driver.whileLeftBumper(new SwerveDrive(swerveSubsystem));
-        }
+  private void buttonBindingsDrivetain() {
+    this.drivetrain.setDefaultCommand(
+        new ArcadeDrive(
+            this.drivetrain,
+            () -> -driver.getLeftY(),
+            () -> driver.getRightX(),
+            driver));
+  }
 
-        public Command getAutonomousCommand() {
-                return null;
-        }
+  private void limelightButton() {
+    this.driver.whileAButton(drivetrain.sysIdDynamic(Direction.kReverse));
+    this.driver.whileYButton(drivetrain.sysIdDynamic(Direction.kForward));
+    this.driver.whileBButton(drivetrain.sysIdQuasistatic(Direction.kForward));
+    this.driver.whileXButton(drivetrain.sysIdQuasistatic(Direction.kReverse));
+
+  }
+
+  public Command getAutonomousCommand() {
+    return new Auto1(drivetrain, trajectoryBuilder); // new AutoLimelight(limelightSubsystem, drivetrain);
+  }
 }
