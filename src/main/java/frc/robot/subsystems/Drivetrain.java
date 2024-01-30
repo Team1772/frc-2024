@@ -36,7 +36,6 @@ public class Drivetrain extends SubsystemBase {
   private Encoder encoderLeft;
   private final SmartNavX navX;
   private final DifferentialDriveOdometry odometry;
-
   private final DrivetrainSysIdTuning sysIdTunning;
 
   public Drivetrain() {
@@ -75,13 +74,11 @@ public class Drivetrain extends SubsystemBase {
     this.setEncodersDistancePerPulse();
     this.resetEncoders();
 
-    var leftMotors = new WPI_TalonSRX[] { this.motorLeftBack, this.motorLeftFront };
-    var rightMotors = new WPI_TalonSRX[] { this.motorRightBack, this.motorRightFront };
-    var encoders = new Encoder[] { encoderLeft, encoderRight };
-
     if (DrivetrainConstants.SysId.isSysIdTunning) {
-      sysIdTunning = new DrivetrainSysIdTuning(leftMotors, rightMotors, encoders, this);
+      sysIdTunning = new DrivetrainSysIdTuning(this);
       sysIdTunning.enable();
+    }else{
+      sysIdTunning = null;
     }
 
     this.setMotorsInverted(
@@ -131,6 +128,22 @@ public class Drivetrain extends SubsystemBase {
   public void reset() {
     this.resetNavX();
     this.resetEncoders();
+  }
+
+  public WPI_TalonSRX getMotorLeftBack() {
+    return motorLeftBack;
+  }
+
+  public WPI_TalonSRX getMotorLeftFront() {
+    return motorLeftFront;
+  }
+
+  public WPI_TalonSRX getMotorRightBack() {
+    return motorRightBack;
+  }
+
+  public WPI_TalonSRX getMotorRightFront() {
+    return motorRightFront;
   }
 
   public double getAngle() {
@@ -204,7 +217,7 @@ public class Drivetrain extends SubsystemBase {
   }
 
   public Command sysIdDynamic(SysIdRoutine.Direction direction) {
-    return this.sysIdTunning.sysIdQuasistatic(direction);
+    return this.sysIdTunning.sysIdDynamic(direction);
   }
 
   public void debugSmartDashboard(boolean isDebugging) {

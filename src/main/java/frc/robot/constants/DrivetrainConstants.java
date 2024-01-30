@@ -31,9 +31,9 @@ public final class DrivetrainConstants {
   }
 
   public static final class Gains {
-    public static final double ksVolts = 1, // kS
-        kvVoltSecondsPerMeter = 2.50, // kV
-        kaVoltSecondsSquaredPerMeter = 0.92, // kA
+    public static final double ksVolts = 1.4384, // kS
+        kvVoltSecondsPerMeter = 2.5445, // kV
+        kaVoltSecondsSquaredPerMeter = 0.53293, // kA
         kTrackwidthMeters = 0.80,
         differentialDriveVoltageConstraintMaxVoltage = 7;
 
@@ -42,7 +42,7 @@ public final class DrivetrainConstants {
   }
 
   public static final class PID {
-    public static final double kPDriveVelocity = 4.08,
+    public static final double kPDriveVelocity = 0.7323,
         kIDriveVelocity = 0,
         kDDriveVelocity = 0;
   }
@@ -55,6 +55,6 @@ public final class DrivetrainConstants {
   }
 
   public final class SysId {
-    public static final boolean isSysIdTunning = true;
+    public static final boolean isSysIdTunning = false;
   }
 }
