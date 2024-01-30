@@ -3,7 +3,6 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
-
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
@@ -54,10 +53,6 @@ public class Drivetrain extends SubsystemBase {
     this.motorLeftFront.setNeutralMode(NeutralMode.Coast);
     this.motorRightFront.setNeutralMode(NeutralMode.Coast);
 
-    this.setMotorsInverted(
-        DrivetrainConstants.Motors.isMotorsLeftInverted,
-        DrivetrainConstants.Motors.isMotorsRightInverted);
-
     this.drive = new DifferentialDrive(this.motorsRight, this.motorsLeft);
 
     this.encoderLeft = new Encoder(
@@ -85,9 +80,13 @@ public class Drivetrain extends SubsystemBase {
     var encoders = new Encoder[] { encoderLeft, encoderRight };
 
     if (DrivetrainConstants.SysId.isSysIdTunning) {
-      sysIdTunning = new DrivetrainSysIdTuning(leftMotors, rightMotors, encoders);
+      sysIdTunning = new DrivetrainSysIdTuning(leftMotors, rightMotors, encoders, this);
       sysIdTunning.enable();
     }
+
+    this.setMotorsInverted(
+        DrivetrainConstants.Motors.isMotorsLeftInverted,
+        DrivetrainConstants.Motors.isMotorsRightInverted);
 
   }
 

@@ -35,13 +35,14 @@ public class DrivetrainSysIdTuning {
   private Encoder encoderRight;
   private Drivetrain drivetrain;
 
-  public DrivetrainSysIdTuning(WPI_TalonSRX[] leftMotors, WPI_TalonSRX[] rightMotors, Encoder[] encoders) {
+  public DrivetrainSysIdTuning(WPI_TalonSRX[] leftMotors, WPI_TalonSRX[] rightMotors, Encoder[] encoders, Drivetrain drivetrain) {
     this.motorLeftBack = leftMotors[0];
     this.motorLeftFront = leftMotors[1];
     this.motorRightBack = rightMotors[0];
     this.motorRightFront = rightMotors[1];
     this.encoderLeft = encoders[0];
     this.encoderRight = encoders[1];
+    this.drivetrain = drivetrain;
   }
 
   public void enable() {
@@ -50,8 +51,8 @@ public class DrivetrainSysIdTuning {
         new SysIdRoutine.Config(),
         new SysIdRoutine.Mechanism(
             (Measure<Voltage> volts) -> {
-              motorLeftBack.setVoltage(-volts.in(Volts));
-              motorLeftFront.setVoltage(-volts.in(Volts));
+              motorLeftBack.setVoltage(volts.in(Volts));
+              motorLeftFront.setVoltage(volts.in(Volts));
               motorRightBack.setVoltage(volts.in(Volts));
               motorRightFront.setVoltage(volts.in(Volts));
             },

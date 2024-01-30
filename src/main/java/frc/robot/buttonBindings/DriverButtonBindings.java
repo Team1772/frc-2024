@@ -1,63 +1,39 @@
 package frc.robot.buttonBindings;
 
+import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 import frc.core.util.oi.SmartController;
+import frc.robot.commands.drivetrain.ArcadeDrive;
+import frc.robot.constants.ControllerConstants;
+import frc.robot.constants.DrivetrainConstants;
+import frc.robot.subsystems.Drivetrain;
 
 public class DriverButtonBindings {
-    private SmartController driver = new SmartController(0);
 
-    /* public void get() {
-        //FACE BUTTONS
-        this.driver.whileXButton(null);
-        this.driver.whileAButton(null);
-        this.driver.whileBButton(null);
-        this.driver.whileYButton(null);
+  private final Drivetrain drivetrain;
+  private SmartController driver;
 
-        //D-PAD
-        this.driver.whileXUp(null);
-        this.driver.whileXDown(null);
-        this.driver.whileXRight(null);
-        this.driver.whileXLeft(null);
+  public DriverButtonBindings(Drivetrain drivetrain) {
+    this.drivetrain = drivetrain;
+    this.driver = new SmartController(ControllerConstants.kDriverControllerPort);
 
-        //SHOULDER BUTTONS
-        this.driver.whileLeftBumper(null);
-        this.driver.whileRightBumper(null);
+  }
 
-        //START AND SELECT
-        this.driver.whileStartButton(null);
-        this.driver.whileSelectButton(null);
-    } */
+  public void buttonBindingsDrivetain() {
+    this.drivetrain.setDefaultCommand(
+        new ArcadeDrive(
+            this.drivetrain,
+            () -> -driver.getLeftY(),
+            () -> driver.getRightX(),
+            driver));
+  }
 
-        public void get() {
-        //BOOLEAN VALUES
-        //FACE BUTTONS
-        this.driver.getXButton();
-        this.driver.getAButton();
-        this.driver.getBButton();
-        this.driver.getYButton();
-
-        //D-PAD
-        this.driver.getXUp();
-        this.driver.getXDown();
-        this.driver.getXRight();
-        this.driver.getXLeft();
-
-        //SHOULDER BUTTONS
-        this.driver.getLeftBumper();
-        this.driver.getRightBumper();
-
-        //START AND SELECT
-        this.driver.getStartButton();
-        this.driver.getSelectButton();
-
-        //DOUBLE VALUES
-        //TRIGGERS
-        this.driver.getLeftTrigger();
-        this.driver.getRightTrigger();
-
-        //JOYSTICKS
-        this.driver.getRightX();
-        this.driver.getRightY();
-        this.driver.getLeftX();
-        this.driver.getLeftY();
+  public void buttonBindingsSysId() {
+    if (DrivetrainConstants.SysId.isSysIdTunning) {
+      this.driver.whileAButton(drivetrain.sysIdDynamic(Direction.kReverse));
+      this.driver.whileYButton(drivetrain.sysIdDynamic(Direction.kForward));
+      this.driver.whileBButton(drivetrain.sysIdQuasistatic(Direction.kForward));
+      this.driver.whileXButton(drivetrain.sysIdQuasistatic(Direction.kReverse));
     }
+  }
+
 }
