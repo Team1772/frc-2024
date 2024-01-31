@@ -6,17 +6,20 @@ import frc.robot.buttonBindings.DriverButtonBindings;
 import frc.robot.buttonBindings.OperatorButtonBindings;
 import frc.robot.commands.autonomo.Auto1;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.ShooterTest;
 
 public class RobotContainer {
   private final Drivetrain drivetrain;
+  private final ShooterTest shooterTest;
   public TrajectoryBuilder trajectoryBuilder;
   public DriverButtonBindings driver;
   public OperatorButtonBindings operator;
 
   public RobotContainer() {
     this.drivetrain = new Drivetrain();
+    this.shooterTest = new ShooterTest();
 
-    this.driver = new DriverButtonBindings(this.drivetrain);
+    this.driver = new DriverButtonBindings(this.drivetrain, this.shooterTest);
     this.operator = new OperatorButtonBindings(this.drivetrain);
 
     configureButtonBindings();
@@ -27,6 +30,7 @@ public class RobotContainer {
   private void configureButtonBindings() {
     this.driver.buttonBindingsDrivetain();
     this.driver.buttonBindingsSysId();
+    this.driver.buttonBindingsShoot();
   }
 
   public Command getAutonomousCommand() {

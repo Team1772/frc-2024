@@ -42,7 +42,7 @@ public final class DrivetrainConstants {
   }
 
   public static final class PID {
-    public static final double kPDriveVelocity = 0.7323,
+    public static final double kPDriveVelocity = 0.73235,
         kIDriveVelocity = 0,
         kDDriveVelocity = 0;
   }
