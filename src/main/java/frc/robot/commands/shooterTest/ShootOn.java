@@ -13,6 +13,8 @@ public class ShootOn extends Command {
   public ShootOn(ShooterTest shooter, double speed) {
     this.shooter = shooter;
     this.speed = speed;
+    this.speedDown = speed;
+    this.speedUp = speed;
     addRequirements(this.shooter);
   }
 
@@ -23,12 +25,11 @@ public class ShootOn extends Command {
 
   @Override
   public void initialize() {
-    this.shooter.shoot(speedUp, speedDown);
+    this.shooter.set(speedUp, speedDown);
   }
 
   @Override
   public void execute() {
-    this.shooter.shoot(speedUp, speedDown);
   }
 
   @Override

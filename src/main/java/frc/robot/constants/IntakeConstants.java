@@ -13,8 +13,9 @@ public final class IntakeConstants {
 
     public static final class Speeds {
         public static final double
-            speedCollect = -0.53,
-            speedRelease = 0.45;
+            speedCollect = -0.37,
+            speedRelease = 0.37,
+            speedMultiplier = 0.5;
     }
 
 

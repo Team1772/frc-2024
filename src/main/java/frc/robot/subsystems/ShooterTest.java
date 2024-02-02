@@ -17,11 +17,15 @@ public class ShooterTest extends SubsystemBase {
     this.motorDown.setInverted(true);
   }
 
-  public void shoot(double speedUp, double speedDown){
+  public void set(double speedUp, double speedDown){
     motorUp.set(speedUp);
     motorDown.set(speedDown);
   }
-
+  public void set(double speed){
+    motorUp.set(speed);
+    motorDown.set(speed);
+  }
+  
   public void stop() {
 		motorUp.set(0);
     motorDown.set(0);
