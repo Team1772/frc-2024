@@ -12,14 +12,14 @@ import frc.robot.subsystems.ShooterTest;
 public class DriverButtonBindings {
 
   private final Drivetrain drivetrain;
-  private final ShooterTest shooterTest;
   private SmartController driver;
 
   public DriverButtonBindings(Drivetrain drivetrain, ShooterTest shooterTest) {
     this.drivetrain = drivetrain;
-    this.shooterTest = shooterTest;
     this.driver = new SmartController(ControllerConstants.kDriverControllerPort);
 
+    this.buttonBindingsDrivetain();
+    this.buttonBindingsSysId();
   }
 
   public void buttonBindingsDrivetain() {
@@ -38,12 +38,6 @@ public class DriverButtonBindings {
       this.driver.whileBButton(drivetrain.sysIdQuasistatic(Direction.kForward));
       this.driver.whileXButton(drivetrain.sysIdQuasistatic(Direction.kReverse));
     }
-  }
-
-  public void buttonBindingsShoot(){
-    this.driver.whileYButton(new Shoot(shooterTest, 0.8, 0.8));
-    this.driver.whileAButton(new Shoot(shooterTest, 0.27, 0.15));
-
   }
 
 }

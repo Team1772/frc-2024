@@ -52,6 +52,10 @@ public class Drivetrain extends SubsystemBase {
     this.motorLeftFront.setNeutralMode(NeutralMode.Coast);
     this.motorRightFront.setNeutralMode(NeutralMode.Coast);
 
+    this.setMotorsInverted(
+        DrivetrainConstants.Motors.isMotorsLeftInverted,
+        DrivetrainConstants.Motors.isMotorsRightInverted);
+
     this.drive = new DifferentialDrive(this.motorsRight, this.motorsLeft);
 
     this.encoderLeft = new Encoder(
@@ -77,13 +81,9 @@ public class Drivetrain extends SubsystemBase {
     if (DrivetrainConstants.SysId.isSysIdTunning) {
       sysIdTunning = new DrivetrainSysIdTuning(this);
       sysIdTunning.enable();
-    }else{
+    } else {
       sysIdTunning = null;
     }
-
-    this.setMotorsInverted(
-        DrivetrainConstants.Motors.isMotorsLeftInverted,
-        DrivetrainConstants.Motors.isMotorsRightInverted);
 
   }
 

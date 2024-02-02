@@ -1,5 +1,6 @@
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -11,6 +12,8 @@ public class ShooterTest extends SubsystemBase {
   public ShooterTest(){
     this.motorUp = new WPI_TalonSRX(5);
     this.motorDown = new WPI_TalonSRX(6);
+    this.motorUp.setNeutralMode(NeutralMode.Coast);
+    this.motorDown.setNeutralMode(NeutralMode.Coast);
     this.motorDown.setInverted(true);
   }
 

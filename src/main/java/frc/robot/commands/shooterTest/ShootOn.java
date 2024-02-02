@@ -3,30 +3,27 @@ package frc.robot.commands.shooterTest;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.ShooterTest;
 
-public class Shoot extends Command {
+public class ShootOn extends Command {
 
   private ShooterTest shooter;
   private double speed;
   private double speedDown;
   private double speedUp;
 
-  public Shoot(ShooterTest shooter, double speedUp, double speedDown) {
+  public ShootOn(ShooterTest shooter, double speed) {
     this.shooter = shooter;
-    this.speedUp = speedUp;
-    this.speedDown = speedDown;
+    this.speed = speed;
     addRequirements(this.shooter);
   }
 
-  public Shoot(ShooterTest shooter, double speed) {
+  public ShootOn(ShooterTest shooter, double speedUp, double speedDown) {
     this.shooter = shooter;
-    this.speedUp = speed;
-    this.speedDown = speed;
     addRequirements(this.shooter);
   }
 
   @Override
   public void initialize() {
-
+    this.shooter.shoot(speedUp, speedDown);
   }
 
   @Override
@@ -35,7 +32,12 @@ public class Shoot extends Command {
   }
 
   @Override
+  public boolean isFinished() {
+    return true;
+  }
+
+  @Override
   public void end(boolean interrupted) {
-    this.shooter.stop();
+
   }
 }

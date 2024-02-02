@@ -6,6 +6,8 @@ import frc.robot.buttonBindings.DriverButtonBindings;
 import frc.robot.buttonBindings.OperatorButtonBindings;
 import frc.robot.commands.autonomo.Auto1;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.IntakeMove;
 import frc.robot.subsystems.ShooterTest;
 
 public class RobotContainer {
@@ -14,13 +16,17 @@ public class RobotContainer {
   public TrajectoryBuilder trajectoryBuilder;
   public DriverButtonBindings driver;
   public OperatorButtonBindings operator;
+  public IntakeMove intakeMove;
+  public Intake intake;
 
   public RobotContainer() {
     this.drivetrain = new Drivetrain();
     this.shooterTest = new ShooterTest();
+    this.intakeMove = new IntakeMove();
+    this.intake = new Intake();
 
     this.driver = new DriverButtonBindings(this.drivetrain, this.shooterTest);
-    this.operator = new OperatorButtonBindings(this.drivetrain);
+    this.operator = new OperatorButtonBindings(this.drivetrain, this.intakeMove, this.intake, this.shooterTest);
 
     configureButtonBindings();
 
@@ -30,7 +36,8 @@ public class RobotContainer {
   private void configureButtonBindings() {
     this.driver.buttonBindingsDrivetain();
     this.driver.buttonBindingsSysId();
-    this.driver.buttonBindingsShoot();
+    this.operator.buttonBindingsShooterTest();
+    this.operator.buttonBindingsIntakeMove();
   }
 
   public Command getAutonomousCommand() {

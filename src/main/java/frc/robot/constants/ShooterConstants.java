@@ -1,7 +1,7 @@
 package frc.robot.constants;
 
 public class ShooterConstants {
-  public static final int motorPort = 1;
+  public static final int motorPort = 11;
 
   public static final double speed = 0.53;
   public static final boolean isInverted = true;
