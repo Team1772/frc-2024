@@ -1,6 +1,7 @@
 package frc.robot.buttonBindings;
 
 import frc.core.util.oi.SmartController;
+import frc.robot.commands.intake.Collect;
 import frc.robot.commands.intake.Release;
 import frc.robot.commands.intake_move.IntakeDownToSensor;
 import frc.robot.commands.intake_move.IntakeUpToSensor;
@@ -15,15 +16,15 @@ import frc.robot.subsystems.ShooterTest;
 public class OperatorButtonBindings {
   private SmartController operator = new SmartController(ControllerConstants.kOperatorControllerPort);
   public Drivetrain drivetrain;
-  public Intake Intake;
+  public Intake intake;
   public IntakeMove intakeMove;
   public ShooterTest shooterTest;
 
-  public OperatorButtonBindings(Drivetrain drivetrain, IntakeMove intakeMove, Intake Intake, ShooterTest shooterTest) {
+  public OperatorButtonBindings(Drivetrain drivetrain, IntakeMove intakeMove, Intake intake, ShooterTest shooterTest) {
     this.drivetrain = drivetrain;
     this.intakeMove = intakeMove;
     this.shooterTest = shooterTest;
-
+    this.intake = intake;
   }
 
   public void buttonBindingsIntakeMove() {
@@ -39,6 +40,7 @@ public class OperatorButtonBindings {
   }
 
   public void buttonBindingsIntake() {
-    this.operator.whileXDown(new Release(Intake));
+    this.operator.whileXDown(new Collect(intake));
+    this.operator.whileXUp(new Release(intake));
   }
 }

@@ -4,12 +4,13 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.constants.IntakeConstants;
 
 public class Intake extends SubsystemBase {
   private final WPI_TalonSRX motor;
 
   public Intake(){
-    this.motor = new WPI_TalonSRX(8);
+    this.motor = new WPI_TalonSRX(IntakeConstants.Motors.id);
     this.motor.setNeutralMode(NeutralMode.Coast);
   }
 

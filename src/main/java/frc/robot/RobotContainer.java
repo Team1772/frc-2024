@@ -38,6 +38,7 @@ public class RobotContainer {
     this.driver.buttonBindingsSysId();
     this.operator.buttonBindingsShooterTest();
     this.operator.buttonBindingsIntakeMove();
+    this.operator.buttonBindingsIntake();
   }
 
   public Command getAutonomousCommand() {
