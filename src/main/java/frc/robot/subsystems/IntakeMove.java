@@ -1,6 +1,7 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -19,7 +20,7 @@ public class IntakeMove extends SubsystemBase {
       this.motorMove.setInverted(IntakeMoveConstants.Motor.isMotorMoveInverted);
       this.limitMax = new DigitalInput(IntakeMoveConstants.Sensor.limitMax);
       this.limitMin = new DigitalInput(IntakeMoveConstants.Sensor.limitMin);
-  
+      this.motorMove.setNeutralMode(NeutralMode.Coast);
     }
   
     public void set(double speed) {

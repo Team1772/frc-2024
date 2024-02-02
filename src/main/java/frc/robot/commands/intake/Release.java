@@ -22,6 +22,8 @@ public class Release extends Command {
     this.intake.set(IntakeConstants.Speeds.speedRelease);
   }
 
+  
+
   @Override
   public void end(boolean isInterrupted) {
     this.intake.stop();

@@ -31,7 +31,7 @@ public class Shoot extends Command {
 
   @Override
   public void execute() {
-    this.shooter.shoot(speedUp, speedDown);
+    this.shooter.set(speedUp, speedDown);
   }
 
   @Override

@@ -9,7 +9,7 @@ public class IntakeDownToSensor extends Command {
   
   public IntakeDownToSensor(IntakeMove intakeMove) {
     this.intakeMove = intakeMove;
-    this.speed = -0.5;
+    this.speed = -0.6;
 
     addRequirements(this.intakeMove);
   }

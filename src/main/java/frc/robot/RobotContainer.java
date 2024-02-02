@@ -5,6 +5,7 @@ import frc.core.util.TrajectoryBuilder;
 import frc.robot.buttonBindings.DriverButtonBindings;
 import frc.robot.buttonBindings.OperatorButtonBindings;
 import frc.robot.commands.autonomo.Auto1;
+import frc.robot.commands.autonomo.AutoTeste;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.IntakeMove;
@@ -42,6 +43,6 @@ public class RobotContainer {
   }
 
   public Command getAutonomousCommand() {
-    return new Auto1(drivetrain, trajectoryBuilder);
+    return new Auto1(drivetrain, shooterTest, intake, trajectoryBuilder);
   }
 }

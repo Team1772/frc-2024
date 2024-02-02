@@ -15,7 +15,7 @@ public class ShootOff extends Command {
 
   @Override
   public void initialize() {
-    this.shooter.stop();
+    this.shooter.set(0);
   }
 
   @Override
