@@ -9,6 +9,7 @@ import frc.robot.commands.autonomo.AutoTeste;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.IntakeMove;
+import frc.robot.subsystems.OperatorRumble;
 import frc.robot.subsystems.ShooterTest;
 
 public class RobotContainer {
@@ -19,6 +20,7 @@ public class RobotContainer {
   public OperatorButtonBindings operator;
   public IntakeMove intakeMove;
   public Intake intake;
+  public OperatorRumble operatorRumble;
 
   public RobotContainer() {
     this.drivetrain = new Drivetrain();
@@ -27,7 +29,7 @@ public class RobotContainer {
     this.intake = new Intake();
 
     this.driver = new DriverButtonBindings(this.drivetrain, this.shooterTest);
-    this.operator = new OperatorButtonBindings(this.drivetrain, this.intakeMove, this.intake, this.shooterTest);
+    this.operator = new OperatorButtonBindings(this.drivetrain, this.intakeMove, this.intake, this.shooterTest, this.operatorRumble);
 
     configureButtonBindings();
 
@@ -40,6 +42,7 @@ public class RobotContainer {
     this.operator.buttonBindingsShooterTest();
     this.operator.buttonBindingsIntakeMove();
     this.operator.buttonBindingsIntake();
+    this.operator.buttonBindingsOperatorRumble();
   }
 
   public Command getAutonomousCommand() {

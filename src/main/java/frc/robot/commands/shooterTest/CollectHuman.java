@@ -23,7 +23,7 @@ public class CollectHuman extends Command {
 
     @Override
     public void execute() {
-        this.shooter.set(0.3);
+        this.shooter.set(-0.3, -0.3);
         this.intake.set(0.4);
     }
 
