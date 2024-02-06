@@ -1,5 +1,8 @@
 package frc.core.util.oi;
 
+import edu.wpi.first.wpilibj.RobotBase;
+import edu.wpi.first.wpilibj.RobotState;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -177,4 +180,13 @@ public class SmartController {
     public void disableRumble() {
         this.controller.setRumble(RumbleType.kBothRumble, 0);
     }
+
+    public void timerRumble(int velocityMultiplier) {
+            if ((int)(Timer.getFPGATimestamp()*velocityMultiplier) % 2 == 0) {
+                this.controller.setRumble(RumbleType.kBothRumble, 1);
+            }else{
+                this.controller.setRumble(RumbleType.kBothRumble, 0);
+            }
+    }
+
 }

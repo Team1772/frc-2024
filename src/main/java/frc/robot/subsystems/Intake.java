@@ -23,11 +23,14 @@ public class Intake extends SubsystemBase {
   }
 
   public boolean isInfraredSensor() {
-    SmartDashboard.putBoolean("isInfraredSensor", isInfraredSensor());
     return !infraredSensor.get();
   }
 
   public void stop() {
 		motor.set(0);
 	}
+
+  public void periodic() {
+    SmartDashboard.putBoolean("is InfraredSensor", isInfraredSensor());
+  }
 }

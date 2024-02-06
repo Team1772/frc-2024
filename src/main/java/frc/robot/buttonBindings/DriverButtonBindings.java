@@ -12,7 +12,7 @@ import frc.robot.subsystems.ShooterTest;
 public class DriverButtonBindings {
 
   private final Drivetrain drivetrain;
-  private SmartController driver;
+  public static SmartController driver;
 
   public DriverButtonBindings(Drivetrain drivetrain, ShooterTest shooterTest) {
     this.drivetrain = drivetrain;

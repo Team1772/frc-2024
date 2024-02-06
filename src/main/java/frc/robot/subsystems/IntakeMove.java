@@ -20,7 +20,7 @@ public class IntakeMove extends SubsystemBase {
       this.motorMove.setInverted(IntakeMoveConstants.Motor.isMotorMoveInverted);
       this.limitMax = new DigitalInput(IntakeMoveConstants.Sensor.limitMax);
       this.limitMin = new DigitalInput(IntakeMoveConstants.Sensor.limitMin);
-      this.motorMove.setNeutralMode(NeutralMode.Coast);
+      this.motorMove.setNeutralMode(NeutralMode.Brake);
     }
   
     public void set(double speed) {
