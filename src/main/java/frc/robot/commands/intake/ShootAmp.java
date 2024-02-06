@@ -19,7 +19,7 @@ public class ShootAmp extends Command {
 
   @Override
   public void execute() {
-    this.intake.set(0.5);
+    this.intake.set(0.6);
   }
 
   
