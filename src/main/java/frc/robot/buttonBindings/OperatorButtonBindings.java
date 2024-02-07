@@ -4,7 +4,6 @@ import frc.core.util.oi.SmartController;
 import frc.robot.commands.intake.Collect;
 import frc.robot.commands.intake.IntakeManual;
 import frc.robot.commands.intake.Release;
-import frc.robot.commands.intake.ShootAmp;
 import frc.robot.commands.intake_move.IntakeDownToSensor;
 import frc.robot.commands.intake_move.IntakeUpDown;
 import frc.robot.commands.intake_move.IntakeUpToSensor;
@@ -50,7 +49,6 @@ public class OperatorButtonBindings {
     this.operator.whileAButton(new Collect(intake, DriverButtonBindings.driver, operator));
     this.operator.whileYButton(new Release(intake));
     this.operator.whileXButton(new CollectHuman(shooterTest, intake, intakeMove));
-    this.operator.whileBButton(new ShootAmp(intake));
   }
 
   public void buttonBindingsOperatorRumble() {

@@ -1,6 +1,8 @@
 package frc.robot.commands.shooterTest;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.constants.IntakeMoveConstants;
+import frc.robot.constants.ShooterTestConstants;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.IntakeMove;
 import frc.robot.subsystems.ShooterTest;
@@ -28,10 +30,10 @@ public class CollectHuman extends Command {
     @Override
     public void execute() {
         if (intakeMove.isLimitMax()) {
-            this.shooter.set(-0.2);
-            this.intake.set(-0.45);
+            this.shooter.set(ShooterTestConstants.Speed.speedCollectShooterHumanPlayer);
+            this.intake.set(ShooterTestConstants.Speed.speedCollectIntakeHumanPlayer);
         }else{
-            this.intakeMove.set(0.9);
+            this.intakeMove.set(IntakeMoveConstants.Speed.speedUp);
         }
 
     }

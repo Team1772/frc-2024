@@ -6,7 +6,6 @@ import frc.robot.subsystems.ShooterTest;
 public class Shoot extends Command {
 
   private ShooterTest shooter;
-  private double speed;
   private double speedDown;
   private double speedUp;
 

@@ -1,6 +1,7 @@
 package frc.robot.commands.intake_move;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.constants.IntakeMoveConstants;
 import frc.robot.subsystems.IntakeMove;
 
 public class IntakeDownToSensor extends Command {
@@ -9,7 +10,7 @@ public class IntakeDownToSensor extends Command {
   
   public IntakeDownToSensor(IntakeMove intakeMove) {
     this.intakeMove = intakeMove;
-    this.speed = -0.9;
+    this.speed = IntakeMoveConstants.Speed.speedDown;
 
     addRequirements(this.intakeMove);
   }
