@@ -1,17 +1,16 @@
 package frc.robot.buttonBindings;
 
 import frc.core.util.oi.SmartController;
+import frc.robot.commands.climber.ChangeClimberSize;
 import frc.robot.commands.intake.Collect;
-import frc.robot.commands.intake.IntakeManual;
 import frc.robot.commands.intake.Release;
 import frc.robot.commands.intake_move.IntakeDownToSensor;
 import frc.robot.commands.intake_move.IntakeUpDown;
 import frc.robot.commands.intake_move.IntakeUpToSensor;
 import frc.robot.commands.shooterTest.CollectHuman;
 import frc.robot.commands.shooterTest.Shoot;
-import frc.robot.commands.shooterTest.ShootAndIntakeSpeaker;
-import frc.robot.commands.shooterTest.ShootManual;
 import frc.robot.constants.ControllerConstants;
+import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.IntakeMove;
@@ -23,12 +22,14 @@ public class OperatorButtonBindings {
   public Intake intake;
   public IntakeMove intakeMove;
   public ShooterTest shooterTest;
+  public Climber climber;
 
-  public OperatorButtonBindings(Drivetrain drivetrain, IntakeMove intakeMove, Intake intake, ShooterTest shooterTest) {
+  public OperatorButtonBindings(Drivetrain drivetrain, IntakeMove intakeMove, Intake intake, ShooterTest shooterTest, Climber climber) {
     this.drivetrain = drivetrain;
     this.intakeMove = intakeMove;
     this.shooterTest = shooterTest;
     this.intake = intake;
+    this.climber = climber;
   }
 
   public void buttonBindingsIntakeMove() {
@@ -40,9 +41,6 @@ public class OperatorButtonBindings {
   public void buttonBindingsShooterTest() {
     this.operator.whileRightBumper(new Shoot(shooterTest, 0.75, 0.7));
     this.operator.whileLeftBumper(new Shoot(shooterTest, 0.3, 0.15));
-    // this.operator.whileXUp(new ShootAndIntakeSpeaker(shooterTest, Intake,
-    // intakeMove));
-
   }
 
   public void buttonBindingsIntake() {
@@ -51,6 +49,12 @@ public class OperatorButtonBindings {
     this.operator.whileXButton(new CollectHuman(shooterTest, intake, intakeMove));
   }
 
-  public void buttonBindingsOperatorRumble() {
+  public void buttonBindingsClimber() {
+        this.operator.whileXRight(
+      new ChangeClimberSize(
+        () -> this.operator.getLeftY(), 
+        this.climber
+      )
+    );
   }
 }

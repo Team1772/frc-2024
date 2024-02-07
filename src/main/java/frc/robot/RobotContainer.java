@@ -6,6 +6,7 @@ import frc.robot.buttonBindings.DriverButtonBindings;
 import frc.robot.buttonBindings.OperatorButtonBindings;
 import frc.robot.commands.autonomo.Auto1;
 import frc.robot.commands.autonomo.AutoTeste;
+import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.IntakeMove;
@@ -19,6 +20,7 @@ public class RobotContainer {
   public OperatorButtonBindings operator;
   public IntakeMove intakeMove;
   public Intake intake;
+  public Climber climber;
 
   public RobotContainer() {
     this.drivetrain = new Drivetrain();
@@ -27,7 +29,7 @@ public class RobotContainer {
     this.intake = new Intake();
 
     this.driver = new DriverButtonBindings(this.drivetrain, this.shooterTest);
-    this.operator = new OperatorButtonBindings(this.drivetrain, this.intakeMove, this.intake, this.shooterTest);
+    this.operator = new OperatorButtonBindings(this.drivetrain, this.intakeMove, this.intake, this.shooterTest, this.climber);
 
     configureButtonBindings();
 
