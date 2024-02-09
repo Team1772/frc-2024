@@ -1,8 +1,8 @@
 package frc.robot.commands.autonomo;
 
 import frc.core.util.TrajectoryBuilder;
-import frc.robot.commands.intake.Release;
-import frc.robot.commands.intake.ReleaseTimer;
+import frc.robot.commands.intake.IntakeRelease;
+import frc.robot.commands.intake.IntakeReleaseTimer;
 import frc.robot.commands.shooterTest.ShootOff;
 import frc.robot.commands.shooterTest.ShootOn;
 import frc.robot.subsystems.Drivetrain;
@@ -17,14 +17,14 @@ public class Auto1 extends SequentialCommandGroup {
         super.addCommands(
                 new ShootOn(shooter, 0.75),
                 new WaitCommand(0.75),
-                new ReleaseTimer(intake),
+                new IntakeReleaseTimer(intake),
                 new ShootOff(shooter),
                 trajectoryBuilder.build(true, "1-forward"),
                 new WaitCommand(0.6),
                 trajectoryBuilder.build(false, "1-reverse"),
                 new ShootOn(shooter, 0.75),
                 new WaitCommand(0.75),
-                new ReleaseTimer(intake),
+                new IntakeReleaseTimer(intake),
                 new ShootOff(shooter));
     }
 }

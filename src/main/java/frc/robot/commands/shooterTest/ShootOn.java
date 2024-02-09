@@ -6,13 +6,11 @@ import frc.robot.subsystems.ShooterTest;
 public class ShootOn extends Command {
 
   private ShooterTest shooter;
-  private double speed;
   private double speedDown;
   private double speedUp;
 
   public ShootOn(ShooterTest shooter, double speed) {
     this.shooter = shooter;
-    this.speed = speed;
     this.speedDown = speed;
     this.speedUp = speed;
     addRequirements(this.shooter);

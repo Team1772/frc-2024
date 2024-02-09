@@ -7,7 +7,7 @@ import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.IntakeMove;
 import frc.robot.subsystems.ShooterTest;
 
-public class CollectHuman extends Command {
+public class ShooterAndIntakeCollect extends Command {
 
     private ShooterTest shooter;
 
@@ -15,7 +15,7 @@ public class CollectHuman extends Command {
 
     private IntakeMove intakeMove;
 
-    public CollectHuman(ShooterTest shooter, Intake intake, IntakeMove intakeMove) {
+    public ShooterAndIntakeCollect(ShooterTest shooter, Intake intake, IntakeMove intakeMove) {
         this.shooter = shooter;
         this.intake = intake;
         this.intakeMove = intakeMove;

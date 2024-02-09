@@ -4,30 +4,32 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.constants.ShooterTestConstants;
 
 public class ShooterTest extends SubsystemBase {
-  private final WPI_TalonSRX motorUp;
-  private final WPI_TalonSRX motorDown;
+  private final WPI_TalonSRX motorUpper;
+  private final WPI_TalonSRX motorLower;
 
   public ShooterTest(){
-    this.motorUp = new WPI_TalonSRX(5);
-    this.motorDown = new WPI_TalonSRX(6);
-    this.motorUp.setNeutralMode(NeutralMode.Coast);
-    this.motorDown.setNeutralMode(NeutralMode.Coast);
-    this.motorDown.setInverted(true);
+    this.motorUpper = new WPI_TalonSRX(ShooterTestConstants.Motors.motorUpper);
+    this.motorLower = new WPI_TalonSRX(ShooterTestConstants.Motors.motorLower);
+    this.motorUpper.setNeutralMode(NeutralMode.Coast);
+    this.motorLower.setNeutralMode(NeutralMode.Coast);
+    this.motorUpper.setInverted(ShooterTestConstants.Motors.isMotorUpperInverted);
+    this.motorLower.setInverted(ShooterTestConstants.Motors.isMotorLowerInverted);
   }
 
   public void set(double speedUp, double speedDown){
-    motorUp.set(speedUp);
-    motorDown.set(speedDown);
+    motorUpper.set(speedUp);
+    motorLower.set(speedDown);
   }
   public void set(double speed){
-    motorUp.set(speed);
-    motorDown.set(speed);
+    motorUpper.set(speed);
+    motorLower.set(speed);
   }
   
   public void stop() {
-		motorUp.set(0);
-    motorDown.set(0);
+		motorUpper.set(0);
+    motorLower.set(0);
 	}
 }

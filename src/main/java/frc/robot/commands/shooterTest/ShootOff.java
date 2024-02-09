@@ -1,7 +1,6 @@
 package frc.robot.commands.shooterTest;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.constants.IntakeConstants;
 import frc.robot.subsystems.ShooterTest;
 
 public class ShootOff extends Command {

@@ -5,12 +5,12 @@ import frc.core.util.oi.SmartController;
 import frc.robot.constants.IntakeConstants;
 import frc.robot.subsystems.Intake;
 
-public class Collect extends Command {
+public class IntakeCollect extends Command {
   private final Intake intake;
   private SmartController operator;
   private SmartController driver;
 
-  public Collect(Intake intake, SmartController driver, SmartController operator) {
+  public IntakeCollect(Intake intake, SmartController driver, SmartController operator) {
     this.intake = intake;
     this.driver = driver;
     this.operator = operator;

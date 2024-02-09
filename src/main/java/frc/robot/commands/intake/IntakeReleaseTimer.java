@@ -5,11 +5,11 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.constants.IntakeConstants;
 import frc.robot.subsystems.Intake;
 
-public class ReleaseTimer extends Command {
+public class IntakeReleaseTimer extends Command {
   private final Intake intake;
   private Timer timer;
 
-  public ReleaseTimer(Intake intake) {
+  public IntakeReleaseTimer(Intake intake) {
     this.intake = intake;
     this.timer = new Timer();
 

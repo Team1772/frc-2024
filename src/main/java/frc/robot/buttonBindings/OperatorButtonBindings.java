@@ -2,12 +2,12 @@ package frc.robot.buttonBindings;
 
 import frc.core.util.oi.SmartController;
 import frc.robot.commands.climber.ChangeClimberSize;
-import frc.robot.commands.intake.Collect;
-import frc.robot.commands.intake.Release;
+import frc.robot.commands.intake.IntakeCollect;
+import frc.robot.commands.intake.IntakeRelease;
 import frc.robot.commands.intake_move.IntakeDownToSensor;
 import frc.robot.commands.intake_move.IntakeUpDown;
 import frc.robot.commands.intake_move.IntakeUpToSensor;
-import frc.robot.commands.shooterTest.CollectHuman;
+import frc.robot.commands.shooterTest.ShooterAndIntakeCollect;
 import frc.robot.commands.shooterTest.Shoot;
 import frc.robot.constants.ControllerConstants;
 import frc.robot.subsystems.Climber;
@@ -49,9 +49,9 @@ public class OperatorButtonBindings {
   }
 
   public void buttonBindingsIntake() {
-    this.operator.whileAButton(new Collect(intake, DriverButtonBindings.driver, operator));
-    this.operator.whileYButton(new Release(intake));
-    this.operator.whileXButton(new CollectHuman(shooterTest, intake, intakeMove));
+    this.operator.whileAButton(new IntakeCollect(intake, DriverButtonBindings.driver, operator));
+    this.operator.whileYButton(new IntakeRelease(intake));
+    this.operator.whileXButton(new ShooterAndIntakeCollect(shooterTest, intake, intakeMove));
   }
 
   public void buttonBindingsClimber() {
