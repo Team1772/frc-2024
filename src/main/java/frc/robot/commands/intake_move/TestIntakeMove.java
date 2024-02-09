@@ -7,10 +7,13 @@ import frc.robot.subsystems.IntakeMove;
 
 public class TestIntakeMove extends Command {
   private IntakeMove intakeMove;
+  private Boolean limitMax;
+  private Boolean isLimitMin;
 
   public TestIntakeMove(IntakeMove intakeMove) {
     this.intakeMove = intakeMove;
-
+    this.limitMax = false;
+    this.isLimitMin = false;
     addRequirements(this.intakeMove);
   }
 
@@ -23,17 +26,21 @@ public class TestIntakeMove extends Command {
     if (this.intakeMove.isLimitMax()) {
       this.intakeMove.stop();
       this.intakeMove.set(-0.8);
+      this.limitMax = true;
     } else if (this.intakeMove.isLimitMin()) {
       this.intakeMove.stop();
       this.intakeMove.set(0.8);
+      this.isLimitMin = true;
     } else {
       this.intakeMove.set(0.8);
+    }
+    if (this.isLimitMin && this.limitMax) {
+      SmartDashboard.putBoolean("[Test] IntakeMove", true);
     }
   }
 
   @Override
   public void end(boolean isInterrupted) {
-    SmartDashboard.putBoolean("[Test] IntakeMove", true);
     this.intakeMove.stop();
   }
 }
