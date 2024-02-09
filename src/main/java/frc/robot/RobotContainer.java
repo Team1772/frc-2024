@@ -27,6 +27,7 @@ public class RobotContainer {
     this.shooterTest = new ShooterTest();
     this.intakeMove = new IntakeMove();
     this.intake = new Intake();
+    this.climber = new Climber();
 
     this.driver = new DriverButtonBindings(this.drivetrain, this.shooterTest);
     this.operator = new OperatorButtonBindings(this.drivetrain, this.intakeMove, this.intake, this.shooterTest, this.climber);
@@ -42,6 +43,7 @@ public class RobotContainer {
     this.operator.buttonBindingsShooterTest();
     this.operator.buttonBindingsIntakeMove();
     this.operator.buttonBindingsIntake();
+    this.operator.buttonBindingsClimber();
     //this.operator.buttonBindingsOperatorRumble();
   }
 

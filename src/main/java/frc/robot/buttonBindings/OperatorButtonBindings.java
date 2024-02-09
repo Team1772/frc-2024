@@ -24,7 +24,8 @@ public class OperatorButtonBindings {
   public ShooterTest shooterTest;
   public Climber climber;
 
-  public OperatorButtonBindings(Drivetrain drivetrain, IntakeMove intakeMove, Intake intake, ShooterTest shooterTest, Climber climber) {
+  public OperatorButtonBindings(Drivetrain drivetrain, IntakeMove intakeMove, Intake intake, ShooterTest shooterTest,
+      Climber climber) {
     this.drivetrain = drivetrain;
     this.intakeMove = intakeMove;
     this.shooterTest = shooterTest;
@@ -39,8 +40,12 @@ public class OperatorButtonBindings {
   }
 
   public void buttonBindingsShooterTest() {
+    // Speaker
     this.operator.whileRightBumper(new Shoot(shooterTest, 0.75, 0.7));
+    // Amp
     this.operator.whileLeftBumper(new Shoot(shooterTest, 0.3, 0.15));
+    // Trap
+    this.operator.whileBButton(new Shoot(shooterTest, 0.15, 0.4));
   }
 
   public void buttonBindingsIntake() {
@@ -50,11 +55,9 @@ public class OperatorButtonBindings {
   }
 
   public void buttonBindingsClimber() {
-        this.operator.whileXRight(
-      new ChangeClimberSize(
-        () -> this.operator.getLeftY(), 
-        this.climber
-      )
-    );
+    this.operator.whileXRight(
+        new ChangeClimberSize(
+            () -> this.operator.getRightY(),
+            this.climber));
   }
 }
