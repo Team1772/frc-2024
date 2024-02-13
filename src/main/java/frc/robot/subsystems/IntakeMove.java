@@ -32,7 +32,7 @@ public class IntakeMove extends SubsystemBase {
     }
 
     public boolean isLimitMin(){
-      return this.limitMin.get();
+      return !this.limitMin.get();
     }
   
     public void stop() {

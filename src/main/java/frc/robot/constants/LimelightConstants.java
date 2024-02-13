@@ -14,7 +14,7 @@ public final class LimelightConstants {
 
   public static final class AimTarget {
     public static final double
-      kP = 0.06,
+      kP = 0.04,
       minCommand = 0.12;
   }
 

@@ -1,3 +1,4 @@
+
 package frc.robot.commands.drivetrain;
 
 import edu.wpi.first.wpilibj2.command.Command;
@@ -6,10 +7,10 @@ import frc.core.components.Limelight.LedMode;
 import frc.robot.constants.LimelightConstants;
 import frc.robot.subsystems.Drivetrain; 
 
-public class AimTarget extends Command {
+public class RangeTarget extends Command {
   private Drivetrain drivetrain;
 
-  public AimTarget(Drivetrain drivetrain) {
+  public RangeTarget(Drivetrain drivetrain) {
     this.drivetrain = drivetrain;
 
     addRequirements(this.drivetrain);
@@ -23,27 +24,21 @@ public class AimTarget extends Command {
 
   @Override
   public void execute() {
-    double x = Limelight.getX(),
-      headingError = -(x),
-      adjust = 0;
+    double y = Limelight.getY();
+    double distanceError = y;
 
-    if (x > 1) {
-      adjust = LimelightConstants.AimTarget.kP * 
-                headingError - 
-                LimelightConstants.AimTarget.minCommand;
-    } else if (x < 1) { 
-      adjust = LimelightConstants.AimTarget.kP * 
-                headingError + 
-                LimelightConstants.AimTarget.minCommand;
-    }
-    double rightSpeed = 0,
-      leftSpeed = 0;
-    rightSpeed -= adjust;
-    leftSpeed += adjust;
+    double rightSpeed = 0;
+    double leftSpeed = 0;
 
-    this.drivetrain.tankDrive(leftSpeed, rightSpeed);
+    double drivingAdjust = LimelightConstants.RangeTarget.kPDistance * distanceError;
+    rightSpeed += drivingAdjust;
+    leftSpeed += drivingAdjust;
 
-    System.out.println("adjust: " + adjust);
+    this.drivetrain.tankDrive(-leftSpeed, -rightSpeed);
+
+
+    System.out.println("adjust: " + drivingAdjust);
+    System.out.println("distance error: " + distanceError);
     System.out.println("left speed: " + leftSpeed);
     System.out.println("right speed: " + rightSpeed);
     

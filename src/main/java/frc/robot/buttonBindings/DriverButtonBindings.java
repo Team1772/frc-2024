@@ -2,7 +2,9 @@ package frc.robot.buttonBindings;
 
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 import frc.core.util.oi.SmartController;
+import frc.robot.commands.drivetrain.AimTarget;
 import frc.robot.commands.drivetrain.ArcadeDrive;
+import frc.robot.commands.drivetrain.RangeTarget;
 import frc.robot.commands.shooterTest.Shoot;
 import frc.robot.constants.ControllerConstants;
 import frc.robot.constants.DrivetrainConstants;
@@ -38,6 +40,11 @@ public class DriverButtonBindings {
       this.driver.whileBButton(drivetrain.sysIdQuasistatic(Direction.kForward));
       this.driver.whileXButton(drivetrain.sysIdQuasistatic(Direction.kReverse));
     }
+  }
+
+    public void buttonBindingsLimelight() {
+      driver.whileXUp(new AimTarget(drivetrain));
+      driver.whileXDown(new RangeTarget(drivetrain));
   }
 
 }

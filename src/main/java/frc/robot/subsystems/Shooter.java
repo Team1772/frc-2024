@@ -12,71 +12,75 @@ import frc.robot.constants.ShooterConstants;
 
 public class Shooter extends SubsystemBase {
 
-	private static final int NEUTRAL_SENSOR_VELOCITY = Math.abs(200);
-	private static final int SAFE_REVERSE_SENSOR_VELOCITY = -1200;
-	private final WPI_TalonSRX motor;
-	private final TalonVelocity shooterPID;
+  private static final int NEUTRAL_SENSOR_VELOCITY = Math.abs(200);
+  private static final int SAFE_REVERSE_SENSOR_VELOCITY = -1200;
+  private final WPI_TalonSRX motor;
+  private final TalonVelocity shooterPID;
+  private final WPI_TalonSRX motorFollower;
 
-	public Shooter() {
-		this.motor = new WPI_TalonSRX(ShooterConstants.motorPort);
-		this.motor.setNeutralMode(NeutralMode.Coast);
+  public Shooter() {
+    this.motor = new WPI_TalonSRX(ShooterConstants.motorPort);
+    this.motorFollower = new WPI_TalonSRX(ShooterConstants.motorFollowerPort);
+    this.motor.setNeutralMode(NeutralMode.Coast);
+    this.motorFollower.setNeutralMode(NeutralMode.Coast);
 
-		this.shooterPID = new TalonVelocity(
-				this.motor,
-				ShooterConstants.isMotorInverted,
-				ShooterConstants.isSensorPhase,
-				new Gains(
-						ShooterConstants.PID.kPVelocity,
-						ShooterConstants.PID.kIVelocity,
-						ShooterConstants.PID.kDVelocity,
-						ShooterConstants.PID.kFVelocity,
-						ShooterConstants.PID.kIZoneVelocity,
-						ShooterConstants.PID.kPeakOutputVelocity));
+    this.shooterPID = new TalonVelocity(
+        this.motor,
+        ShooterConstants.isMotorInverted,
+        ShooterConstants.isMotorFollowerInverted,
+        ShooterConstants.isSensorPhase,
+        new Gains(
+            ShooterConstants.PID.kPVelocity,
+            ShooterConstants.PID.kIVelocity,
+            ShooterConstants.PID.kDVelocity,
+            ShooterConstants.PID.kFVelocity,
+            ShooterConstants.PID.kIZoneVelocity,
+            ShooterConstants.PID.kPeakOutputVelocity),
+        this.motorFollower);
 
-	}
+  }
 
-	public void set(double speed) {
-		this.motor.set(ControlMode.PercentOutput, speed);
-	}
+  public void set(double speed) {
+    this.motor.set(ControlMode.PercentOutput, speed);
+  }
 
-	public void setRPM(double rpm) {
-		this.shooterPID.setRPM(
-				rpm,
-				ShooterConstants.PID.dutyCycle);
-	}
+  public void setRPM(double rpm) {
+    this.shooterPID.setRPM(
+        rpm,
+        ShooterConstants.PID.dutyCycle);
+  }
 
-	public void setVelocityMetersPerSecond(double velocityMetersPerSecond) {
-		this.shooterPID.setVelocityMetersPerSecond(
-				velocityMetersPerSecond,
-				ShooterConstants.PID.dutyCycle,
-				ShooterConstants.wheelRadius);
-	}
+  public void setVelocityMetersPerSecond(double velocityMetersPerSecond) {
+    this.shooterPID.setVelocityMetersPerSecond(
+        velocityMetersPerSecond,
+        ShooterConstants.PID.dutyCycle,
+        ShooterConstants.wheelRadiusMeters);
+  }
 
-	public boolean atSettedVelocity() {
-		return this.shooterPID.atSettedVelocity();
-	}
+  public boolean atSettedVelocity() {
+    return this.shooterPID.atSettedVelocity();
+  }
 
-	public boolean isSafetyShoot() {
-		return this.shooterPID.getSelectedSensorVelocity() >= SAFE_REVERSE_SENSOR_VELOCITY;
-	}
+  public boolean isSafetyShoot() {
+    return this.shooterPID.getSelectedSensorVelocity() >= SAFE_REVERSE_SENSOR_VELOCITY;
+  }
 
-	public boolean isShooterMoving() {
-		return Math.abs(this.shooterPID.getSelectedSensorVelocity()) > NEUTRAL_SENSOR_VELOCITY;
-	}
+  public boolean isShooterMoving() {
+    return Math.abs(this.shooterPID.getSelectedSensorVelocity()) > NEUTRAL_SENSOR_VELOCITY;
+  }
 
-	//210 > 200
-	// 250
-	// 
-	
+  // 210 > 200
+  // 250
+  //
 
-	public void stop() {
-		this.set(0);
-	}
+  public void stop() {
+    this.set(0);
+  }
 
-	@Override
-	public void periodic() {
-		SmartDashboard.putNumber("error", shooterPID.getClosedLoopError());
-		SmartDashboard.putNumber("selected sensor velocity", this.shooterPID.getSelectedSensorVelocity());
-		SmartDashboard.putBoolean("isSettedVelocity", this.atSettedVelocity());
-	}
+  @Override
+  public void periodic() {
+    SmartDashboard.putNumber("error", this.shooterPID.getClosedLoopError());
+    SmartDashboard.putNumber("selected sensor velocity", this.shooterPID.getSelectedSensorVelocity());
+    SmartDashboard.putBoolean("isSettedVelocity", this.atSettedVelocity());
+  }
 }

@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class ShooterTest extends SubsystemBase {
@@ -15,10 +16,12 @@ public class ShooterTest extends SubsystemBase {
     this.motorUp.setNeutralMode(NeutralMode.Coast);
     this.motorDown.setNeutralMode(NeutralMode.Coast);
     this.motorDown.setInverted(true);
+    this.motorUp.setInverted(true);
+
   }
 
   public void set(double speedUp, double speedDown){
-    motorUp.set(speedUp);
+    motorUp.set(-speedUp);
     motorDown.set(speedDown);
   }
   public void set(double speed){
@@ -30,4 +33,7 @@ public class ShooterTest extends SubsystemBase {
 		motorUp.set(0);
     motorDown.set(0);
 	}
+
+    public void periodic() {
+  }
 }

@@ -9,6 +9,7 @@ import frc.robot.constants.ShooterConstants;
 public class TalonVelocity extends PIDTalon {
 
   private double velocityUnitsPer100ms;
+  private static final int ERROR_LIMIT = 50;
 
   public TalonVelocity(
       WPI_TalonSRX master,
@@ -55,23 +56,23 @@ public class TalonVelocity extends PIDTalon {
   }
 
   public TalonVelocity(
-    WPI_TalonSRX master,
-    boolean isMasterInverted,
-    boolean isSensorPhase,
-    Gains gains,
-    WPI_TalonSRX... followers) {
-  this(
-      master,
-      isMasterInverted,
-      false,
-      isSensorPhase,
-      PIDTalonConstants.nominalOutputForwardValue,
-      PIDTalonConstants.nominalOutputReverseValue,
-      PIDTalonConstants.peakOutputForwardValue,
-      PIDTalonConstants.peakOutputReverseValue,
-      gains,
-      followers);
-}
+      WPI_TalonSRX master,
+      boolean isMasterInverted,
+      boolean isSensorPhase,
+      Gains gains,
+      WPI_TalonSRX... followers) {
+    this(
+        master,
+        isMasterInverted,
+        false,
+        isSensorPhase,
+        PIDTalonConstants.nominalOutputForwardValue,
+        PIDTalonConstants.nominalOutputReverseValue,
+        PIDTalonConstants.peakOutputForwardValue,
+        PIDTalonConstants.peakOutputReverseValue,
+        gains,
+        followers);
+  }
 
   public TalonVelocity(
       WPI_TalonSRX master,
@@ -113,9 +114,10 @@ public class TalonVelocity extends PIDTalon {
   }
 
   public boolean atSettedVelocity() {
-    if(this.getSelectedSensorVelocity() == 0) return false;
+    if (this.getSelectedSensorVelocity() == 0)
+      return false;
 
-    return (this.velocityUnitsPer100ms - super.master.getSelectedSensorVelocity()) <= 50 ;
+    return (this.velocityUnitsPer100ms - super.master.getSelectedSensorVelocity()) <= ERROR_LIMIT;
   }
 
   public double getSelectedSensorVelocity() {
