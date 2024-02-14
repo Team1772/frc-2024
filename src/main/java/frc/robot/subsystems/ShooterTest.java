@@ -16,12 +16,12 @@ public class ShooterTest extends SubsystemBase {
     this.motorUp.setNeutralMode(NeutralMode.Coast);
     this.motorDown.setNeutralMode(NeutralMode.Coast);
     this.motorDown.setInverted(true);
-    this.motorUp.setInverted(true);
+    this.motorUp.setInverted(false);
 
   }
 
   public void set(double speedUp, double speedDown){
-    motorUp.set(-speedUp);
+    motorUp.set(speedUp);
     motorDown.set(speedDown);
   }
   public void set(double speed){
