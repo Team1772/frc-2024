@@ -103,10 +103,10 @@ public class Shooter extends SubsystemBase {
 
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("error", this.shooterPIDUpper.getClosedLoopError());
-    SmartDashboard.putNumber("error", this.shooterPIDLower.getClosedLoopError());
-    SmartDashboard.putNumber("selected sensor velocity", this.shooterPIDUpper.getSelectedSensorVelocity());
-    SmartDashboard.putNumber("selected sensor velocity", this.shooterPIDLower.getSelectedSensorVelocity());
+    SmartDashboard.putNumber("error upper", this.shooterPIDUpper.getClosedLoopError());
+    SmartDashboard.putNumber("error lower", this.shooterPIDLower.getClosedLoopError());
+    SmartDashboard.putNumber("selected upper sensor velocity", this.shooterPIDUpper.getSelectedSensorVelocity());
+    SmartDashboard.putNumber("selected lower sensor velocity", this.shooterPIDLower.getSelectedSensorVelocity());
     SmartDashboard.putBoolean("isSettedVelocity", this.atSettedVelocity());
   }
 }
