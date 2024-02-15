@@ -14,20 +14,20 @@ public class Shooter extends SubsystemBase {
 
   private static final int NEUTRAL_SENSOR_VELOCITY = Math.abs(200);
   private static final int SAFE_REVERSE_SENSOR_VELOCITY = -1200;
-  private final WPI_TalonSRX motor;
-  private final TalonVelocity shooterPID;
-  private final WPI_TalonSRX motorFollower;
+  private final WPI_TalonSRX motorUpper;
+  private final TalonVelocity shooterPIDUpper;
+  private final WPI_TalonSRX motorLower;
+  private final TalonVelocity shooterPIDLower;
 
   public Shooter() {
-    this.motor = new WPI_TalonSRX(ShooterConstants.motorPort);
-    this.motorFollower = new WPI_TalonSRX(ShooterConstants.motorFollowerPort);
-    this.motor.setNeutralMode(NeutralMode.Coast);
-    this.motorFollower.setNeutralMode(NeutralMode.Coast);
+    this.motorUpper = new WPI_TalonSRX(ShooterConstants.motorUpperPort);
+    this.motorLower = new WPI_TalonSRX(ShooterConstants.motorLowerPort);
+    this.motorUpper.setNeutralMode(NeutralMode.Coast);
+    this.motorLower.setNeutralMode(NeutralMode.Coast);
 
-    this.shooterPID = new TalonVelocity(
-        this.motor,
-        ShooterConstants.isMotorInverted,
-        ShooterConstants.isMotorFollowerInverted,
+    this.shooterPIDUpper = new TalonVelocity(
+        this.motorUpper,
+        ShooterConstants.isMotorUpperInverted,
         ShooterConstants.isSensorPhase,
         new Gains(
             ShooterConstants.PID.kPVelocity,
@@ -35,38 +35,62 @@ public class Shooter extends SubsystemBase {
             ShooterConstants.PID.kDVelocity,
             ShooterConstants.PID.kFVelocity,
             ShooterConstants.PID.kIZoneVelocity,
-            ShooterConstants.PID.kPeakOutputVelocity),
-        this.motorFollower);
+            ShooterConstants.PID.kPeakOutputVelocity));
+
+    this.shooterPIDLower = new TalonVelocity(
+        this.motorLower,
+        ShooterConstants.isMotorLowerInverted,
+        ShooterConstants.isSensorPhase,
+        new Gains(
+            ShooterConstants.PID.kPVelocity,
+            ShooterConstants.PID.kIVelocity,
+            ShooterConstants.PID.kDVelocity,
+            ShooterConstants.PID.kFVelocity,
+            ShooterConstants.PID.kIZoneVelocity,
+            ShooterConstants.PID.kPeakOutputVelocity));
 
   }
 
-  public void set(double speed) {
-    this.motor.set(ControlMode.PercentOutput, speed);
+  public void set(double speedUpper, double speedLower) {
+    this.motorUpper.set(ControlMode.PercentOutput, speedUpper);
+    this.motorLower.set(ControlMode.PercentOutput, speedLower);
   }
 
   public void setRPM(double rpm) {
-    this.shooterPID.setRPM(
+    this.shooterPIDUpper.setRPM(
+        rpm,
+        ShooterConstants.PID.dutyCycle);
+
+    this.shooterPIDLower.setRPM(
         rpm,
         ShooterConstants.PID.dutyCycle);
   }
 
   public void setVelocityMetersPerSecond(double velocityMetersPerSecond) {
-    this.shooterPID.setVelocityMetersPerSecond(
+    this.shooterPIDUpper.setVelocityMetersPerSecond(
+        velocityMetersPerSecond,
+        ShooterConstants.PID.dutyCycle,
+        ShooterConstants.wheelRadiusMeters);
+
+    this.shooterPIDLower.setVelocityMetersPerSecond(
         velocityMetersPerSecond,
         ShooterConstants.PID.dutyCycle,
         ShooterConstants.wheelRadiusMeters);
   }
 
   public boolean atSettedVelocity() {
-    return this.shooterPID.atSettedVelocity();
+     return this.shooterPIDUpper.atSettedVelocity() && this.shooterPIDLower.atSettedVelocity();
   }
 
   public boolean isSafetyShoot() {
-    return this.shooterPID.getSelectedSensorVelocity() >= SAFE_REVERSE_SENSOR_VELOCITY;
+    return this.shooterPIDUpper.getSelectedSensorVelocity() >= SAFE_REVERSE_SENSOR_VELOCITY && 
+    this.shooterPIDLower.getSelectedSensorVelocity() >= SAFE_REVERSE_SENSOR_VELOCITY;
   }
+  
 
   public boolean isShooterMoving() {
-    return Math.abs(this.shooterPID.getSelectedSensorVelocity()) > NEUTRAL_SENSOR_VELOCITY;
+    return Math.abs(this.shooterPIDUpper.getSelectedSensorVelocity()) > NEUTRAL_SENSOR_VELOCITY &&
+    Math.abs(this.shooterPIDLower.getSelectedSensorVelocity()) > NEUTRAL_SENSOR_VELOCITY;
   }
 
   // 210 > 200
@@ -74,13 +98,15 @@ public class Shooter extends SubsystemBase {
   //
 
   public void stop() {
-    this.set(0);
+    this.set(0, 0);
   }
 
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("error", this.shooterPID.getClosedLoopError());
-    SmartDashboard.putNumber("selected sensor velocity", this.shooterPID.getSelectedSensorVelocity());
+    SmartDashboard.putNumber("error", this.shooterPIDUpper.getClosedLoopError());
+    SmartDashboard.putNumber("error", this.shooterPIDLower.getClosedLoopError());
+    SmartDashboard.putNumber("selected sensor velocity", this.shooterPIDUpper.getSelectedSensorVelocity());
+    SmartDashboard.putNumber("selected sensor velocity", this.shooterPIDLower.getSelectedSensorVelocity());
     SmartDashboard.putBoolean("isSettedVelocity", this.atSettedVelocity());
   }
 }
