@@ -5,18 +5,20 @@ import frc.robot.subsystems.Shooter;
 
 public class PrepareShootAmp extends Command {
   private final Shooter shooter;
-  private double speed;
+  private double upperSpeed;
+  private double lowerSpeed;
 
-  public PrepareShootAmp(double speed, Shooter shooter) {
+  public PrepareShootAmp(double upperMeterPerSecond, double lowerVoltage, Shooter shooter) {
     this.shooter = shooter;
-    this.speed = speed;
+    this.upperSpeed = upperMeterPerSecond;
+    this.lowerSpeed = lowerVoltage;
 
     addRequirements(this.shooter);
   }
 
   @Override
   public void execute() {
-    this.shooter.setVelocityMetersPerSecond(speed);
+    this.shooter.setUpperVelocityMetersPerSecondandLowerVoltage(upperSpeed, lowerSpeed);
   }
 
   @Override

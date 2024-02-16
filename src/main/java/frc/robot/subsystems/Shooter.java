@@ -78,6 +78,15 @@ public class Shooter extends SubsystemBase {
         ShooterConstants.wheelRadiusMeters);
   }
 
+    public void setUpperVelocityMetersPerSecondandLowerVoltage(double upperVelocityMetersPerSecond, double lowerPercentVoltage) {
+    this.shooterPIDUpper.setVelocityMetersPerSecond(
+        upperVelocityMetersPerSecond,
+        ShooterConstants.PID.dutyCycle,
+        ShooterConstants.wheelRadiusMeters);
+
+    this.motorLower.set(lowerPercentVoltage);
+  }
+
   public boolean atSettedVelocity() {
      return this.shooterPIDUpper.atSettedVelocity() && this.shooterPIDLower.atSettedVelocity();
   }

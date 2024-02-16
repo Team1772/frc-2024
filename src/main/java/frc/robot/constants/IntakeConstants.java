@@ -10,11 +10,14 @@ public final class IntakeConstants {
             isMotorInverted = true;
     }
 
-
+    public static final class Sensor {
+      public static final int
+          infrared = 6;     
+    }
     public static final class Speeds {
         public static final double
             speedCollect = -0.6,
-            speedRelease = 0.6,
+            speedRelease = 0.7,
             speedMultiplier = 0.5;
     }
 
