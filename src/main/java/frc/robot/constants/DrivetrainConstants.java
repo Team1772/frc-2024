@@ -14,10 +14,10 @@ public final class DrivetrainConstants {
   }
 
   public static final class Encoders {
-    public static final int encoderLeftPortOne = 6,
-        encoderLeftPortTwo = 7,
-        encoderRightPortOne = 4,
-        encoderRightPortTwo = 5;
+    public static final int encoderLeftPortOne = 1,
+        encoderLeftPortTwo = 2,
+        encoderRightPortOne = 3,
+        encoderRightPortTwo = 4;
 
     public static final boolean isEncoderLeftInverted = false,
         isEncoderRightInverted = false;

@@ -41,7 +41,8 @@ public class OperatorButtonBindings {
   public void buttonBindingsIntakeMove() {
     this.operator.whileXUp(new IntakeUpToSensor(this.intakeMove));
     this.operator.whileXDown(new IntakeDownToSensor(this.intakeMove));
-    new IntakeUpDown(this.intakeMove, () -> this.operator.getLeftY());
+    //this.intakeMove.setDefaultCommand(new IntakeUpDown(this.intakeMove, () -> -this.operator.getLeftY()));
+
   }
 
   public void buttonBindingsShooterTest() {
@@ -50,10 +51,11 @@ public class OperatorButtonBindings {
 
     this.operator.whileRightBumper(new Shoot(shooterTest, 0.75, 0.7));
     //this.operator.whileRightBumper(new PrepareShoot(16, shooter));
+    
     // Amp
-    //this.operator.whileLeftBumper(new PrepareShootAmp(10, shooter));
+    //this.operator.whileLeftBumper(new PrepareShootAmp(0.3, 0.1, shooter));
+    this.operator.whileLeftBumper(new Shoot(shooterTest, 0.3, 0.10));
 
-    this.operator.whileLeftBumper(new Shoot(shooterTest, 0.3, 0.1));
     // Trap
     this.operator.whileBButton(new Shoot(shooterTest, 0.15, 0.4));
   }
@@ -65,8 +67,7 @@ public class OperatorButtonBindings {
   }
 
   public void buttonBindingsClimber() {
-    this.operator.whileXRight(
-        new ChangeClimberSize(
+    this.climber.setDefaultCommand(new ChangeClimberSize(
             () -> this.operator.getRightY(),
             this.climber));
   }

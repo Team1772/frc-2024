@@ -9,13 +9,13 @@ public final class LimelightConstants {
   public static final int pipeline = 0;
 
   public static final class Seeking {
-    public static final double kP = -0.1;
+    public static final double kP = -0.6;
   }
 
   public static final class AimTarget {
     public static final double
-      kP = 0.04,
-      minCommand = 0.12;
+      kP = 0.048,
+      minCommand = 0.15;
   }
 
   public static final class RangeTarget {
@@ -25,8 +25,8 @@ public final class LimelightConstants {
   
   public static final class AimAndRangeTarget {
     public static final double 
-      kP = -0.1,
-      kPDistance = -0.50,
+      kP = -0.04,
+      kPDistance = 0.050,
       minCommand = 0.05;
   }
 }

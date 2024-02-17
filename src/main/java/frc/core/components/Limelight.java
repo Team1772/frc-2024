@@ -14,6 +14,7 @@ public class Limelight {
     TY("ty"),
     TA("ta"),
     TV("tv"),
+    TID("tid"),
     PIPELINE("pipeline"),
     LED_MODE("ledMode"),
     CAM_MODE("camMode");
@@ -71,6 +72,10 @@ public class Limelight {
 
   public static double getV() {
     return getValue(Entry.TV);
+  }
+  
+  public static double getApriltag(){
+    return getValue(Entry.TID);
   }
 
   public static boolean isTarget() {

@@ -40,8 +40,9 @@ public class Shooter extends SubsystemBase {
 
   }
 
-  public void set(double speed) {
-    this.motor.set(ControlMode.PercentOutput, speed);
+  public void set(double speedUp, double speedDown) {
+    this.motor.set(ControlMode.PercentOutput, speedUp);
+    this.motorFollower.set(ControlMode.PercentOutput, speedDown);
   }
 
   public void setRPM(double rpm) {
@@ -74,7 +75,7 @@ public class Shooter extends SubsystemBase {
   //
 
   public void stop() {
-    this.set(0);
+    this.set(0, 0);
   }
 
   @Override

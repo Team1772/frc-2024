@@ -15,7 +15,7 @@ public class Intake extends SubsystemBase {
   public Intake(){
     this.motor = new WPI_TalonSRX(IntakeConstants.Motors.id);
     this.motor.setNeutralMode(NeutralMode.Coast);
-    this.infraredSensor = new DigitalInput(3);
+    this.infraredSensor = new DigitalInput(5);
   }
 
   public void set(double speed){
