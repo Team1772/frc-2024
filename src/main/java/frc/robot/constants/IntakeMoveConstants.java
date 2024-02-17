@@ -11,8 +11,8 @@ public final class IntakeMoveConstants {
 
     public static final class Sensor {
         public static final int
-            limitMax = 8,
-            limitMin = 9;
+            limitMax = 6,
+            limitMin = 7;
     }
 
     public static final class Speed{

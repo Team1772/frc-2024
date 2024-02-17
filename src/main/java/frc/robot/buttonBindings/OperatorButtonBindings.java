@@ -41,13 +41,11 @@ public class OperatorButtonBindings {
   public void buttonBindingsIntakeMove() {
     this.operator.whileXUp(new IntakeUpToSensor(this.intakeMove));
     this.operator.whileXDown(new IntakeDownToSensor(this.intakeMove));
-    new IntakeUpDown(this.intakeMove, () -> this.operator.getLeftY());
+    //new IntakeUpDown(this.intakeMove, () -> this.operator.getLeftY());
   }
 
   public void buttonBindingsShooterTest() {
     // Speaker
-    // this.operator.whileRightBumper(new Shoott(shooter));
-
     // this.operator.whileRightBumper(new Shoot(shooterTest, 0.75, 0.7));
     this.operator.whileRightBumper(new PrepareShoot(16, shooter));
     // Amp
