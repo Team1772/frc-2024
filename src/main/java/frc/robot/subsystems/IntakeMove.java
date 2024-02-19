@@ -28,7 +28,7 @@ public class IntakeMove extends SubsystemBase {
     }
 
     public boolean isLimitMax(){
-      return !this.limitMax.get();
+      return this.limitMax.get();
     }
 
     public boolean isLimitMin(){

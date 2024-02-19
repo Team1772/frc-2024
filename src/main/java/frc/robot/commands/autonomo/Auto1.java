@@ -15,16 +15,17 @@ public class Auto1 extends SequentialCommandGroup {
 
     public Auto1(Drivetrain drivetrain, ShooterTest shooter, Intake intake, TrajectoryBuilder trajectoryBuilder) {
         super.addCommands(
-                new ShootOn(shooter, 0.75),
-                new WaitCommand(0.75),
-                new ReleaseTimer(intake),
-                new ShootOff(shooter),
-                trajectoryBuilder.build(true, "1-forward"),
-                new WaitCommand(0.6),
-                trajectoryBuilder.build(false, "1-reverse"),
-                new ShootOn(shooter, 0.75),
-                new WaitCommand(0.75),
-                new ReleaseTimer(intake),
-                new ShootOff(shooter));
+                // new ShootOn(shooter, 0.75),
+                // new WaitCommand(0.75),
+                // new ReleaseTimer(intake),
+                // new ShootOff(shooter),
+                trajectoryBuilder.build(true, "1-forward")
+                // new WaitCommand(0.6),
+                // trajectoryBuilder.build(false, "1-reverse");
+                // new ShootOn(shooter, 0.75),
+                // new WaitCommand(0.75),
+                // new ReleaseTimer(intake),
+                // new ShootOff(shooter)
+        );
     }
 }

@@ -1,8 +1,8 @@
 package frc.robot.constants;
 
 public class ShooterConstants {
-  public static final int motorPort = 5;
-  public static final int motorFollowerPort = 6;
+  public static final int motorUpperPort = 5;
+  public static final int motorLowerPort = 6;
 
   public static final double speed = 0.53;
   public static final boolean isInverted = true;
@@ -12,8 +12,8 @@ public class ShooterConstants {
   public static final int maxRPM = 5666,
       kSensorUnitsPerRotation = 4096;
 
-  public static final boolean isMotorInverted = false,
-      isMotorFollowerInverted = true,
+  public static final boolean isMotorUpperInverted = false,
+      isMotorLowerInverted = true,
       isSensorPhase = true;
 
   public static final class PID {

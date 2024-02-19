@@ -9,8 +9,8 @@ public final class DrivetrainConstants {
         motorRightBack = 3,
         motorRightFront = 4;
 
-    public static final boolean isMotorsLeftInverted = true,
-        isMotorsRightInverted = false;
+    public static final boolean isMotorsLeftInverted = false,
+        isMotorsRightInverted = true;
   }
 
   public static final class Encoders {
@@ -19,7 +19,7 @@ public final class DrivetrainConstants {
         encoderRightPortOne = 3,
         encoderRightPortTwo = 4;
 
-    public static final boolean isEncoderLeftInverted = false,
+    public static final boolean isEncoderLeftInverted = true,
         isEncoderRightInverted = false;
 
     public static final int pulsesPerRotation = 500,
