@@ -2,12 +2,13 @@ package frc.robot.buttonBindings;
 
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 import frc.core.util.oi.SmartController;
+//import frc.robot.commands.driveNeo.ArcadeDriveNeo;
 import frc.robot.commands.drivetrain.AimTarget;
 import frc.robot.commands.drivetrain.ArcadeDrive;
 import frc.robot.commands.drivetrain.RangeTarget;
-import frc.robot.commands.shooterTest.Shoot;
 import frc.robot.constants.ControllerConstants;
 import frc.robot.constants.DrivetrainConstants;
+//import frc.robot.subsystems.DriveNeoTest;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.ShooterTest;
 
@@ -15,9 +16,11 @@ public class DriverButtonBindings {
 
   private final Drivetrain drivetrain;
   public static SmartController driver;
+  // private DriveNeoTest driveNeoTest;
 
   public DriverButtonBindings(Drivetrain drivetrain, ShooterTest shooterTest) {
     this.drivetrain = drivetrain;
+//    this.driveNeoTest = driveNeoTest;
     this.driver = new SmartController(ControllerConstants.kDriverControllerPort);
 
     this.buttonBindingsDrivetain();

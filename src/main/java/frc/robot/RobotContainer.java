@@ -7,6 +7,7 @@ import frc.robot.buttonBindings.OperatorButtonBindings;
 import frc.robot.commands.autonomo.Auto1;
 import frc.robot.commands.autonomo.AutoTeste;
 import frc.robot.subsystems.Climber;
+//import frc.robot.subsystems.DriveNeoTest;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.IntakeMove;
@@ -23,6 +24,7 @@ public class RobotContainer {
   public Intake intake;
   public Climber climber;
   private Shooter shooter;
+//  private DriveNeoTest driveNeoTest;
 
   public RobotContainer() {
     this.drivetrain = new Drivetrain();
@@ -31,6 +33,7 @@ public class RobotContainer {
     this.intake = new Intake();
     this.climber = new Climber();
     this.shooter = new Shooter();
+//    this.driveNeoTest = new DriveNeoTest();
 
     this.driver = new DriverButtonBindings(this.drivetrain, this.shooterTest);
     this.operator = new OperatorButtonBindings(this.drivetrain, this.intakeMove, this.intake, this.shooterTest, this.climber, this.shooter);
@@ -42,8 +45,8 @@ public class RobotContainer {
 
   private void configureButtonBindings() {
     this.driver.buttonBindingsDrivetain();
-    this.driver.buttonBindingsSysId();
-    this.driver.buttonBindingsLimelight();
+    //this.driver.buttonBindingsSysId();
+    //this.driver.buttonBindingsLimelight();
     this.operator.buttonBindingsShooterTest();
     this.operator.buttonBindingsIntakeMove();
     this.operator.buttonBindingsIntake();
