@@ -51,10 +51,6 @@ public class Shooter extends SubsystemBase {
 
   }
 
-  public void set(double speedUpper, double speedLower) {
-    this.motorUpper.set(ControlMode.PercentOutput, speedUpper);
-    this.motorLower.set(ControlMode.PercentOutput, speedLower);
-  }
 
   public void setRPM(double rpm) {
     this.shooterPIDUpper.setRPM(
