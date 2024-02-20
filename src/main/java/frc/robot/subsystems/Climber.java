@@ -13,7 +13,7 @@ public class Climber extends SubsystemBase {
     private WPI_VictorSPX motor;
   
     public Climber() {
-      this.motor = new WPI_VictorSPX(9);
+      this.motor = new WPI_VictorSPX(20);
       this.motor.setInverted(false);
       this.motor.setNeutralMode(NeutralMode.Brake);
     }

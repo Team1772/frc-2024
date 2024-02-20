@@ -44,7 +44,10 @@ public class OperatorButtonBindings {
 
   public void buttonBindingsShooterTest() {
     // Speaker
-    this.operator.whileRightBumper(new PrepareShoot(16, shooter));
+    // this.operator.whileRightBumper(new Shoott(shooter));
+
+    this.operator.whileRightBumper(new Shoot(shooterTest, 0.75, 0.7));
+    //this.operator.whileRightBumper(new PrepareShoot(16, shooter));
     // Amp
     this.operator.whileLeftBumper(new Shoot(shooterTest, 0.23, 0.23));
     // Trap
@@ -58,7 +61,7 @@ public class OperatorButtonBindings {
   }
 
   public void buttonBindingsClimber() {
-    this.climber.setDefaultCommand(
+    this.operator.whileXRight(
         new ChangeClimberSize(
             () -> this.operator.getRightY(),
             this.climber));
