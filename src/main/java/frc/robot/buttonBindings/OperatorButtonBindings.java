@@ -49,9 +49,7 @@ public class OperatorButtonBindings {
     this.operator.whileRightBumper(new Shoot(shooterTest, 0.75, 0.7));
     //this.operator.whileRightBumper(new PrepareShoot(16, shooter));
     // Amp
-    //this.operator.whileLeftBumper(new PrepareShootAmp(10, shooter));
-
-    this.operator.whileLeftBumper(new Shoot(shooterTest, 0.3, 0.1));
+    this.operator.whileLeftBumper(new Shoot(shooterTest, 0.23, 0.23));
     // Trap
     this.operator.whileBButton(new Shoot(shooterTest, 0.4));
   }
