@@ -97,7 +97,7 @@ public class Drivetrain extends SubsystemBase {
 
   public void tankDriveVolts(double leftVolts, double rightVolts) {
     this.motorsLeft.setVoltage(leftVolts);
-    this.motorsRight.setVoltage(-rightVolts);
+    this.motorsRight.setVoltage(rightVolts);
     System.out.println("LeftVolts " + leftVolts);
     System.out.println("RightVolts " + rightVolts);
 
@@ -176,8 +176,8 @@ public class Drivetrain extends SubsystemBase {
      */
     this.odometry.resetPosition(
         this.getRotation2d(),
-        this.getEncoderLeft().get(),
-        this.getEncoderRight().get(),
+        this.getEncoderLeft().getDistance(),
+        this.getEncoderRight().getDistance(),
         pose);
   }
 

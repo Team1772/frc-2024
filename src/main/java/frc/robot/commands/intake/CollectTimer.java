@@ -5,16 +5,14 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.constants.IntakeConstants;
 import frc.robot.subsystems.Intake;
 
-public class ReleaseTimer extends Command {
+public class CollectTimer extends Command {
   private final Intake intake;
   private final double secondsEnabled;
-  private final double secondsEnabledUntilRelease;
   private Timer timer;
 
-  public ReleaseTimer(Intake intake, double secondsEnabled, double secondsEnabledUntilRelease) {
+  public CollectTimer(Intake intake, double secondsEnabled) {
     this.intake = intake;
     this.secondsEnabled = secondsEnabled;
-    this.secondsEnabledUntilRelease = secondsEnabledUntilRelease;
     this.timer = new Timer();
 
     addRequirements(this.intake);
@@ -28,7 +26,7 @@ public class ReleaseTimer extends Command {
 
   @Override
   public void execute() {
-    if(this.timer.hasElapsed(secondsEnabledUntilRelease)) {this.intake.set(IntakeConstants.Speeds.speedRelease);}
+    this.intake.set(IntakeConstants.Speeds.speedCollect);
   }
 
   @Override
