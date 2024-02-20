@@ -1,4 +1,4 @@
-package frc.robot.commands.autonomo;
+package frc.robot.commands.autonomous;
 
 import frc.core.util.TrajectoryBuilder;
 import frc.robot.subsystems.Drivetrain;

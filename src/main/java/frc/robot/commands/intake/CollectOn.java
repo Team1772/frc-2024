@@ -3,10 +3,10 @@ package frc.robot.commands.intake;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Intake;
 
-public class Off extends Command {
+public class CollectOn extends Command {
   private final Intake intake;
 
-  public Off(Intake intake) {
+  public CollectOn(Intake intake) {
     this.intake = intake;
 
     addRequirements(this.intake);
@@ -14,7 +14,7 @@ public class Off extends Command {
 
   @Override
   public void initialize() {
-    this.intake.stop();
+    this.intake.set(0.6);
   }
 
   @Override

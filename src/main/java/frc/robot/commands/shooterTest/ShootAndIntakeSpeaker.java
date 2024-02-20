@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
-import frc.robot.commands.intake.Off;
+import frc.robot.commands.intake.CollectOff;
 import frc.robot.commands.intake.ReleaseTimer;
 import frc.robot.commands.intake_move.IntakeUpToSensor;
 import frc.robot.subsystems.Intake;
@@ -20,7 +20,7 @@ public class ShootAndIntakeSpeaker extends SequentialCommandGroup {
       new WaitCommand(0.7),
       new ReleaseTimer(intake),
       new WaitCommand(3),
-      new Off(intake)
+      new CollectOff(intake)
 
     );
   }

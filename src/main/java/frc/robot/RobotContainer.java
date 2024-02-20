@@ -4,8 +4,8 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.core.util.TrajectoryBuilder;
 import frc.robot.buttonBindings.DriverButtonBindings;
 import frc.robot.buttonBindings.OperatorButtonBindings;
-import frc.robot.commands.autonomo.Auto1;
-import frc.robot.commands.autonomo.AutoTeste;
+import frc.robot.commands.autonomous.AutoTeste;
+import frc.robot.commands.autonomous.Mid2PiecesAuto;
 import frc.robot.subsystems.Climber;
 //import frc.robot.subsystems.DriveNeoTest;
 import frc.robot.subsystems.Drivetrain;
@@ -55,6 +55,6 @@ public class RobotContainer {
   }
 
   public Command getAutonomousCommand() {
-    return new Auto1(drivetrain, shooterTest, intake, trajectoryBuilder);
+    return new Mid2PiecesAuto(drivetrain, shooter, intake, intakeMove, trajectoryBuilder);
   }
 }
