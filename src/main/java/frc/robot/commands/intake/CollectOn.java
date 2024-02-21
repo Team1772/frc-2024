@@ -18,6 +18,12 @@ public class CollectOn extends Command {
   }
 
   @Override
+  public boolean isFinished() {
+    return true;
+  }
+
+
+  @Override
   public void end(boolean isInterrupted) {
   }
 }

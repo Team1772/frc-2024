@@ -19,7 +19,7 @@ public class Mid2PiecesAuto extends SequentialCommandGroup {
     public Mid2PiecesAuto(Drivetrain drivetrain, Shooter shooter, Intake intake, IntakeMove intakeMove, TrajectoryBuilder trajectoryBuilder) {
         super.addCommands(
                 new ShootAutonomous(2, intake, shooter),
-                new WaitCommand(0.4),
+                new WaitCommand(4),
                 new IntakeDownToSensor(intakeMove),
                 new CollectOn(intake),
                 trajectoryBuilder.build(true, "1-forward"),
