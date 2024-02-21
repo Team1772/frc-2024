@@ -12,7 +12,9 @@ public final class IntakeConstants {
 
     public static final class Sensor {
       public static final int
-          infrared = 5;     
+          infrared = 5;  
+      public static final int
+          climber = 2;  
     }
     public static final class Speeds {
         public static final double

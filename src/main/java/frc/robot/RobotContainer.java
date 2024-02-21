@@ -5,6 +5,7 @@ import frc.core.util.TrajectoryBuilder;
 import frc.robot.buttonBindings.DriverButtonBindings;
 import frc.robot.buttonBindings.OperatorButtonBindings;
 import frc.robot.commands.autonomo.Auto1;
+import frc.robot.commands.autonomo.Auto2;
 import frc.robot.commands.autonomo.AutoTeste;
 import frc.robot.subsystems.Climber;
 //import frc.robot.subsystems.DriveNeoTest;
@@ -40,7 +41,7 @@ public class RobotContainer {
 
     configureButtonBindings();
 
-    this.trajectoryBuilder = new TrajectoryBuilder(drivetrain, "1-forward", "1-reverse");
+    this.trajectoryBuilder = new TrajectoryBuilder(drivetrain, "1-forward", "1-reverse", "testcurve");
   }
 
   private void configureButtonBindings() {
@@ -55,6 +56,6 @@ public class RobotContainer {
   }
 
   public Command getAutonomousCommand() {
-    return new Auto1(drivetrain, shooterTest, intake, trajectoryBuilder);
+    return new Auto2(drivetrain, shooterTest, intakeMove, intake, trajectoryBuilder);
   }
 }

@@ -103,7 +103,7 @@ public class Shooter extends SubsystemBase {
   //
 
   public void stop() {
-    this.set(0, 0);
+  //  this.set(0, 0);
   }
 
   @Override
