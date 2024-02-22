@@ -14,7 +14,7 @@ import frc.robot.subsystems.Shooter;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
 public class Mid3Pieces extends SequentialCommandGroup {
-// Max Acceleration = 1.1 Max Velocity = 1.1
+  // Max Acceleration = 1.1 Max Velocity = 1.1
   public Mid3Pieces(Drivetrain drivetrain, Shooter shooter, Intake intake, IntakeMove intakeMove,
       TrajectoryBuilder trajectoryBuilder) {
     super.addCommands(
@@ -28,6 +28,7 @@ public class Mid3Pieces extends SequentialCommandGroup {
         new ForwardAndUpIntake(shooter, intake, intakeMove, trajectoryBuilder, "1-forward2Piece", false),
         new CollectOff(intake),
         new ReleaseToShoot(intake, shooter, 1),
-        new ShootAutonomous(1.8, intake, shooter));
+        new ShootOff(shooter)
+);
   }
 }
