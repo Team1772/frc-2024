@@ -32,7 +32,7 @@ public class DriverButtonBindings {
     this.drivetrain.setDefaultCommand(
         new ArcadeDrive(
             this.drivetrain,
-            () -> -driver.getLeftY(),
+            () -> driver.getLeftY(),
             () -> driver.getRightX(),
             driver));
   }
