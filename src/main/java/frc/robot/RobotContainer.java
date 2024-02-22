@@ -4,9 +4,10 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.core.util.TrajectoryBuilder;
 import frc.robot.buttonBindings.DriverButtonBindings;
 import frc.robot.buttonBindings.OperatorButtonBindings;
-import frc.robot.commands.autonomo.Auto1;
-import frc.robot.commands.autonomo.Auto2;
-import frc.robot.commands.autonomo.AutoTeste;
+import frc.robot.commands.autonomous.Auto1;
+import frc.robot.commands.autonomous.AutoTeste;
+import frc.robot.commands.autonomous.Mid2PiecesAuto;
+import frc.robot.commands.autonomous.Mid3Pieces;
 import frc.robot.subsystems.Climber;
 //import frc.robot.subsystems.DriveNeoTest;
 import frc.robot.subsystems.Drivetrain;
@@ -41,7 +42,7 @@ public class RobotContainer {
 
     configureButtonBindings();
 
-    this.trajectoryBuilder = new TrajectoryBuilder(drivetrain, "1-forward", "1-reverse", "testcurve");
+    this.trajectoryBuilder = new TrajectoryBuilder(drivetrain, "1-forward", "1-reverse", "testcurve", "1-second-note", "1-reverse2Piece", "1-forward2Piece");
   }
 
   private void configureButtonBindings() {
@@ -56,6 +57,6 @@ public class RobotContainer {
   }
 
   public Command getAutonomousCommand() {
-    return new Auto2(drivetrain, shooterTest, intakeMove, intake, trajectoryBuilder);
+    return new Mid3Pieces(drivetrain, shooter, intake, intakeMove, trajectoryBuilder);
   }
 }

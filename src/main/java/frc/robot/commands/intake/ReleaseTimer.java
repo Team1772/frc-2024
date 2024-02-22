@@ -7,14 +7,10 @@ import frc.robot.subsystems.Intake;
 
 public class ReleaseTimer extends Command {
   private final Intake intake;
-  private final double secondsEnabled;
-  private final double secondsEnabledUntilRelease;
   private Timer timer;
 
-  public ReleaseTimer(Intake intake, double secondsEnabled, double secondsEnabledUntilRelease) {
+  public ReleaseTimer(Intake intake) {
     this.intake = intake;
-    this.secondsEnabled = secondsEnabled;
-    this.secondsEnabledUntilRelease = secondsEnabledUntilRelease;
     this.timer = new Timer();
 
     addRequirements(this.intake);
@@ -23,17 +19,17 @@ public class ReleaseTimer extends Command {
   @Override
   public void initialize() {
     this.timer.reset();
+    this.intake.set(IntakeConstants.Speeds.speedRelease);
     this.timer.start();
   }
 
   @Override
   public void execute() {
-    if(this.timer.hasElapsed(secondsEnabledUntilRelease)) {this.intake.set(IntakeConstants.Speeds.speedRelease);}
   }
 
   @Override
   public boolean isFinished() {
-    return this.timer.hasElapsed(secondsEnabled);
+    return this.timer.hasElapsed(1.5);
   }
 
   @Override

@@ -19,8 +19,8 @@ public final class DrivetrainConstants {
         encoderRightPortOne = 8,
         encoderRightPortTwo = 9;
 
-    public static final boolean isEncoderLeftInverted = true,
-        isEncoderRightInverted = true;
+    public static final boolean isEncoderLeftInverted = false,
+        isEncoderRightInverted = false;
 
     public static final int pulsesPerRotation = 500,
         cyclesPerRevolution = pulsesPerRotation * 4;

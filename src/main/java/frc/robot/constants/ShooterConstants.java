@@ -4,7 +4,7 @@ public class ShooterConstants {
   public static final int motorUpperPort = 5;
   public static final int motorLowerPort = 6;
 
-  public static final double speed = 0.53;
+  public static final double speed = 0.7;
   public static final boolean isInverted = true;
 
   public static final double wheelRadiusMeters = 0.0508;

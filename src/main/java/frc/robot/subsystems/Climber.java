@@ -22,7 +22,7 @@ public class Climber extends SubsystemBase {
       this.limitSensor = new DigitalInput(IntakeConstants.Sensor.climber);
     }
 
-    public boolean getLimit() {
+    public boolean isLimit() {
       return limitSensor.get();
     }
   
@@ -32,6 +32,10 @@ public class Climber extends SubsystemBase {
   
     public void stop() {
       this.motor.set(0);
+    }
+
+    public void periodic() {
+      SmartDashboard.putBoolean("is Climber Limit Sensor", isLimit());
     }
 
   }
