@@ -16,7 +16,7 @@ public class ShootTimer extends Command {
   public ShootTimer(Shooter shooter, double secondsEnabled) {
     this.shooter = shooter;
     this.secondsEnabled = secondsEnabled;
-    this.shootVelocityMetersPerSecond = 20;
+    this.shootVelocityMetersPerSecond = 0.8;
 
     this.timer = new Timer();
     
@@ -43,7 +43,7 @@ public class ShootTimer extends Command {
   @Override
   public void execute() {
     if(this.shooter.isSafetyShoot()) {
-      this.shooter.setVelocityMetersPerSecond(this.shootVelocityMetersPerSecond);
+      this.shooter.setPercentOutput(shootVelocityMetersPerSecond);
     }
   }
 

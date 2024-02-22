@@ -72,6 +72,11 @@ public class Shooter extends SubsystemBase {
     this.shooterPID.stop();
   }
 
+  public void setPercentOutput(double speed) {
+    this.motorLower.set(speed);
+    this.motorUpper.set(speed);
+  }
+
   @Override
   public void periodic() {
     SmartDashboard.putNumber("error", this.shooterPID.getClosedLoopError());

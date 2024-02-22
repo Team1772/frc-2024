@@ -17,6 +17,7 @@ public class ShootTimer extends Command {
     this.speedUp = speedUp;
     this.speedDown = speedDown;
     this.secondsEnabled = secondsEnabled;
+    this.timer = new Timer();
 
     addRequirements(this.shooter);
   }

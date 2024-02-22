@@ -8,6 +8,8 @@ import frc.robot.commands.autonomous.Auto1;
 import frc.robot.commands.autonomous.AutoTeste;
 import frc.robot.commands.autonomous.Mid2PiecesAuto;
 import frc.robot.commands.autonomous.Mid3Pieces;
+import frc.robot.commands.autonomous.RedRightAmp;
+import frc.robot.commands.autonomous.RedRightSpeaker;
 import frc.robot.subsystems.Climber;
 //import frc.robot.subsystems.DriveNeoTest;
 import frc.robot.subsystems.Drivetrain;
@@ -42,7 +44,7 @@ public class RobotContainer {
 
     configureButtonBindings();
 
-    this.trajectoryBuilder = new TrajectoryBuilder(drivetrain, "1-forward", "1-reverse", "testcurve", "1-second-note", "1-reverse2Piece", "1-forward2Piece");
+    this.trajectoryBuilder = new TrajectoryBuilder(drivetrain, "1-forward", "1-reverse", "testcurve", "1-second-note", "1-reverse2Piece", "1-forward2Piece", "2r-fowardCollectNote", "2r-fowardShootAmp", "2r-fowardCollectNoteReverse");
   }
 
   private void configureButtonBindings() {
@@ -57,6 +59,6 @@ public class RobotContainer {
   }
 
   public Command getAutonomousCommand() {
-    return new Mid3Pieces(drivetrain, shooter, intake, intakeMove, trajectoryBuilder);
+    return new RedRightSpeaker(drivetrain, shooter, shooterTest, intake, intakeMove, trajectoryBuilder);
   }
 }

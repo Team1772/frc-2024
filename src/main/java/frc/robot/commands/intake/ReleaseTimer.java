@@ -19,12 +19,12 @@ public class ReleaseTimer extends Command {
   @Override
   public void initialize() {
     this.timer.reset();
-    this.intake.set(IntakeConstants.Speeds.speedRelease);
     this.timer.start();
   }
 
   @Override
   public void execute() {
+     this.intake.set(IntakeConstants.Speeds.speedRelease);
   }
 
   @Override
