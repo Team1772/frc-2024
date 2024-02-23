@@ -17,9 +17,9 @@ public class Auto1 extends SequentialCommandGroup {
         // new ReleaseTimer(intake),
         // new ShootOff(shooter),
         trajectoryBuilder.build(true, "1-reverse"),
-        trajectoryBuilder.build(false, "1-forward"),
-        trajectoryBuilder.build(false, "1-reverse2Piece"),
-        trajectoryBuilder.build(false, "1-forward2Piece")
+        trajectoryBuilder.build(false, "1-forward")
+        //trajectoryBuilder.build(false, "1-reverse2Piece"),
+        //trajectoryBuilder.build(false, "1-forward2Piece")
     // new ShootOn(shooter, 0.75),
     // new WaitCommand(0.75),
     // new ReleaseTimer(intake),

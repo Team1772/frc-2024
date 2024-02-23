@@ -1,5 +1,6 @@
 package frc.robot.commands.climber;
 
+import frc.robot.constants.IntakeMoveConstants;
 import frc.robot.subsystems.Climber;
 
 import java.util.function.DoubleSupplier;
@@ -19,7 +20,11 @@ public class ChangeClimberSize extends Command {
 
   @Override
   public void execute() {
-    this.climber.set(this.speed.getAsDouble());
+       if (this.climber.isLimit() && speed.getAsDouble() < 0) {
+      this.climber.stop();
+    } else {
+      this.climber.set(this.speed.getAsDouble());
+    }
   }
 
   @Override
