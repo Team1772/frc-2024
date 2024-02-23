@@ -7,11 +7,11 @@ public class ShootOn extends Command {
 
   private final Shooter shooter;
     
-  private double shootVelocityMetersPerSecond;
+  private double shootVelocity;
 
-  public ShootOn(Shooter shooter, double shootVelocityMetersPerSecond) {
+  public ShootOn(Shooter shooter, double shootVelocity) {
     this.shooter = shooter;
-    this.shootVelocityMetersPerSecond = shootVelocityMetersPerSecond;
+    this.shootVelocity = shootVelocity;
     
     addRequirements(this.shooter);
   }
@@ -22,9 +22,7 @@ public class ShootOn extends Command {
 
   @Override
   public void execute() {
-    if(this.shooter.isSafetyShoot()) {
-      this.shooter.setVelocityMetersPerSecond(this.shootVelocityMetersPerSecond);
-    }
+    shooter.setPercentOutput(shootVelocity);
   }
 
   @Override

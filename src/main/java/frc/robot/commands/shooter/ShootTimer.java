@@ -1,60 +1,45 @@
 package frc.robot.commands.shooter;
 
-import frc.robot.subsystems.Shooter;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.subsystems.Shooter;
 
 public class ShootTimer extends Command {
 
-  private final Shooter shooter;
-  
+  private Shooter shooter;
+  private final double secondsEnabled;
   private Timer timer;
-  
-  private double secondsEnabled;
-  private double shootVelocityMetersPerSecond;
+  private double speedDown;
+  private double speedUp;
 
-  public ShootTimer(Shooter shooter, double secondsEnabled) {
+  public ShootTimer(Shooter shooter, double speedUp, double speedDown, double secondsEnabled) {
     this.shooter = shooter;
+    this.speedUp = speedUp;
+    this.speedDown = speedDown;
     this.secondsEnabled = secondsEnabled;
-    this.shootVelocityMetersPerSecond = 0.8;
-
     this.timer = new Timer();
-    
-    addRequirements(this.shooter);
-  }
 
-  public ShootTimer(double shootVelocityMetersPerSecond, Shooter shooter, double secondsEnabled) {
-    this.shooter = shooter;
-
-    this.secondsEnabled = secondsEnabled;
-    this.shootVelocityMetersPerSecond = shootVelocityMetersPerSecond;
-
-    this.timer = new Timer();
-    
     addRequirements(this.shooter);
   }
 
   @Override
   public void initialize() {
-    this.timer.reset();
-    this.timer.start();
+    timer.reset();
+    timer.start();
   }
 
   @Override
   public void execute() {
-    if(this.shooter.isSafetyShoot()) {
-      this.shooter.setPercentOutput(shootVelocityMetersPerSecond);
-    }
+    this.shooter.setPercentOutput(speedUp, speedDown);
   }
 
   @Override
   public boolean isFinished() {
-    return this.timer.hasElapsed(this.secondsEnabled);
+    return this.timer.hasElapsed(secondsEnabled);
   }
 
   @Override
   public void end(boolean interrupted) {
     this.shooter.stop();
-    this.timer.stop();
   }
 }

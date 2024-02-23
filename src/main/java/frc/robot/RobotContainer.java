@@ -7,20 +7,18 @@ import frc.robot.buttonBindings.OperatorButtonBindings;
 import frc.robot.commands.autonomous.Auto1;
 import frc.robot.commands.autonomous.AutoTeste;
 import frc.robot.commands.autonomous.Mid2PiecesAuto;
-import frc.robot.commands.autonomous.Mid3Pieces;
-import frc.robot.commands.autonomous.RedRightAmp;
-import frc.robot.commands.autonomous.RedRightSpeaker;
+import frc.robot.commands.autonomous.StartBlueAtLeft2PiecesLeftNote;
+import frc.robot.commands.autonomous.StartBlueMid3PiecesRight;
+import frc.robot.commands.autonomous.StartRed2PiecesAmp;
 import frc.robot.subsystems.Climber;
 //import frc.robot.subsystems.DriveNeoTest;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.IntakeMove;
 import frc.robot.subsystems.Shooter;
-import frc.robot.subsystems.ShooterTest;
 
 public class RobotContainer {
   private final Drivetrain drivetrain;
-  private final ShooterTest shooterTest;
   public TrajectoryBuilder trajectoryBuilder;
   public DriverButtonBindings driver;
   public OperatorButtonBindings operator;
@@ -32,19 +30,18 @@ public class RobotContainer {
 
   public RobotContainer() {
     this.drivetrain = new Drivetrain();
-    this.shooterTest = new ShooterTest();
     this.intakeMove = new IntakeMove();
     this.intake = new Intake();
     this.climber = new Climber();
     this.shooter = new Shooter();
 //    this.driveNeoTest = new DriveNeoTest();
 
-    this.driver = new DriverButtonBindings(this.drivetrain, this.shooterTest);
-    this.operator = new OperatorButtonBindings(this.drivetrain, this.intakeMove, this.intake, this.shooterTest, this.climber, this.shooter);
+    this.driver = new DriverButtonBindings(this.drivetrain);
+    this.operator = new OperatorButtonBindings(this.drivetrain, this.intakeMove, this.intake, this.climber, this.shooter);
 
     configureButtonBindings();
 
-    this.trajectoryBuilder = new TrajectoryBuilder(drivetrain, "1-forward", "1-reverse", "testcurve", "1-second-note", "1-reverse2Piece", "1-forward2Piece", "2r-fowardCollectNote", "2r-fowardShootAmp", "2r-fowardCollectNoteReverse");
+    this.trajectoryBuilder = new TrajectoryBuilder(drivetrain, "1-forward", "1-reverse", "1-reverse2Piece", "1-forward2Piece", "2r-fowardCollectNote", "2r-fowardShootAmp", "2r-fowardCollectNoteReverse", "2b-forward2PieceLeft", "2b-reverse2PieceLeft", "1-forward2PieceRight", "1-reverse2PieceRight");
   }
 
   private void configureButtonBindings() {
@@ -59,6 +56,6 @@ public class RobotContainer {
   }
 
   public Command getAutonomousCommand() {
-    return new RedRightSpeaker(drivetrain, shooter, shooterTest, intake, intakeMove, trajectoryBuilder);
+    return new StartBlueMid3PiecesRight(drivetrain, shooter, intake, intakeMove, trajectoryBuilder);
   }
 }

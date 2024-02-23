@@ -1,22 +1,22 @@
-package frc.robot.commands.shooterTest;
+package frc.robot.commands.shooter;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.ShooterTest;
+import frc.robot.subsystems.Shooter;
 
 public class Shoot extends Command {
 
-  private ShooterTest shooter;
+  private Shooter shooter;
   private double speedDown;
   private double speedUp;
 
-  public Shoot(ShooterTest shooter, double speedUp, double speedDown) {
+  public Shoot(Shooter shooter, double speedUp, double speedDown) {
     this.shooter = shooter;
     this.speedUp = speedUp;
     this.speedDown = speedDown;
     addRequirements(this.shooter);
   }
 
-  public Shoot(ShooterTest shooter, double speed) {
+  public Shoot(Shooter shooter, double speed) {
     this.shooter = shooter;
     this.speedUp = speed;
     this.speedDown = speed;
@@ -30,7 +30,7 @@ public class Shoot extends Command {
 
   @Override
   public void execute() {
-    this.shooter.set(speedUp, speedDown);
+    this.shooter.setPercentOutput(speedUp, speedDown);
   }
 
   @Override

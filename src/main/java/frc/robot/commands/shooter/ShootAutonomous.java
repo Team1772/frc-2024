@@ -19,7 +19,7 @@ public class ShootAutonomous extends SequentialCommandGroup {
           // new RollbackToShoot(this.intake, this.buffer, this.shooter),
 
           new ParallelRaceGroup(
-            new ShootTimer(this.shooter, secondsEnabled),
+            new ShootTimer(shooter, 0.8, 0.8, 2),
             new ReleaseToShoot(intake, shooter, 2)
           ) 
       );

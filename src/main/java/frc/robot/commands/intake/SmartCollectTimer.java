@@ -5,7 +5,6 @@ import frc.robot.commands.intake.ReleaseTimer;
 import frc.robot.commands.intake_move.IntakeDownToSensor;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.IntakeMove;
-import frc.robot.subsystems.ShooterTest;
 
 public class SmartCollectTimer extends ParallelCommandGroup {
   private Intake intake;

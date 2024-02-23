@@ -21,6 +21,7 @@ public class Shooter extends SubsystemBase {
     this.motorUpper = new WPI_TalonSRX(ShooterConstants.motorUpperPort);
     this.motorLower = new WPI_TalonSRX(ShooterConstants.motorLowerPort);
     this.motorUpper.setNeutralMode(NeutralMode.Coast);
+    this.motorLower.setNeutralMode(NeutralMode.Coast);
 
     this.shooterPID = new TalonVelocity(
         this.motorUpper,
@@ -34,9 +35,8 @@ public class Shooter extends SubsystemBase {
             ShooterConstants.PID.kFVelocity,
             ShooterConstants.PID.kIZoneVelocity,
             ShooterConstants.PID.kPeakOutputVelocity),
-            this.motorLower);
+        this.motorLower);
   }
-
 
   public void setRPM(double rpm) {
     this.shooterPID.setRPM(
@@ -52,13 +52,12 @@ public class Shooter extends SubsystemBase {
   }
 
   public boolean atSettedVelocity() {
-     return this.shooterPID.atSettedVelocity();
+    return this.shooterPID.atSettedVelocity();
   }
 
   public boolean isSafetyShoot() {
     return this.shooterPID.getSelectedSensorVelocity() >= SAFE_REVERSE_SENSOR_VELOCITY;
   }
-  
 
   public boolean isShooterMoving() {
     return Math.abs(this.shooterPID.getSelectedSensorVelocity()) > NEUTRAL_SENSOR_VELOCITY;
@@ -69,7 +68,13 @@ public class Shooter extends SubsystemBase {
   //
 
   public void stop() {
-    this.shooterPID.stop();
+    this.motorLower.stopMotor();
+    this.motorUpper.stopMotor();
+  }
+
+  public void setPercentOutput(double speedUp, double speedDown) {
+    this.motorLower.set(speedDown);
+    this.motorUpper.set(speedUp);
   }
 
   public void setPercentOutput(double speed) {

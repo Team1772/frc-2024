@@ -110,7 +110,6 @@ public class TalonVelocity extends PIDTalon {
 
   public void stop() {
     super.master.set(ControlMode.PercentOutput, 0);
-
   }
 
   public boolean atSettedVelocity() {

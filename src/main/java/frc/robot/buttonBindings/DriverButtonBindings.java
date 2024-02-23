@@ -6,12 +6,10 @@ import frc.core.util.oi.SmartController;
 import frc.robot.commands.drivetrain.AimTarget;
 import frc.robot.commands.drivetrain.ArcadeDrive;
 import frc.robot.commands.drivetrain.RangeTarget;
-import frc.robot.commands.shooterTest.Shoot;
 import frc.robot.constants.ControllerConstants;
 import frc.robot.constants.DrivetrainConstants;
 //import frc.robot.subsystems.DriveNeoTest;
 import frc.robot.subsystems.Drivetrain;
-import frc.robot.subsystems.ShooterTest;
 
 public class DriverButtonBindings {
 
@@ -19,7 +17,7 @@ public class DriverButtonBindings {
   public static SmartController driver;
   // private DriveNeoTest driveNeoTest;
 
-  public DriverButtonBindings(Drivetrain drivetrain, ShooterTest shooterTest) {
+  public DriverButtonBindings(Drivetrain drivetrain) {
     this.drivetrain = drivetrain;
 //    this.driveNeoTest = driveNeoTest;
     this.driver = new SmartController(ControllerConstants.kDriverControllerPort);
