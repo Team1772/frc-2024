@@ -103,11 +103,23 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    if (m_robotContainer.IsinfraredIntake()) {
-      m_robotContainer.led().rgb(0, 255, 0);
-    } else {
-      m_robotContainer.led().rainbow();
-      //m_robotContainer.led().rgb(255, 0, 0);
+    switch(Led.identifier) {
+      //AMP
+      case 0:
+        m_robotContainer.led().rgb(255, 153, 51);
+        break;
+      //SPEAKER
+      case 1:
+        m_robotContainer.led().rgb(51, 51, 255);
+        break;
+      //infraredON
+      case 2:
+        m_robotContainer.led().rgb(51, 255, 51);
+        break;
+      //infraredOFF
+      case 3:
+        m_robotContainer.led().rgb(255, 51, 51);
+        break;
     }
   }
 

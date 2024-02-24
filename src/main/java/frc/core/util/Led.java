@@ -7,6 +7,7 @@ public class Led {
   AddressableLED led;
   AddressableLEDBuffer ledBuffer;
   int rainbowFirstPixelHue;
+  public static int identifier;
 
   public Led() {
     led = new AddressableLED(0);

@@ -1,5 +1,6 @@
 package frc.robot.buttonBindings;
 
+import frc.core.util.Led;
 import frc.core.util.oi.SmartController;
 import frc.robot.commands.climber.ChangeClimberSize;
 import frc.robot.commands.intake.Collect;
@@ -43,6 +44,7 @@ public class OperatorButtonBindings {
     // this.operator.whileRightBumper(new Shoott(shooter));
 
     this.operator.whileRightBumper(new Shoot(shooter, 0.75, 0.7));
+    
     //this.operator.whileRightBumper(new PrepareShoot(16, shooter));
     // Amp
     this.operator.whileLeftBumper(new Shoot(shooter, 0.23, 0.23));

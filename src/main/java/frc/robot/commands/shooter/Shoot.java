@@ -1,6 +1,7 @@
 package frc.robot.commands.shooter;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.core.util.Led;
 import frc.robot.subsystems.Shooter;
 
 public class Shoot extends Command {
@@ -31,6 +32,11 @@ public class Shoot extends Command {
   @Override
   public void execute() {
     this.shooter.setPercentOutput(speedUp, speedDown);
+    if(speedUp == 0.75) {
+      Led.identifier = 1;
+    } else {
+      Led.identifier = 0;
+    }
   }
 
   @Override

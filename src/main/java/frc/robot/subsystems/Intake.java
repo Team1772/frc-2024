@@ -6,6 +6,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.core.util.Led;
 import frc.robot.constants.IntakeConstants;
 
 public class Intake extends SubsystemBase {
@@ -32,5 +33,10 @@ public class Intake extends SubsystemBase {
 
   public void periodic() {
     SmartDashboard.putBoolean("is InfraredSensor", isInfraredSensor());
+    if(isInfraredSensor()) {
+      Led.identifier = 2;
+    } else {
+      Led.identifier = 3;
+    }
   }
 }
