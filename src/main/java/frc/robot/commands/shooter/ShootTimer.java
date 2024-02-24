@@ -40,6 +40,6 @@ public class ShootTimer extends Command {
 
   @Override
   public void end(boolean interrupted) {
-    this.shooter.stopPID();
+    this.shooter.stop();
   }
 }

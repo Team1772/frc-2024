@@ -4,6 +4,7 @@ import frc.core.util.TrajectoryBuilder;
 import frc.robot.commands.autonomous.Mid2Pieces.ForwardAndUpIntake;
 import frc.robot.commands.autonomous.Mid2Pieces.ReverseAndDownIntake;
 import frc.robot.commands.intake.CollectOff;
+import frc.robot.commands.intake.ReleaseTimer;
 import frc.robot.commands.intake.ReleaseToShoot;
 import frc.robot.commands.shooter.ShootAutonomous;
 import frc.robot.commands.shooter.ShootOff;
@@ -23,11 +24,14 @@ public class StartBlueMid3PiecesRight extends SequentialCommandGroup {
         // new ShootAutonomous(1.8, intake, shooter),
         new ShootOn(shooter, 0.8),
         new WaitCommand(1),
-        new ReleaseToShoot(intake, shooter, 1),
+        new ReleaseTimer(intake),
+        // new ReleaseToShoot(intake, shooter, 1),
         new ReverseAndDownIntake(intake, intakeMove, trajectoryBuilder, "1-reverse", true),
         new ForwardAndUpIntake(shooter, intake, intakeMove, trajectoryBuilder, "1-forward", false),
         new CollectOff(intake),
-        new ReleaseToShoot(intake, shooter, 1),
+        new WaitCommand(0.7),
+        new ReleaseTimer(intake),
+        //new ReleaseToShoot(intake, shooter, 1),
         new ShootOff(shooter),
         new ReverseAndDownIntake(intake, intakeMove, trajectoryBuilder, "1-reverse2PieceRight", false),
         new ForwardAndUpIntake(shooter, intake, intakeMove, trajectoryBuilder, "1-forward2PieceRight", false),

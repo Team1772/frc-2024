@@ -19,9 +19,9 @@ import frc.robot.subsystems.Shooter;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
-public class StartBlueAtRight2PiecesRightNote extends SequentialCommandGroup {
+public class StartREDAtRight2PiecesRightNote extends SequentialCommandGroup {
   // Max Acceleration = 1.1 Max Velocity = 1.1
-  public StartBlueAtRight2PiecesRightNote(Drivetrain drivetrain, Shooter shooter, Intake intake, IntakeMove intakeMove,
+  public StartREDAtRight2PiecesRightNote(Drivetrain drivetrain, Shooter shooter, Intake intake, IntakeMove intakeMove,
       TrajectoryBuilder trajectoryBuilder) {
     super.addCommands(
         new ShootAutonomous(20, intake, shooter),
@@ -42,6 +42,7 @@ public class StartBlueAtRight2PiecesRightNote extends SequentialCommandGroup {
         new ParallelCommandGroup(
             new ReleaseTimer(intake),
             new ShootTimer(shooter, 0.8, 0.8, 1.5)),
+        new ShootOff(shooter),
         new ReverseAndDownIntake(intake, intakeMove, trajectoryBuilder, "2r-fowardToMid", false)
 
     );

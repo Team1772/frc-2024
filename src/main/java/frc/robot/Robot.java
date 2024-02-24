@@ -22,6 +22,7 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
   private RobotContainer m_robotContainer;
+  private boolean isDebbuging;
 
   /**
    * This function is run when the robot is first started up and should be used
@@ -34,6 +35,7 @@ public class Robot extends TimedRobot {
     // and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
+    isDebbuging = false;
 
   }
 
@@ -69,10 +71,19 @@ public class Robot extends TimedRobot {
 
   @Override
   public void disabledPeriodic() {
-    if (m_robotContainer.isInfraredIntake()) {
-      m_robotContainer.led().rgb(100, 100, 0);
+    if (isDebbuging) {
+      if (m_robotContainer.isInfraredIntake()) {
+        m_robotContainer.led().rgb(100, 100, 0);
+      } else if (m_robotContainer.isLimitMaxIntake()) {
+        m_robotContainer.led().rgb(100, 0, 100);
+      } else if (m_robotContainer.isLimitMinIntake()) {
+        m_robotContainer.led().rgb(0, 100, 100);
+      }
+    } else {
+      m_robotContainer.led().rgb(255, 30, 0);
     }
-    m_robotContainer.led().rainbow();
+    ;
+    // m_robotContainer.led().rainbow();
   }
 
   /**
