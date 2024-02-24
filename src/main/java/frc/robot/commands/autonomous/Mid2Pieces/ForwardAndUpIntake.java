@@ -21,7 +21,7 @@ public class ForwardAndUpIntake extends ParallelCommandGroup {
       String fileName, boolean updateOdometry) {
     super.addCommands(
         new IntakeUpToSensor(intakeMove),
-        new ShootOn(shooter, 0.8),
+        new ShootOn(shooter, 0.9),
         trajectoryBuilder.build(updateOdometry, fileName));
   }
 }

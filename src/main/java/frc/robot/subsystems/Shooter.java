@@ -72,6 +72,10 @@ public class Shooter extends SubsystemBase {
     this.motorUpper.stopMotor();
   }
 
+  public void stopPID() {
+    this.shooterPID.stop();
+  }
+
   public void setPercentOutput(double speedUp, double speedDown) {
     this.motorLower.set(speedDown);
     this.motorUpper.set(speedUp);

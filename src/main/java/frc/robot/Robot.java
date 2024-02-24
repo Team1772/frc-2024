@@ -57,16 +57,22 @@ public class Robot extends TimedRobot {
     // robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
+    // m_robotContainer.led().rainbow();
 
   }
 
   /** This function is called once each time the robot enters Disabled mode. */
   @Override
   public void disabledInit() {
+    CommandScheduler.getInstance().cancelAll();
   }
 
   @Override
   public void disabledPeriodic() {
+    if (m_robotContainer.isInfraredIntake()) {
+      m_robotContainer.led().rgb(100, 100, 0);
+    }
+    m_robotContainer.led().rainbow();
   }
 
   /**
@@ -86,6 +92,12 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during autonomous. */
   @Override
   public void autonomousPeriodic() {
+    if (m_robotContainer.isInfraredIntake()) {
+      m_robotContainer.led().rgb(0, 255, 0);
+    } else {
+      // m_robotContainer.led().rainbow();
+      m_robotContainer.led().rgb(255, 0, 0);
+    }
   }
 
   @Override
@@ -96,18 +108,18 @@ public class Robot extends TimedRobot {
     // this line or comment it out.
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
-      CommandScheduler.getInstance().cancelAll();
     }
+    CommandScheduler.getInstance().cancelAll();
   }
 
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    if (m_robotContainer.IsinfraredIntake()) {
+    if (m_robotContainer.isInfraredIntake()) {
       m_robotContainer.led().rgb(0, 255, 0);
     } else {
-      m_robotContainer.led().rainbow();
-      //m_robotContainer.led().rgb(255, 0, 0);
+      // m_robotContainer.led().rainbow();
+      m_robotContainer.led().rgb(255, 0, 0);
     }
   }
 

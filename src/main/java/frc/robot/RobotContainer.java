@@ -10,6 +10,7 @@ import frc.robot.commands.autonomous.AutoTeste;
 import frc.robot.commands.autonomous.Blue2PiecesAmp;
 import frc.robot.commands.autonomous.Mid2PiecesAuto;
 import frc.robot.commands.autonomous.StartBlueAtLeft2PiecesLeftNote;
+import frc.robot.commands.autonomous.StartBlueAtRight2PiecesRightNote;
 import frc.robot.commands.autonomous.StartBlueMid3PiecesRight;
 import frc.robot.commands.autonomous.StartRed2PiecesAmp;
 import frc.robot.subsystems.Climber;
@@ -41,11 +42,20 @@ public class RobotContainer {
         this.shooter);
 
     configureButtonBindings();
-    //ledStrip.rainbow();
+    // ledStrip.rainbow();
 
-    this.trajectoryBuilder = new TrajectoryBuilder(drivetrain, "1-forward", "1-reverse",
-        "2r-fowardCollectNote", "2r-fowardShootAmp", "2r-fowardCollectNoteReverse",
-        "2b-forward2PieceLeft", "2b-reverse2PieceLeft", "1-forward2PieceRight", "1-reverse2PieceRight", "2b-fowardShootAmp");
+    this.trajectoryBuilder = new TrajectoryBuilder(drivetrain,
+        "1-forward",
+        // "1-reverse",
+        "2r-fowardCollectNote",
+        "2r-fowardShootAmp",
+        "2r-fowardCollectNoteReverse",
+        // "2b-forward2PieceLeft",
+        // "2b-reverse2PieceLeft",
+        // "1-forward2PieceRight",
+        // "1-reverse2PieceRight",
+        "2b-fowardShootAmp",
+        "2r-fowardToMid");
   }
 
   private void configureButtonBindings() {
@@ -57,17 +67,32 @@ public class RobotContainer {
     this.operator.buttonBindingsClimber();
   }
 
-  public Led led(){
+  public Led led() {
     return this.led;
   }
 
-  public boolean IsinfraredIntake(){
+  public boolean isInfraredIntake() {
     return this.intake.isInfraredSensor();
   }
 
+  public boolean isLimitMaxIntake() {
+    return this.intakeMove.isLimitMax();
+  }
+
+  public boolean isLimitDownIntake() {
+    return this.intakeMove.isLimitMin();
+  }
+
   public Command getAutonomousCommand() {
-    //return new StartBlueMid3PiecesRight(drivetrain, shooter, intake, intakeMove, trajectoryBuilder);
-    //return new Auto1(drivetrain, trajectoryBuilder);
-    return new Blue2PiecesAmp(drivetrain, shooter, intake, intakeMove, trajectoryBuilder);
+    // return new StartBlueMid3PiecesRight(drivetrain, shooter, intake, intakeMove,
+    // trajectoryBuilder);
+    // return new Auto1(drivetrain, trajectoryBuilder);
+    // return new Blue2PiecesAmp(drivetrain, shooter, intake, intakeMove,
+    // trajectoryBuilder);
+    // return new StartRed2PiecesAmp(drivetrain, shooter, intake, intakeMove,
+    // trajectoryBuilder);
+    return new StartBlueAtRight2PiecesRightNote(drivetrain, shooter, intake, intakeMove, trajectoryBuilder);
+    // return new StartBlueAtLeft2PiecesLeftNote(drivetrain, shooter, intake,
+    // intakeMove, trajectoryBuilder);
   }
 }

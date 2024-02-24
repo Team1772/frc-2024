@@ -5,6 +5,7 @@ import frc.robot.commands.climber.ChangeClimberSize;
 import frc.robot.commands.intake.Collect;
 import frc.robot.commands.intake.Release;
 import frc.robot.commands.intake_move.IntakeDownToSensor;
+import frc.robot.commands.intake_move.IntakeUpDown;
 import frc.robot.commands.intake_move.IntakeUpToSensor;
 import frc.robot.commands.shooter.CollectHuman;
 import frc.robot.commands.shooter.Shoot;
@@ -33,32 +34,35 @@ public class OperatorButtonBindings {
   }
 
   public void buttonBindingsIntakeMove() {
+   // this.intakeMove.setDefaultCommand(
+      //new IntakeUpDown(intakeMove, () -> this.operator.getLeftY())
+    //);
     this.operator.whileXUp(new IntakeUpToSensor(this.intakeMove));
     this.operator.whileXDown(new IntakeDownToSensor(this.intakeMove));
-    //new IntakeUpDown(this.intakeMove, () -> this.operator.getLeftY());
+    // new IntakeUpDown(this.intakeMove, () -> this.operator.getLeftY());
   }
 
   public void buttonBindingsShooterTest() {
     // Speaker
     // this.operator.whileRightBumper(new Shoott(shooter));
 
-    this.operator.whileRightBumper(new Shoot(shooter, 0.75, 0.7));
-    //this.operator.whileRightBumper(new PrepareShoot(16, shooter));
+    this.operator.whileRightBumper(new Shoot(shooter, 18));
+    // this.operator.whileRightBumper(new PrepareShoot(16, shooter));
     // Amp
-    this.operator.whileLeftBumper(new Shoot(shooter, 0.23, 0.23));
+    this.operator.whileLeftBumper(new Shoot(shooter, 3.2));
   }
 
   public void buttonBindingsIntake() {
     this.operator.whileAButton(new Collect(intake, DriverButtonBindings.driver, operator));
     this.operator.whileYButton(new Release(intake));
     this.operator.whileXButton(new CollectHuman(shooter, intake, intakeMove));
-    this.operator.whileBButton(new Release(intake, 1));
+    this.operator.whileBButton(new Release(intake, 0.7));
   }
 
   public void buttonBindingsClimber() {
     this.operator.whileXRight(
         new ChangeClimberSize(
-            () -> this.operator.getRightY(),
+            () -> -this.operator.getRightY(),
             this.climber));
   }
 }

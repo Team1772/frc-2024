@@ -17,7 +17,7 @@ public class ShooterConstants {
       isSensorPhase = true;
 
   public static final class PID {
-    public static final double kPVelocity = 0.8,
+    public static final double kPVelocity = 0.85,
         kIVelocity = 0,
         kDVelocity = 8,
         kFVelocity = 0.0319,

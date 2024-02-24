@@ -19,7 +19,7 @@ public final class IntakeMoveConstants {
         public static final double
             speedUp = 1,
             speedDown = -1,
-            speedMultiplier = 0.9;
+            speedMultiplier = 1;
     }
 
 }

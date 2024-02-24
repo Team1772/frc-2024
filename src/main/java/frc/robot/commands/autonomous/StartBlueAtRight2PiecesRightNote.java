@@ -6,6 +6,7 @@ import frc.robot.commands.autonomous.Mid2Pieces.ReverseAndDownIntake;
 import frc.robot.commands.intake.CollectOff;
 import frc.robot.commands.intake.ReleaseTimer;
 import frc.robot.commands.intake.ReleaseToShoot;
+import frc.robot.commands.intake_move.IntakeDownToSensor;
 import frc.robot.commands.intake_move.IntakeUpToSensor;
 import frc.robot.commands.shooter.ShootAutonomous;
 import frc.robot.commands.shooter.ShootOff;
@@ -23,28 +24,26 @@ public class StartBlueAtRight2PiecesRightNote extends SequentialCommandGroup {
   public StartBlueAtRight2PiecesRightNote(Drivetrain drivetrain, Shooter shooter, Intake intake, IntakeMove intakeMove,
       TrajectoryBuilder trajectoryBuilder) {
     super.addCommands(
-        //new ShootAutonomous(1.8, intake, shooter),
-        new ShootTimer(shooter, 0.8, 0.8, 1),
-        //new WaitCommand(0.8),
-        new ParallelCommandGroup(
-          new ReleaseTimer(intake),
-          new ShootTimer(shooter, 0.8, 0.8, 1.5)
-        ),
+        new ShootAutonomous(20, intake, shooter),
+        // new ShootTimer(shooter, 0.8, 0.8, 1.2),
+        // new WaitCommand(0.8),
+        // new ParallelCommandGroup(
+        // new ReleaseTimer(intake),
+        // new ShootTimer(shooter, 0.8, 0.8, 1.5)),
         new ReverseAndDownIntake(intake, intakeMove, trajectoryBuilder, "2r-fowardCollectNote", true),
-        //new ForwardAndUpIntake(shooter, intake, intakeMove, trajectoryBuilder, "2r-fowardShootAmp", false),
+        // new ForwardAndUpIntake(shooter, intake, intakeMove, trajectoryBuilder,
+        // "2r-fowardShootAmp", false),
         new ParallelCommandGroup(
-          new IntakeUpToSensor(intakeMove),
-          trajectoryBuilder.build(false, "2r-fowardCollectNoteReverse")
-        ),
+            new IntakeUpToSensor(intakeMove),
+            trajectoryBuilder.build(false, "2r-fowardCollectNoteReverse")),
         new CollectOff(intake),
-        //new ShootTimer(shooterTest, 0.8, 0.8, 1),
-        //new WaitCommand(0.8),
+        new ShootTimer(shooter, 0.8, 0.8, 1),
+        // new WaitCommand(0.8),
         new ParallelCommandGroup(
-          new ReleaseTimer(intake)
-          //new ShootTimer(shooterTest, 0.8, 0.8, 1.5)
-        )
-        //new ReleaseToShoot(intake, shooter, 1),
-        // new ShootOff(shooter)
-);
+            new ReleaseTimer(intake),
+            new ShootTimer(shooter, 0.8, 0.8, 1.5)),
+        new ReverseAndDownIntake(intake, intakeMove, trajectoryBuilder, "2r-fowardToMid", false)
+
+    );
   }
 }

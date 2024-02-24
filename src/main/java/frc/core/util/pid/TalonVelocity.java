@@ -109,7 +109,8 @@ public class TalonVelocity extends PIDTalon {
   }
 
   public void stop() {
-    super.master.set(ControlMode.PercentOutput, 0);
+    //super.master.set(ControlMode.PercentOutput, 0);
+    super.master.stopMotor();
   }
 
   public boolean atSettedVelocity() {
