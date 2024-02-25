@@ -30,8 +30,8 @@ public class Shoot extends Command {
 
   @Override
   public void execute() {
-    //this.shooter.setVelocityMetersPerSecond(speedUp);
-    this.shooter.setPercentOutput(speedUp, speedDown);
+    this.shooter.setVelocityMetersPerSecond(speedUp);
+    //this.shooter.setPercentOutput(speedUp, speedDown);
   }
 
   @Override

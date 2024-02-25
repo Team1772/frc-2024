@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.core.util.Led;
+import frc.robot.commands.shooter.ShootOff;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -80,10 +81,11 @@ public class Robot extends TimedRobot {
         m_robotContainer.led().rgb(0, 100, 100);
       }
     } else {
-      m_robotContainer.led().rgb(255, 30, 0);
+      // m_robotContainer.led().rgb(255, 30, 0);
+      m_robotContainer.led().rainbow();
+
     }
     ;
-    // m_robotContainer.led().rainbow();
   }
 
   /**
@@ -121,6 +123,7 @@ public class Robot extends TimedRobot {
       m_autonomousCommand.cancel();
     }
     CommandScheduler.getInstance().cancelAll();
+    CommandScheduler.getInstance().schedule(new ShootOff(m_robotContainer.shooter));
   }
 
   /** This function is called periodically during operator control. */
@@ -132,6 +135,7 @@ public class Robot extends TimedRobot {
       // m_robotContainer.led().rainbow();
       m_robotContainer.led().rgb(255, 0, 0);
     }
+
   }
 
   @Override

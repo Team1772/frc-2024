@@ -27,7 +27,7 @@ public class RobotContainer {
   public IntakeMove intakeMove;
   public Intake intake;
   public Climber climber;
-  private Shooter shooter;
+  public Shooter shooter;
   public Led led;
 
   public RobotContainer() {
@@ -94,7 +94,8 @@ public class RobotContainer {
     //return new StartRed2PiecesAmp(drivetrain, shooter, intake, intakeMove,
     //trajectoryBuilder);
     //return new StartREDAtRight2PiecesRightNote(drivetrain, shooter, intake, intakeMove, trajectoryBuilder);
-    return new StartBlueAtLeft2PiecesLeftNote(drivetrain, shooter, intake,
-    intakeMove, trajectoryBuilder);
+    //return new StartBlueAtLeft2PiecesLeftNote(drivetrain, shooter, intake,
+    //intakeMove, trajectoryBuilder);
+    return new Auto1(shooter, intake, trajectoryBuilder);
   }
 }

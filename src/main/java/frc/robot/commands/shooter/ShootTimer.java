@@ -30,7 +30,7 @@ public class ShootTimer extends Command {
 
   @Override
   public void execute() {
-    this.shooter.setPercentOutput(speedUp, speedDown);
+    this.shooter.setPercentOutput(speedUp);
   }
 
   @Override
