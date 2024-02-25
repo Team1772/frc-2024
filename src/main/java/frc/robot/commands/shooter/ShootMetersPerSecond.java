@@ -1,17 +1,16 @@
 package frc.robot.commands.shooter;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.core.util.Led;
 import frc.robot.subsystems.Shooter;
 
-public class Shoot extends Command {
+public class ShootMetersPerSecond extends Command {
 
   private Shooter shooter;
-  private double speed;
+  private double meterPerSecond;
 
-  public Shoot(Shooter shooter, double speed) {
+  public ShootMetersPerSecond(Shooter shooter, double meterPerSecond) {
     this.shooter = shooter;
-    this.speed = speed;
+    this.meterPerSecond = meterPerSecond;
     addRequirements(this.shooter);
   }
 
@@ -22,16 +21,11 @@ public class Shoot extends Command {
 
   @Override
   public void execute() {
-    this.shooter.setVelocityMetersPerSecond(speed);
-    if(speed >= 18) {
-      Led.identifier = 1;
-    } else {
-      Led.identifier = 0;
-    }
+    this.shooter.setVelocityMetersPerSecond(meterPerSecond);
   }
 
   @Override
   public void end(boolean interrupted) {
-    this.shooter.stop();
+    this.shooter.stopPID();
   }
 }

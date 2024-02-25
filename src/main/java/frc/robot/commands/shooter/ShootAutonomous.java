@@ -12,15 +12,15 @@ public class ShootAutonomous extends SequentialCommandGroup {
     private Intake intake;
     private Shooter shooter;
 
-    public ShootAutonomous(double secondsEnabled, Intake intake, Shooter shooter) {
+    public ShootAutonomous(double meterPerSecond, Intake intake, Shooter shooter) {
       this.intake = intake;
       this.shooter = shooter;  
       super.addCommands(
           // new RollbackToShoot(this.intake, this.buffer, this.shooter),
 
           new ParallelRaceGroup(
-            new ShootTimer(shooter, 0.8, 0.8, 2),
-            new ReleaseToShoot(intake, shooter, 2)
+            new ShootMetersPerSecond(shooter, meterPerSecond),
+            new ReleaseToShoot(intake, shooter, 2.5)
           ) 
       );
   

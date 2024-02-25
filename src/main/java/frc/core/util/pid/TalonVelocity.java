@@ -9,7 +9,7 @@ import frc.robot.constants.ShooterConstants;
 public class TalonVelocity extends PIDTalon {
 
   private double velocityUnitsPer100ms;
-  private static final int ERROR_LIMIT = 50;
+  private static final int ERROR_LIMIT = 2000;
 
   public TalonVelocity(
       WPI_TalonSRX master,
@@ -98,6 +98,9 @@ public class TalonVelocity extends PIDTalon {
     super.master.set(ControlMode.Velocity, velocityUnitsPer100ms);
   }
 
+  public void setPercentOutput(double speed){
+    this.master.set(ControlMode.PercentOutput, speed);
+  }
   public void setRPM(double rpm, double dutyCycle) {
     this.setVelocity(rpm, dutyCycle);
   }
@@ -109,14 +112,15 @@ public class TalonVelocity extends PIDTalon {
   }
 
   public void stop() {
-    super.master.set(ControlMode.PercentOutput, 0);
+    //super.master.set(ControlMode.PercentOutput, 0);
+    super.master.stopMotor();
   }
 
   public boolean atSettedVelocity() {
     if (this.getSelectedSensorVelocity() == 0)
       return false;
 
-    return (this.velocityUnitsPer100ms - super.master.getSelectedSensorVelocity()) <= ERROR_LIMIT;
+    return (Math.abs(this.velocityUnitsPer100ms - super.master.getSelectedSensorVelocity())) <= Math.abs(ERROR_LIMIT);
   }
 
   public double getSelectedSensorVelocity() {

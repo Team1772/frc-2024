@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.core.util.Led;
+import frc.robot.commands.shooter.ShootOff;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -22,6 +23,7 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
   private RobotContainer m_robotContainer;
+  private boolean isDebbuging;
 
   /**
    * This function is run when the robot is first started up and should be used
@@ -34,6 +36,7 @@ public class Robot extends TimedRobot {
     // and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
+    isDebbuging = true;
 
   }
 
@@ -57,16 +60,38 @@ public class Robot extends TimedRobot {
     // robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
+    // m_robotContainer.led().rainbow();
 
   }
 
   /** This function is called once each time the robot enters Disabled mode. */
   @Override
   public void disabledInit() {
+    CommandScheduler.getInstance().cancelAll();
   }
 
   @Override
   public void disabledPeriodic() {
+    if (isDebbuging) {
+      if (m_robotContainer.isInfraredIntake()) {
+        m_robotContainer.led().rgb(100, 100, 0);
+      } else if (m_robotContainer.isLimitMinIntake()) {
+        m_robotContainer.led().rgb(100, 0, 100);
+      } else if (m_robotContainer.isLimitMaxIntake()) {
+        m_robotContainer.led().rgb(0, 100, 100);
+      } else if (m_robotContainer.isLimitMinClimber()) {
+        m_robotContainer.led().rgb(255, 255, 255);
+
+      } else {
+        m_robotContainer.led().rgb(0, 0, 0);
+
+      }
+    } else {
+      // m_robotContainer.led().rgb(255, 30, 0);
+      m_robotContainer.led().rainbow();
+
+    }
+    ;
   }
 
   /**
@@ -86,6 +111,12 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during autonomous. */
   @Override
   public void autonomousPeriodic() {
+    if (m_robotContainer.isInfraredIntake()) {
+      m_robotContainer.led().rgb(0, 255, 0);
+    } else {
+      // m_robotContainer.led().rainbow();
+      m_robotContainer.led().rgb(255, 0, 0);
+    }
   }
 
   @Override
@@ -96,31 +127,36 @@ public class Robot extends TimedRobot {
     // this line or comment it out.
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
-      CommandScheduler.getInstance().cancelAll();
     }
+    CommandScheduler.getInstance().cancelAll();
+    CommandScheduler.getInstance().schedule(new ShootOff(m_robotContainer.shooter));
   }
 
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    switch(Led.identifier) {
-      //AMP
+    switch (Led.identifier) {
+      // AMP
       case 0:
-        m_robotContainer.led().rgb(255, 153, 51);
+        m_robotContainer.led().rgb(0, 0, 255);
         break;
-      //SPEAKER
+      // SPEAKER
       case 1:
-        m_robotContainer.led().rgb(51, 51, 255);
+        m_robotContainer.led().rgb(120, 20, 0);
         break;
-      //infraredON
       case 2:
-        m_robotContainer.led().rgb(51, 255, 51);
+        m_robotContainer.led().rgb(255, 0, 255);
         break;
-      //infraredOFF
+      // infraredON
       case 3:
-        m_robotContainer.led().rgb(255, 51, 51);
+        m_robotContainer.led().rgb(0, 255, 0);
+        break;
+      // infraredOFF
+      case 4:
+        m_robotContainer.led().rgb(255, 0, 0);
         break;
     }
+
   }
 
   @Override

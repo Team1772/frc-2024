@@ -15,11 +15,12 @@ public class ShootOff extends Command {
 
   @Override
   public void initialize() {
+    shooter.stop();
+
   }
 
   @Override
   public void execute() {
-    shooter.stop();
   }
 
   @Override

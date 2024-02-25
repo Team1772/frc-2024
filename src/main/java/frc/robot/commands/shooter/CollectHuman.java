@@ -1,6 +1,7 @@
 package frc.robot.commands.shooter;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.core.util.Led;
 import frc.robot.constants.IntakeMoveConstants;
 import frc.robot.constants.ShooterTestConstants;
 import frc.robot.subsystems.Intake;
@@ -35,6 +36,7 @@ public class CollectHuman extends Command {
         }else{
             this.intakeMove.set(IntakeMoveConstants.Speed.speedUp);
         }
+        Led.identifier = 2;
 
     }
 

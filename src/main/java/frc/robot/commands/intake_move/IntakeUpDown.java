@@ -28,7 +28,13 @@ public class IntakeUpDown extends Command {
     } else if (this.intakeMove.isLimitMin() && speed.getAsDouble() < 0) {
       this.intakeMove.stop();
     } else {
-      this.intakeMove.set(IntakeMoveConstants.Speed.speedMultiplier * speed.getAsDouble());
+      if (speed.getAsDouble() > 0.2) {
+        this.intakeMove.set(-1);
+
+      } else if (speed.getAsDouble() < -0.2) {
+        this.intakeMove.set(1);
+
+      }
     }
   }
 

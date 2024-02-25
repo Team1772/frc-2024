@@ -34,9 +34,9 @@ public class Intake extends SubsystemBase {
   public void periodic() {
     SmartDashboard.putBoolean("is InfraredSensor", isInfraredSensor());
     if(isInfraredSensor()) {
-      Led.identifier = 2;
-    } else {
       Led.identifier = 3;
+    } else {
+      Led.identifier = 4;
     }
   }
 }
