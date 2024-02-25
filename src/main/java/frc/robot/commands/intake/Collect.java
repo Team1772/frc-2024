@@ -29,7 +29,7 @@ public class Collect extends Command {
       driver.enableRumble();
       operator.enableRumble();
     } else {
-      operator.disableRumble();
+      driver.disableRumble();
       operator.disableRumble();
     }
 

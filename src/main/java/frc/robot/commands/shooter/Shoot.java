@@ -24,9 +24,9 @@ public class Shoot extends Command {
   public void execute() {
     this.shooter.setVelocityMetersPerSecond(speed);
     if(speed >= 18) {
-      Led.identifier = 1;
+      //Led.identifier = 1;
     } else {
-      Led.identifier = 0;
+      //Led.identifier = 0;
     }
   }
 

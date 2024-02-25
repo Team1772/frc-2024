@@ -18,7 +18,7 @@ import frc.robot.subsystems.IntakeMove;
 import frc.robot.subsystems.Shooter;
 
 public class OperatorButtonBindings {
-  public SmartController operator = new SmartController(ControllerConstants.kOperatorControllerPort);
+  public static SmartController operator = new SmartController(ControllerConstants.kOperatorControllerPort);
   public Drivetrain drivetrain;
   public Intake intake;
   public IntakeMove intakeMove;

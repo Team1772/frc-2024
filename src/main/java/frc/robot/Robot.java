@@ -36,7 +36,7 @@ public class Robot extends TimedRobot {
     // and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
-    isDebbuging = true;
+    isDebbuging = false;
 
   }
 
@@ -147,12 +147,15 @@ public class Robot extends TimedRobot {
       case 2:
         m_robotContainer.led().rgb(255, 0, 255);
         break;
-      // infraredON
       case 3:
+        m_robotContainer.led().rgb(0, 0, 255);
+        break;
+      // infraredOn
+      case 4:
         m_robotContainer.led().rgb(0, 255, 0);
         break;
       // infraredOFF
-      case 4:
+      case 5:
         m_robotContainer.led().rgb(255, 0, 0);
         break;
     }

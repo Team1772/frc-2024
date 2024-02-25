@@ -27,7 +27,7 @@ public class RobotContainer {
   public IntakeMove intakeMove;
   public Intake intake;
   public Climber climber;
-  public Shooter shooter;
+  public static Shooter shooter;
   public Led led;
 
   public RobotContainer() {
@@ -67,6 +67,7 @@ public class RobotContainer {
     this.operator.buttonBindingsIntakeMove();
     this.operator.buttonBindingsIntake();
     this.operator.buttonBindingsClimber();
+    this.driver.buttonBindingsLimelight();
   }
 
   public Led led() {
@@ -89,6 +90,9 @@ public class RobotContainer {
     return this.climber.isLimit();
   }
 
+  public static boolean atSettedVelocity(){
+    return shooter.atSettedVelocity();
+  }
   public Command getAutonomousCommand() {
     //return new StartBlueMid3PiecesRight(drivetrain, shooter, intake, intakeMove,
     //trajectoryBuilder);
