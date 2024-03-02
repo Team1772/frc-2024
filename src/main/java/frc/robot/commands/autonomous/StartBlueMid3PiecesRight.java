@@ -21,22 +21,21 @@ public class StartBlueMid3PiecesRight extends SequentialCommandGroup {
   public StartBlueMid3PiecesRight(Drivetrain drivetrain, Shooter shooter, Intake intake, IntakeMove intakeMove,
       TrajectoryBuilder trajectoryBuilder) {
     super.addCommands(
-        // new ShootAutonomous(1.8, intake, shooter),
-        new ShootOn(shooter, 0.8),
-        new WaitCommand(1),
+        //new ShootAutonomous(19, intake, shooter),
+        new ShootOn(shooter, 0.85),
+        new WaitCommand(1.5),
         new ReleaseTimer(intake),
-        // new ReleaseToShoot(intake, shooter, 1),
+        //new ReleaseToShoot(intake, shooter, 1),
         new ReverseAndDownIntake(intake, intakeMove, trajectoryBuilder, "1-reverse", true),
         new ForwardAndUpIntake(shooter, intake, intakeMove, trajectoryBuilder, "1-forward", false),
         new CollectOff(intake),
-        new WaitCommand(0.7),
         new ReleaseTimer(intake),
         //new ReleaseToShoot(intake, shooter, 1),
         new ShootOff(shooter),
         new ReverseAndDownIntake(intake, intakeMove, trajectoryBuilder, "1-reverse2PieceRight", false),
         new ForwardAndUpIntake(shooter, intake, intakeMove, trajectoryBuilder, "1-forward2PieceRight", false),
         new CollectOff(intake),
-        new ReleaseToShoot(intake, shooter, 1),
+        new ReleaseToShoot(intake, shooter, 2),
         new ShootOff(shooter));
   }
 }

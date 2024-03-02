@@ -24,17 +24,17 @@ public class StartBlueAtLeft2PiecesLeftNote extends SequentialCommandGroup {
       IntakeMove intakeMove,
       TrajectoryBuilder trajectoryBuilder) {
     super.addCommands(
-        /*new ShootTimer(shooter, 0.8, 0.8, 1),
+        new ShootTimer(shooter, 0.85, 0.85, 1),
         new ParallelCommandGroup(
             new ReleaseTimer(intake),
-            new ShootTimer(shooter, 0.8, 0.8, 1.5)),*/
-        new ShootAutonomous(19, intake, shooter),
+            new ShootTimer(shooter, 0.85, 0.85, 1.5)),
+        // new ShootAutonomous(19, intake, shooter),
         new ReverseAndDownIntake(intake, intakeMove, trajectoryBuilder, "2b-forward2PieceLeft", true),
         new ForwardAndUpIntake(shooter, intake, intakeMove, trajectoryBuilder, "2b-reverse2PieceLeft", false),
         new ReleaseTimer(intake),
         new ShootOff(shooter),
-        new ReverseAndDownIntake(intake, intakeMove, trajectoryBuilder, "2b-forwardToMid", false)
+        trajectoryBuilder.build(false, "2b-forwardToMid")
 
-        );
+    );
   }
 }

@@ -25,11 +25,11 @@ public class StartRed2PiecesAmp extends SequentialCommandGroup {
   public StartRed2PiecesAmp(Drivetrain drivetrain, Shooter shooter, Intake intake, IntakeMove intakeMove,
       TrajectoryBuilder trajectoryBuilder) {
     super.addCommands(
-        //new ShootAutonomous(19, intake, shooter),
+       // new ShootAutonomous(19, intake, shooter),
         new ShootTimer(shooter, 0.8, 0.8, 1),
-        //new WaitCommand(0.8),
+        new WaitCommand(0.8),
         new ParallelCommandGroup(
-          new ReleaseTimer(intake),
+         new ReleaseTimer(intake),
           new ShootTimer(shooter, 0.8, 0.8, 1.5)
         ),
         new ReverseAndDownIntake(intake, intakeMove, trajectoryBuilder, "2r-fowardCollectNote", true),

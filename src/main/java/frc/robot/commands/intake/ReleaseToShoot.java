@@ -29,9 +29,9 @@ public class ReleaseToShoot extends Command {
 
   @Override
   public void execute() {
-    if (this.shooter.atSettedVelocity()) {
+    //if (this.shooter.atSettedVelocity()) {
       this.intake.set(ShooterConstants.speed);
-    }
+   //}
   }
 
   @Override

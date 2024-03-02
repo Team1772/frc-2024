@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.core.util.Led;
+import frc.robot.buttonBindings.OperatorButtonBindings;
 import frc.robot.commands.shooter.ShootOff;
 
 /**
@@ -36,7 +37,7 @@ public class Robot extends TimedRobot {
     // and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
-    isDebbuging = false;
+    isDebbuging = true;
 
   }
 
@@ -158,6 +159,12 @@ public class Robot extends TimedRobot {
       case 5:
         m_robotContainer.led().rgb(255, 0, 0);
         break;
+    }
+
+    if (RobotContainer.atSettedVelocity()) {
+      OperatorButtonBindings.operator.enableRumble();
+    } else {
+      OperatorButtonBindings.operator.disableRumble();
     }
 
   }

@@ -10,6 +10,7 @@ import frc.robot.commands.autonomous.AutoTeste;
 import frc.robot.commands.autonomous.Blue2PiecesAmp;
 import frc.robot.commands.autonomous.Mid2PiecesAuto;
 import frc.robot.commands.autonomous.StartBlueAtLeft2PiecesLeftNote;
+import frc.robot.commands.autonomous.StartBlueMid3PiecesLeft;
 import frc.robot.commands.autonomous.StartREDAtRight2PiecesRightNote;
 import frc.robot.commands.autonomous.StartBlueMid3PiecesRight;
 import frc.robot.commands.autonomous.StartRed2PiecesAmp;
@@ -47,14 +48,14 @@ public class RobotContainer {
     this.trajectoryBuilder = new TrajectoryBuilder(drivetrain,
         "1-forward",
         "1-reverse",
-        //"2r-fowardCollectNote",
-        //"2r-fowardShootAmp",
-        //"2r-fowardCollectNoteReverse",
+        "2r-fowardCollectNote",
+        "2r-fowardShootAmp",
+        "2r-fowardCollectNoteReverse",
         "2b-forward2PieceLeft",
         "2b-reverse2PieceLeft",
         "2b-forwardToMid",
-        //"1-forward2PieceRight",
-        //"1-reverse2PieceRight",
+        "1-forward2PieceRight",
+        "1-reverse2PieceRight",
         "2b-fowardShootAmp",
         "2r-fowardToMid"
         );
@@ -94,8 +95,7 @@ public class RobotContainer {
     return shooter.atSettedVelocity();
   }
   public Command getAutonomousCommand() {
-    //return new StartBlueMid3PiecesRight(drivetrain, shooter, intake, intakeMove,
-    //trajectoryBuilder);
+    return new StartBlueMid3PiecesRight(drivetrain, shooter, intake, intakeMove, trajectoryBuilder);
     // return new Auto1(drivetrain, trajectoryBuilder);
     // return new Blue2PiecesAmp(drivetrain, shooter, intake, intakeMove,
     // trajectoryBuilder);
@@ -104,6 +104,7 @@ public class RobotContainer {
     //return new StartREDAtRight2PiecesRightNote(drivetrain, shooter, intake, intakeMove, trajectoryBuilder);
     //return new StartBlueAtLeft2PiecesLeftNote(drivetrain, shooter, intake,
     //intakeMove, trajectoryBuilder);
-    return new Auto1(shooter, intake, trajectoryBuilder);
+    //return new Auto1(shooter, intake, trajectoryBuilder);
+    //return new StartRed2PiecesAmp(drivetrain, shooter, intake, intakeMove, trajectoryBuilder);
   }
 }

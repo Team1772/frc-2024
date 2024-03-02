@@ -5,7 +5,7 @@ public class ShooterTestConstants {
     public static final double 
     speedMultiplier = 0.5,
     speedCollectIntakeHumanPlayer = -0.45,
-    speedCollectShooterHumanPlayer = -0.2;
+    speedCollectShooterHumanPlayer = -0.3;
     ;
   }
 }
