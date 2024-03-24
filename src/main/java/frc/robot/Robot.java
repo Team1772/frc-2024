@@ -7,7 +7,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.core.util.Led;
+import frc.core.util.LedStrip;
 import frc.robot.buttonBindings.OperatorButtonBindings;
 import frc.robot.commands.shooter.ShootOff;
 
@@ -24,7 +24,8 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
   private RobotContainer m_robotContainer;
-  private boolean isDebbuging;
+  private LedStrip ledStrip = new LedStrip();
+  private final boolean IS_DEBUGGING = true;
 
   /**
    * This function is run when the robot is first started up and should be used
@@ -37,8 +38,6 @@ public class Robot extends TimedRobot {
     // and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
-    isDebbuging = true;
-
   }
 
   /**
@@ -73,26 +72,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void disabledPeriodic() {
-    if (isDebbuging) {
-      if (m_robotContainer.isInfraredIntake()) {
-        m_robotContainer.led().rgb(100, 100, 0);
-      } else if (m_robotContainer.isLimitMinIntake()) {
-        m_robotContainer.led().rgb(100, 0, 100);
-      } else if (m_robotContainer.isLimitMaxIntake()) {
-        m_robotContainer.led().rgb(0, 100, 100);
-      } else if (m_robotContainer.isLimitMinClimber()) {
-        m_robotContainer.led().rgb(255, 255, 255);
-
-      } else {
-        m_robotContainer.led().rgb(0, 0, 0);
-
-      }
-    } else {
-      // m_robotContainer.led().rgb(255, 30, 0);
-      m_robotContainer.led().rainbow();
-
-    }
-    ;
+    ledStrip.sensorsDebugging(IS_DEBUGGING);
   }
 
   /**
@@ -136,7 +116,7 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    switch (Led.identifier) {
+    switch (LedStrip.identifier) {
       // AMP
       case 0:
         m_robotContainer.led().rgb(0, 0, 255);

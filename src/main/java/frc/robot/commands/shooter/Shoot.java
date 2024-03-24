@@ -1,7 +1,7 @@
 package frc.robot.commands.shooter;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.core.util.Led;
+import frc.core.util.LedStrip;
 import frc.robot.RobotContainer;
 import frc.robot.buttonBindings.OperatorButtonBindings;
 import frc.robot.subsystems.Shooter;

@@ -1,6 +1,6 @@
 package frc.robot.buttonBindings;
 
-import frc.core.util.Led;
+import frc.core.util.LedStrip;
 import frc.core.util.oi.SmartController;
 import frc.robot.commands.climber.ChangeClimberSize;
 import frc.robot.commands.intake.Collect;

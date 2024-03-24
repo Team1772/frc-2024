@@ -1,7 +1,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.core.util.Led;
+import frc.core.util.LedStrip;
 import frc.core.util.TrajectoryBuilder;
 import frc.robot.buttonBindings.DriverButtonBindings;
 import frc.robot.buttonBindings.OperatorButtonBindings;
@@ -23,16 +23,16 @@ import frc.robot.subsystems.Shooter;
 public class RobotContainer {
   private final Drivetrain drivetrain;
   public TrajectoryBuilder trajectoryBuilder;
-  public DriverButtonBindings driver;
-  public OperatorButtonBindings operator;
-  public IntakeMove intakeMove;
-  public Intake intake;
-  public Climber climber;
+  public static DriverButtonBindings driver;
+  public static OperatorButtonBindings operator;
+  public static IntakeMove intakeMove;
+  public static Intake intake;
+  public static Climber climber;
   public static Shooter shooter;
-  public Led led;
+  public LedStrip led;
 
   public RobotContainer() {
-    this.led = new Led();
+    this.led = new LedStrip();
     this.drivetrain = new Drivetrain();
     this.intakeMove = new IntakeMove();
     this.intake = new Intake();
@@ -71,7 +71,7 @@ public class RobotContainer {
     this.driver.buttonBindingsLimelight();
   }
 
-  public Led led() {
+  public LedStrip led() {
     return this.led;
   }
 

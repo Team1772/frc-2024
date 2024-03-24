@@ -2,7 +2,7 @@ package frc.robot.commands.drivetrain;
 
 import frc.core.components.Limelight;
 import frc.core.components.Limelight.LedMode;
-import frc.core.util.Led;
+import frc.core.util.LedStrip;
 import frc.core.util.oi.SmartController;
 import frc.robot.RobotContainer;
 import frc.robot.buttonBindings.OperatorButtonBindings;
@@ -54,7 +54,7 @@ public class ArcadeDrive extends Command {
         driver.enableRumble();
         OperatorButtonBindings.operator.enableRumble();
 
-        Led.identifier = 3;
+        LedStrip.identifier = 3;
       } else {
         driver.disableRumble();
         OperatorButtonBindings.operator.disableRumble();
