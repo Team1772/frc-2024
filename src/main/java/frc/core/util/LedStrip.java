@@ -2,6 +2,9 @@ package frc.core.util;
 
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
+import edu.wpi.first.wpilibj.RobotBase;
+import edu.wpi.first.wpilibj.RobotController;
+import frc.robot.Robot;
 import frc.robot.RobotContainer;
 
 public class LedStrip {
@@ -15,6 +18,7 @@ public class LedStrip {
   private final boolean isLimitMinIntake = RobotContainer.intakeMove.isLimitMin();
   private final boolean isLimitClimber = RobotContainer.climber.isLimit();
   private final boolean isSettedVelocity = RobotContainer.shooter.atSettedVelocity();
+  double batteryVoltage = RobotController.getBatteryVoltage();
 
   public LedStrip() {
     led = new AddressableLED(0);
@@ -30,7 +34,11 @@ public class LedStrip {
 
   public void sensorsDebugging(boolean isDebugging) {
     if (!isDebugging) {
-      if (isInfraredIntake) {
+      if (isInfraredIntake && batteryVoltage >= 12.20) {
+        rgb(0, 255, 0);
+      } else if (isInfraredIntake && batteryVoltage < 12.20) {
+        rgb(255, 0, 0);
+      } else if (isInfraredIntake) {
         rgb(100, 100, 0);
       } else if (isLimitMinIntake) {
         rgb(100, 0, 100);
