@@ -36,7 +36,7 @@ public class CollectHuman extends Command {
         }else{
             this.intakeMove.set(IntakeMoveConstants.Speed.speedUp);
         }
-        LedStrip.identifier = 2;
+        LedStrip.getInstance().setIdentifier(2);
 
     }
 

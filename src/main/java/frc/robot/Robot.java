@@ -24,7 +24,7 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
   private RobotContainer m_robotContainer;
-  private LedStrip ledStrip = new LedStrip();
+  private LedStrip ledStrip = LedStrip.getInstance();
   private final boolean IS_DEBUGGING = true;
 
   /**
@@ -116,7 +116,7 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    switch (LedStrip.identifier) {
+   /* switch (LedStrip.identifier) {
       // AMP
       case 0:
         m_robotContainer.led().rgb(0, 0, 255);
@@ -139,7 +139,7 @@ public class Robot extends TimedRobot {
       case 5:
         m_robotContainer.led().rgb(255, 0, 0);
         break;
-    }
+    }*/
 
     if (RobotContainer.atSettedVelocity()) {
       OperatorButtonBindings.operator.enableRumble();

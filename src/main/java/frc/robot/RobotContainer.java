@@ -32,7 +32,6 @@ public class RobotContainer {
   public LedStrip led;
 
   public RobotContainer() {
-    this.led = new LedStrip();
     this.drivetrain = new Drivetrain();
     this.intakeMove = new IntakeMove();
     this.intake = new Intake();
