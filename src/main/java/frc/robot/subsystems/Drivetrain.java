@@ -9,6 +9,7 @@ import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -37,6 +38,8 @@ public class Drivetrain extends SubsystemBase {
   private final SmartNavX navX;
   private final DifferentialDriveOdometry odometry;
   private final DrivetrainSysIdTuning sysIdTunning;
+
+  private double batteryVoltage;
 
   public Drivetrain() {
     this.motorLeftBack = new WPI_TalonSRX(DrivetrainConstants.Motors.motorLeftBack);
@@ -85,6 +88,8 @@ public class Drivetrain extends SubsystemBase {
       sysIdTunning = null;
     }
 
+    batteryVoltage = RobotController.getBatteryVoltage();
+
   }
 
   public void arcadeDrive(double forward, double rotation) {
@@ -123,8 +128,6 @@ public class Drivetrain extends SubsystemBase {
     return (this.encoderLeft.getDistance() + this.encoderRight.getDistance()) / 2.0;
   }
 
-
-
   public void reset() {
     this.resetNavX();
     this.resetEncoders();
@@ -150,7 +153,7 @@ public class Drivetrain extends SubsystemBase {
     return this.navX.getAngle();
   }
 
-  public void resetNavX(){
+  public void resetNavX() {
     this.navX.reset();
   }
 
@@ -261,6 +264,8 @@ public class Drivetrain extends SubsystemBase {
       SmartDashboard.putNumber("[MRF] getBusVoltage", motorRightFront.getBusVoltage());
       SmartDashboard.putNumber("[MRF] getSupplyCurrent", motorRightFront.getSupplyCurrent());
       SmartDashboard.putNumber("[MRF] getBusVoltage", motorRightFront.getStatorCurrent());
+
+      SmartDashboard.putNumber("Battery Voltage", batteryVoltage);
     }
   }
 
