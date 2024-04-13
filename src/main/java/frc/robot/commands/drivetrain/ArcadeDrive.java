@@ -54,7 +54,7 @@ public class ArcadeDrive extends Command {
         driver.enableRumble();
         OperatorButtonBindings.operator.enableRumble();
 
-        Led.identifier = 3;
+        // Led.identifier = 3;
       } else {
         driver.disableRumble();
         OperatorButtonBindings.operator.disableRumble();

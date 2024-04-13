@@ -75,17 +75,16 @@ public class Robot extends TimedRobot {
   public void disabledPeriodic() {
     if (isDebbuging) {
       if (m_robotContainer.isInfraredIntake()) {
-        m_robotContainer.led().rgb(100, 100, 0);
+        Led.set(0);
       } else if (m_robotContainer.isLimitMinIntake()) {
-        m_robotContainer.led().rgb(100, 0, 100);
+        Led.set(1);
       } else if (m_robotContainer.isLimitMaxIntake()) {
-        m_robotContainer.led().rgb(0, 100, 100);
+        // m_robotContainer.led().setCyanColor();
       } else if (m_robotContainer.isLimitMinClimber()) {
-        m_robotContainer.led().rgb(255, 255, 255);
+        // m_robotContainer.led().setWhiteColor();
 
       } else {
-        m_robotContainer.led().rgb(0, 0, 0);
-
+        m_robotContainer.led().disable();
       }
     } else {
       // m_robotContainer.led().rgb(255, 30, 0);
@@ -136,36 +135,36 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    switch (Led.identifier) {
-      // AMP
-      case 0:
-        m_robotContainer.led().rgb(0, 0, 255);
-        break;
-      // SPEAKER
-      case 1:
-        m_robotContainer.led().rgb(120, 20, 0);
-        break;
-      case 2:
-        m_robotContainer.led().rgb(255, 0, 255);
-        break;
-      case 3:
-        m_robotContainer.led().rgb(0, 0, 255);
-        break;
-      // infraredOn
-      case 4:
-        m_robotContainer.led().rgb(0, 255, 0);
-        break;
-      // infraredOFF
-      case 5:
-        m_robotContainer.led().rgb(255, 0, 0);
-        break;
-    }
+    // switch (Led.identifier) {
+    //   // AMP
+    //   case 0:
+    //     m_robotContainer.led().rgb(0, 0, 255);
+    //     break;
+    //   // SPEAKER
+    //   case 1:
+    //     m_robotContainer.led().rgb(120, 20, 0);
+    //     break;
+    //   case 2:
+    //     m_robotContainer.led().rgb(255, 0, 255);
+    //     break;
+    //   case 3:
+    //     m_robotContainer.led().rgb(0, 0, 255);
+    //     break;
+    //   // infraredOn
+    //   case 4:
+    //     m_robotContainer.led().rgb(0, 255, 0);
+    //     break;
+    //   // infraredOFF
+    //   case 5:
+    //     m_robotContainer.led().rgb(255, 0, 0);
+    //     break;
+    // }
 
-    if (RobotContainer.atSettedVelocity()) {
-      OperatorButtonBindings.operator.enableRumble();
-    } else {
-      OperatorButtonBindings.operator.disableRumble();
-    }
+    // if (RobotContainer.atSettedVelocity()) {
+    //   OperatorButtonBindings.operator.enableRumble();
+    // } else {
+    //   OperatorButtonBindings.operator.disableRumble();
+    // }
 
   }
 
