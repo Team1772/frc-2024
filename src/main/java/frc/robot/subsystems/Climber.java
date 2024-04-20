@@ -12,18 +12,18 @@ import frc.robot.constants.IntakeConstants;
 public class Climber extends SubsystemBase {
   
     private WPI_VictorSPX motor;
-    private DigitalInput limitSensor;
+    private static DigitalInput limitSensor;
   
     public Climber() {
       this.motor = new WPI_VictorSPX(9);
       this.motor.setInverted(false);
       this.motor.setNeutralMode(NeutralMode.Brake);
 
-      this.limitSensor = new DigitalInput(IntakeConstants.Sensor.climber);
+      Climber.limitSensor = new DigitalInput(IntakeConstants.Sensor.climber);
     }
 
-    public boolean isLimit() {
-      return limitSensor.get();
+    public static boolean isLimit() {
+      return Climber.limitSensor.get();
     }
   
     public void set(double speed) {

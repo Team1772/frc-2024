@@ -73,25 +73,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void disabledPeriodic() {
-    if (isDebbuging) {
-      if (m_robotContainer.isInfraredIntake()) {
-        Led.set(0);
-      } else if (m_robotContainer.isLimitMinIntake()) {
-        Led.set(1);
-      } else if (m_robotContainer.isLimitMaxIntake()) {
-        // m_robotContainer.led().setCyanColor();
-      } else if (m_robotContainer.isLimitMinClimber()) {
-        // m_robotContainer.led().setWhiteColor();
-
-      } else {
-        m_robotContainer.led().disable();
-      }
-    } else {
-      // m_robotContainer.led().rgb(255, 30, 0);
-      m_robotContainer.led().rainbow();
-
-    }
-    ;
+    Led.testSensor(isDebbuging);
   }
 
   /**

@@ -3,6 +3,9 @@ package frc.core.util;
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import edu.wpi.first.wpilibj.RobotController;
+import frc.robot.subsystems.Climber;
+import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.IntakeMove;
 
 public class Led {
   private static final int LEDS_SIZE = 16;
@@ -22,17 +25,23 @@ public class Led {
   }
 
   public static void set(int color) {
-    if (RobotController.getBatteryVoltage() < 13) {
+    if (RobotController.getBatteryVoltage() < 12) {
       Led.setIntermitentRedColor();
       return;
-    } 
+    }
 
-    switch(color) {
+    switch (color) {
       case 0:
         Led.setCyanColor();
         break;
       case 1:
         Led.setYellowColor();
+        break;
+      case 2:
+        Led.setGreenColor();
+        break;
+      case 3:
+        Led.setPurpleColor();
         break;
     }
   }
@@ -50,25 +59,28 @@ public class Led {
       ledBuffer.setRGB(i, r, g, b);
     }
 
-    currentIntermitentValue+=4;
-
+    currentIntermitentValue += 4;
 
     if (currentIntermitentValue > 60) {
       Led.disable();
 
-      if (currentIntermitentValue > 18) currentIntermitentValue -=9;
+      if (currentIntermitentValue > 18)
+        currentIntermitentValue -= 9;
       return;
     }
-  
+
     led.setData(ledBuffer);
   }
 
+  public static void setGreenColor() {
+    Led.rgb(0, 255, 0);
+  }
 
   public static void setYellowColor() {
     Led.rgb(100, 100, 0);
   }
 
-  public void setPurpleColor() {
+  public static void setPurpleColor() {
     Led.rgb(100, 0, 100);
   }
 
@@ -105,5 +117,24 @@ public class Led {
 
   public void setDataLed() {
     led.setData(ledBuffer);
+  }
+
+  public static void testSensor(boolean isDebbuging) {
+    if (isDebbuging) {
+      if (Intake.isInfraredSensor()) {
+        Led.set(0);
+      } else if (IntakeMove.isLimitMin()) {
+        Led.set(1);
+      } else if (IntakeMove.isLimitMax()) {
+        Led.set(2);
+      } else if (Climber.isLimit()) {
+        Led.set(3);
+      } else {
+        Led.disable();
+      }
+    } else {
+      Led.rainbow();
+
+    }
   }
 }

@@ -28,6 +28,7 @@ public class Collect extends Command {
     if (intake.isInfraredSensor()) {
       driver.enableRumble();
       operator.enableRumble();
+      
     } else {
       driver.disableRumble();
       operator.disableRumble();

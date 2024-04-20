@@ -11,19 +11,19 @@ import frc.robot.constants.IntakeConstants;
 
 public class Intake extends SubsystemBase {
   private final WPI_TalonSRX motor;
-  private DigitalInput infraredSensor;
+  private static DigitalInput infraredSensor;
 
   public Intake(){
     this.motor = new WPI_TalonSRX(IntakeConstants.Motors.id);
     this.motor.setNeutralMode(NeutralMode.Coast);
-    this.infraredSensor = new DigitalInput(IntakeConstants.Sensor.infrared);
+    Intake.infraredSensor = new DigitalInput(IntakeConstants.Sensor.infrared);
   }
 
   public void set(double speed){
     motor.set(speed);
   }
 
-  public boolean isInfraredSensor() {
+  public static boolean isInfraredSensor() {
     return !infraredSensor.get();
   }
 

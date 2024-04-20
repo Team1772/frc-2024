@@ -12,14 +12,14 @@ import frc.robot.constants.IntakeMoveConstants;
 public class IntakeMove extends SubsystemBase {
   
     private WPI_VictorSPX motorMove;
-    private DigitalInput limitMax;
-    private DigitalInput limitMin;
+    private static DigitalInput limitMax;
+    private static DigitalInput limitMin;
   
     public IntakeMove() {
       this.motorMove = new WPI_VictorSPX(IntakeMoveConstants.Motor.motorMove);
       this.motorMove.setInverted(IntakeMoveConstants.Motor.isMotorMoveInverted);
-      this.limitMax = new DigitalInput(IntakeMoveConstants.Sensor.limitMax);
-      this.limitMin = new DigitalInput(IntakeMoveConstants.Sensor.limitMin);
+      IntakeMove.limitMax = new DigitalInput(IntakeMoveConstants.Sensor.limitMax);
+      IntakeMove.limitMin = new DigitalInput(IntakeMoveConstants.Sensor.limitMin);
       this.motorMove.setNeutralMode(NeutralMode.Brake);
     }
   
@@ -27,12 +27,12 @@ public class IntakeMove extends SubsystemBase {
       this.motorMove.set(ControlMode.PercentOutput, speed);
     }
 
-    public boolean isLimitMax(){
-      return this.limitMax.get();
+    public static boolean isLimitMax(){
+      return IntakeMove.limitMax.get();
     }
 
-    public boolean isLimitMin(){
-      return this.limitMin.get();
+    public static boolean isLimitMin(){
+      return IntakeMove.limitMin.get();
     }
   
     public void stop() {
