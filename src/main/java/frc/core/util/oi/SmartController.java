@@ -1,7 +1,5 @@
 package frc.core.util.oi;
 
-import edu.wpi.first.wpilibj.RobotBase;
-import edu.wpi.first.wpilibj.RobotState;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
@@ -30,6 +28,9 @@ public class SmartController {
 
   private final JoystickButton rightTrigger;
 
+  /**
+   * @param id <T> of control, shown on the Driver Station
+   */
   public SmartController(int id) {
 
     this.controller = new XboxController(id);
@@ -161,7 +162,6 @@ public class SmartController {
     rightTrigger.whileTrue(command);
   }
 
-
   // Start and select
   public void whileStartButton(Command command) {
     startButton.whileTrue(command);
@@ -196,6 +196,10 @@ public class SmartController {
     this.controller.setRumble(RumbleType.kBothRumble, 0);
   }
 
+  /**
+   * 
+   * @param velocityMultiplier of rumble
+   */
   public void timerRumble(int velocityMultiplier) {
     if ((int) (Timer.getFPGATimestamp() * velocityMultiplier) % 2 == 0) {
       this.controller.setRumble(RumbleType.kBothRumble, 1);

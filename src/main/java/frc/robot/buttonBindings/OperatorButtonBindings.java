@@ -1,12 +1,10 @@
 package frc.robot.buttonBindings;
 
-import frc.core.util.Led;
 import frc.core.util.oi.SmartController;
 import frc.robot.commands.climber.ChangeClimberSize;
 import frc.robot.commands.intake.Collect;
 import frc.robot.commands.intake.Release;
 import frc.robot.commands.intake_move.IntakeDownToSensor;
-import frc.robot.commands.intake_move.IntakeUpDown;
 import frc.robot.commands.intake_move.IntakeUpToSensor;
 import frc.robot.commands.shooter.CollectHuman;
 import frc.robot.commands.shooter.Shoot;
@@ -35,39 +33,29 @@ public class OperatorButtonBindings {
   }
 
   public void buttonBindingsIntakeMove() {
-    // this.intakeMove.setDefaultCommand(
-    // new IntakeUpDown(intakeMove, () -> this.operator.getLeftY())
-    // );
-    this.operator.whileXUp(new IntakeUpToSensor(this.intakeMove));
-    this.operator.whileXDown(new IntakeDownToSensor(this.intakeMove));
-    // new IntakeUpDown(this.intakeMove, () -> this.operator.getLeftY());
+    OperatorButtonBindings.operator.whileXUp(new IntakeUpToSensor(this.intakeMove));
+    OperatorButtonBindings.operator.whileXDown(new IntakeDownToSensor(this.intakeMove));
   }
 
   public void buttonBindingsShooterTest() {
     // Speaker
-    // this.operator.whileRightBumper(new Shoott(shooter));
+    OperatorButtonBindings.operator.whileRightBumper(new Shoot(shooter, 18));
 
-    this.operator.whileRightBumper(new Shoot(shooter, 18));
-    //this.operator.whileRightBumper(new Shoot(shooter, 0.75));
-
-    // this.operator.whileRightBumper(new PrepareShoot(16, shooter));
     // Amp
-    this.operator.whileLeftBumper(new Shoot(shooter, 3.1));
-    //this.operator.whileLeftBumper(new Shoot(shooter, 0.2));
-
+    OperatorButtonBindings.operator.whileLeftBumper(new Shoot(shooter, 3.1));
   }
 
   public void buttonBindingsIntake() {
-    this.operator.whileAButton(new Collect(intake, DriverButtonBindings.driver, operator));
-    this.operator.whileYButton(new Release(intake));
-    this.operator.whileXButton(new CollectHuman(shooter, intake, intakeMove));
-    this.operator.whileBButton(new Release(intake, 0.7));
+    OperatorButtonBindings.operator.whileAButton(new Collect(intake, DriverButtonBindings.driver, operator));
+    OperatorButtonBindings.operator.whileYButton(new Release(intake));
+    OperatorButtonBindings.operator.whileXButton(new CollectHuman(shooter, intake, intakeMove));
+    OperatorButtonBindings.operator.whileBButton(new Release(intake, 0.7));
   }
 
   public void buttonBindingsClimber() {
-    this.operator.whileXRight(
+    OperatorButtonBindings.operator.whileXRight(
         new ChangeClimberSize(
-            () -> -this.operator.getRightY(),
+            () -> -OperatorButtonBindings.operator.getRightY(),
             this.climber));
   }
 }

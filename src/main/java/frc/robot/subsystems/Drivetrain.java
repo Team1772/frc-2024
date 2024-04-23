@@ -123,8 +123,6 @@ public class Drivetrain extends SubsystemBase {
     return (this.encoderLeft.getDistance() + this.encoderRight.getDistance()) / 2.0;
   }
 
-
-
   public void reset() {
     this.resetNavX();
     this.resetEncoders();
@@ -150,7 +148,7 @@ public class Drivetrain extends SubsystemBase {
     return this.navX.getAngle();
   }
 
-  public void resetNavX(){
+  public void resetNavX() {
     this.navX.reset();
   }
 
